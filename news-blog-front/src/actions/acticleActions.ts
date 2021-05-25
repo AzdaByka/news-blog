@@ -1,0 +1,2 @@
+export const RATE_ARTICLE='RATE_ARTICLE'
+export const ADD_COMMENT='ADD_COMMENT'
