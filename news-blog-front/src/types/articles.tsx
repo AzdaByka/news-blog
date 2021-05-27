@@ -1,6 +1,6 @@
 export interface IArticle{
     id:number
     name:string
-    text:string
+    shortDescription:string
     preview:string
 }

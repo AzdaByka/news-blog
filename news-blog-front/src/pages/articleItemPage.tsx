@@ -14,9 +14,10 @@ const ArticleItemPage: React.FC=({})=> {
 
     async function fetchArticles(){
         try{
-            const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
-                    ids:'1'
-                }})
+            // const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
+            //         ids:'1'
+            //     }})
+            const response =await axios.get<IArticle[]>('http://localhost:3001/api/article')
             console.log(response.data[0].name)
             setArticles(response.data)
         }

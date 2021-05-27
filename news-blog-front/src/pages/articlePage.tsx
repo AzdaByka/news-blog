@@ -52,3 +52,32 @@ const ArticlePage: React.FC=({})=> {
     );
 }
 export default ArticlePage;
+
+export class ArticlePage {
+    const [articles, setArticles]= useState<IArticle[]>([])
+
+
+    const [body,setBody]= useState("")
+
+    useEffect(()=>{
+    fetchArticles()
+},[])
+
+
+const handleBody = (e: ((prevState: string) => string) | string) =>{
+    setBody(e)
+}
+
+
+async function fetchArticles(){
+    try{
+        const response =await axios.get<IArticle[]>('http://localhost:3001/api/article')
+        console.log(response.data[0].name)
+        setArticles(response.data)
+    }
+    catch (e){
+        alert(e)
+    }
+}
+
+}

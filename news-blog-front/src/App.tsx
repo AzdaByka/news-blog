@@ -1,33 +1,49 @@
-// import ArticleList from "./components/ArticleList";
+import React, { Component } from 'react';
+import './App.css';
+import { Route, Switch, Router } from "react-router-dom";
 
-import {BrowserRouter, NavLink, Route} from 'react-router-dom';
-import ArticlePage from "./pages/articlePage";
-import ArticleItemPage from './pages/articleItemPage';
 
-const App =()=> {
 
-  return (
-        <BrowserRouter>
-            <div>
+import history from './constants/history';
+import { AppRoutes, AppRoute } from '../../routes/appRoutes';
+import { withAuthentication } from '../../firebase/withAuthentification';
+
+class AppComponent extends Component {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            authUser: null
+        };
+    }
+
+    public componentDidMount() {
+        firebase.auth.onAuthStateChanged((authUser: any) => {
+            authUser
+                ? this.setState(() => ({ authUser }))
+                : this.setState(() => ({ authUser: null }));
+        });
+    }
+
+    public render() {
+        return (
+            <Router history={history}>
                 <div>
-                    <NavLink to='/articles'>Статьи</NavLink>
+                    <Navigation />
+                    <hr />
+                    <Switch>
+                        {
+                            AppRoutes.map((route: AppRoute) => (
+                                <Route exact={route.exact}
+                                       path={route.path}
+                                       component={route.component}
+                                       key={route.path} />))
+                        }
+                    </Switch>
                 </div>
-                <Route path={'/articles'} exact>
-                    <ArticlePage/>
-                </Route>
-                <Route path={'/article/:id'} exact>
-                    <ArticleItemPage/>
-                </Route>
-            </div>
-        </BrowserRouter>
-      
-    // <div className="App">
-    //   <Article_card onClick={()=>{console.log('click')}} variant={CardVariant.outlined} width='200px' height='200px' >
-    //
-    //   </Article_card>
-    //     {/*<ArticleList articles={}*/}
-    // </div>
-  );
+            </Router>
+        );
+    }
 }
 
-export default App;
+export const App = withAuthentication(AppComponent);

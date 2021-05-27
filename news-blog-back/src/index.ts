@@ -10,12 +10,12 @@ import BaseRouter from './routes/index';
 
 createConnection();
 dotenv.config();
-let logger = log4js.getLogger()
-logger.level = process.env.LOG_LEVEL
+// let logger = log4js.getLogger()
+// logger.level = process.env.LOG_LEVEL
 
 
 const app = express();
-const port = process.env.PORT;
+const port = "3001";
 
 
 
