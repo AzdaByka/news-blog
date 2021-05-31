@@ -16,13 +16,13 @@ export class Articles {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "name", length: 255 })
-  name: string;
+  @Column("character varying", { name: "title", length: 255 })
+  title: string;
 
   @Column("character varying", { name: "text", length: 255 })
-  text: string;
+  shortDescription: string;
 
-  @Column("character varying", { name: "preview", length: 255 })
+  @Column("character varying", { name: "imgs" })
   preview: string;
 
   @Column("timestamp with time zone", { name: "createdAt" })

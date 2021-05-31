@@ -6,8 +6,9 @@ import { LinqRepository } from "typeorm-linq-repository";
 export default class ArticlesController{
 
     public async getArticle(req: Request, res: Response): Promise<Response>{
-        let {id}= req.body
-        const article = await getRepository(Articles).find(id);
+        let {ids}= req.body
+        const article = await getRepository(Articles).find();
+        console.log(article)
         return res.json(article);
     }
 

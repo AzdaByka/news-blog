@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {IArticle} from '../types/articles';
-import ArticleItem from "../components/ArticleItem";
+import ArticleItem from "../components/article/ArticleItem";
 import axios from "axios";
 
 
@@ -18,7 +18,7 @@ const ArticleItemPage: React.FC=({})=> {
             //         ids:'1'
             //     }})
             const response =await axios.get<IArticle[]>('http://localhost:3001/api/article')
-            console.log(response.data[0].name)
+            console.log(response.data[0].title)
             setArticles(response.data)
         }
         catch (e){

@@ -47,16 +47,16 @@ export const addComment=(id:string, comment:string):ArticleActionType=>{
     }
 }
 
-export interface ActionTypesBase{
+export interface ActionTypeBase{
     type:string
 }
 
-export interface NewsActionType extends ActionTypesBase{
+export interface NewsActionType extends ActionTypeBase{
     id?:string,
     article?:IArticle,
 }
 
-export interface ArticleActionType extends ActionTypesBase{
+export interface ArticleActionType extends ActionTypeBase{
     id?:string,
     rate?:number,
     comment?:string

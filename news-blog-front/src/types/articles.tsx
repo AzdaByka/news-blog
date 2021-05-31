@@ -1,6 +1,8 @@
 export interface IArticle{
     id:number
-    name:string
+    title:string
     shortDescription:string
     preview:string
+    createdAt:string
+    updatedAt:string
 }

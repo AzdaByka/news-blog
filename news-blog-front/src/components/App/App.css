@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
+
+.logo{
+    position: absolute;
+    width: 100px;
+    height: 36px;
+    left: 177px;
+    top: 27px;
+    font-size: 16pt ;
+    text-align: center;
+    font-family: 'Zilla Slab', serif;
+}
+.logo-img{
+    position: absolute;
+    left: 177px;
+    top: 22px;
+    width: 36px;
+    height: 36px;
+}
+.search-box{
+    position: absolute;
+    width: 632px;
+    height: 40px;
+    left: 288px;
+    top: 18px;
+    background: #F3F1ED;
+    border-radius: 20px;
+}
+.magnifier{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 305px;
+    top: 30px;
+    color: #666666;
+}
+.search-box-placeholder{
+    position: absolute;
+    width: 106px;
+    height: 18px;
+    left: 329px;
+    top: 30px;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+
+    color: #666666;
+}
+.vector{
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    right: 130px;
+    top: 30px;
+}

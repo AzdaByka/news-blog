@@ -43,14 +43,15 @@ var ArticlesController = /** @class */ (function () {
     }
     ArticlesController.prototype.getArticle = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, article;
+            var ids, article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        id = req.body.id;
-                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find(id)];
+                        ids = req.body.ids;
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find()];
                     case 1:
                         article = _a.sent();
+                        console.log(article);
                         return [2 /*return*/, res.json(article)];
                 }
             });

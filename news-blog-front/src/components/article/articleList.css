@@ -1,0 +1,8 @@
+.NewsItemContainer {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 405px;
+    top: 185px;
+
+}

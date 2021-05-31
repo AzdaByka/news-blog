@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Route, Switch, Router } from "react-router-dom";
+import './App.css'
+import magnifier from '../../stylesheets/imgs/magnifier.svg'
+import "typeface-ubuntu";
+import { firebase } from '../../firebase';
 
-
-
-import history from './constants/history';
+import { Navigation } from "../Nagation/Navigation";
+import history from '../../constants/history';
 import { AppRoutes, AppRoute } from '../../routes/appRoutes';
 import { withAuthentication } from '../../firebase/withAuthentification';
+import logo from '../../stylesheets/imgs/logo.jpg'
+import vector from '../../stylesheets/imgs/vector.svg'
 
 class AppComponent extends Component {
     constructor(props: any) {
@@ -25,12 +29,22 @@ class AppComponent extends Component {
         });
     }
 
+
     public render() {
         return (
+
             <Router history={history}>
                 <div>
+                    <img className={'logo-img'} src={logo} />
+                    <div className={'logo'}>
+                        Star
+                    </div>
+                    <div className={'search-box'}/>
+                    <img className={'magnifier'} src={magnifier}/>
+                    <input className={'search-box-placeholder'} type="text" placeholder={'Статья, канал.'}/>
+                    <img className={'vector'} src={vector}/>
+
                     <Navigation />
-                    <hr />
                     <Switch>
                         {
                             AppRoutes.map((route: AppRoute) => (

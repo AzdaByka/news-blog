@@ -23,15 +23,15 @@ var Articles = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Articles.prototype, "id");
     __decorate([
-        typeorm_1.Column("character varying", { name: "name", length: 255 }),
+        typeorm_1.Column("character varying", { name: "title", length: 255 }),
         __metadata("design:type", String)
-    ], Articles.prototype, "name");
+    ], Articles.prototype, "title");
     __decorate([
         typeorm_1.Column("character varying", { name: "text", length: 255 }),
         __metadata("design:type", String)
-    ], Articles.prototype, "text");
+    ], Articles.prototype, "shortDescription");
     __decorate([
-        typeorm_1.Column("character varying", { name: "preview", length: 255 }),
+        typeorm_1.Column("character varying", { name: "imgs" }),
         __metadata("design:type", String)
     ], Articles.prototype, "preview");
     __decorate([
