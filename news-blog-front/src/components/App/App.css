@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 .logo{
     position: absolute;
@@ -55,3 +56,5 @@
     right: 130px;
     top: 30px;
 }
+
+

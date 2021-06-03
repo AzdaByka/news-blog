@@ -7,6 +7,9 @@ import {IArticle} from "../../types/articles";
 import history from "../../constants/history";
 import {AppRoute, AppRoutes} from "../../routes/appRoutes";
 
+
+
+
 export interface IProps {
     history: any;
 }
@@ -24,14 +27,19 @@ export class Menu extends Component<IProps, IState> {
         }
     }
 
-    handleClick = (id: number): void => {
-        this.setState({ activeLink: id });
+    handleClick = (id: number, description:string): void => {
+        this.setState({activeLink: id,});
+        if (id != 1)
+            localStorage.setItem('rubrics', description);
+        else localStorage.setItem('rubrics', 'Ваша лента');
+
     }
+
 
     render(){
         return(<ul className='Navigation'>
             {Rubrics.map((route: RubricRoute) => (
-                <li className="NavigationLi" key={route.id} onClick={() => this.handleClick(route.id)}>
+                <li className="NavigationLi" key={route.id} onClick={() => this.handleClick(route.id, route.description)}>
                     <Link to={route.path}
                           className={(route.id === this.state.activeLink ? "active_item" : "")}>
                         {route.description}

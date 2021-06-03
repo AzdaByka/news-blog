@@ -9,7 +9,6 @@ export interface IAppProps {
     error?: any;
     isLoaded?: false;
     articles?: [];
-    rubrics:string
 }
 
 
@@ -22,7 +21,6 @@ export class ArticleList extends Component<IAppProps>{
             error: '',
             isLoaded: false,
             articles: [],
-            rubrics:this.props.rubrics
         };
 
     }
@@ -53,7 +51,6 @@ export class ArticleList extends Component<IAppProps>{
         } else {
             return (
                 <div className="NewsItemContainer">
-                    {/*{localState.rubrics}*/}
                     {localState.articles.map((article: IArticle)=>
                         <ArticleItem key={article.id} article={article}/>
                     )}

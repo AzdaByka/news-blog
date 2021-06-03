@@ -77,10 +77,15 @@ export class ArticlePage extends Component{
         }  else {
             return (
                 <div>
-                    <Menu history={history}/>
-                    <ArticleList rubrics={"loh"}/>
-                    
+                    <div className='rubrics'>
+                        {localStorage.rubrics}
+                    </div>
+                    <div className={".NewsItemContainer"}>
+                        <Menu history={history}/>
+                        <ArticleList />
 
+
+                    </div>
                 </div>
             );
         }

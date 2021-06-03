@@ -4,6 +4,7 @@ import { ActionTypeBase } from '../actions/actionTypes';
 import { LOAD_NEWS, ADD_NEWS } from '../actions/newsActions';
 const initState: StoreStructure = {
     articles: [],
+    rubrics:'Ваша лента',
 };
 
 export const newReducer: Reducer<any> = (state: StoreStructure, action: ActionTypeBase) => {

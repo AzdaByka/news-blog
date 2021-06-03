@@ -1,3 +1,4 @@
+
 ul.Navigation {
     list-style-type: none;
     margin: 0;
@@ -6,26 +7,32 @@ ul.Navigation {
     position: absolute;
     top:100px;
     left: 20px;
+    font-size: 16pt;
+    font-family: "Ubuntu";
 
-    background-color: #333;
+
 }
 
 li.NavigationLi {
-    float: left;
+
+    width: 268px;
+    height: 60px;
+
 }
 
 li.NavigationLi a {
     display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+    color: black;
+    border-radius: 10px;
+    text-align: left;
+    padding: 14px 16px 16px 100px;
     text-decoration: none;
 }
 
 li.NavigationLi a:hover {
-    background-color: #111;
+
 }
 
 .active_item {
-    background-color: #111;
+    background: #F3F1ED;
 }
