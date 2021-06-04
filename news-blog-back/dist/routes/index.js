@@ -5,11 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = require("express");
 var article_routes_1 = __importDefault(require("./article-routes"));
+var auth_routes_1 = __importDefault(require("./auth-routes"));
 var router = express_1.Router();
 // User-route
 router.use(article_routes_1["default"]);
-// //Auth-route
-// router.use(ArticleRouter)
+//Auth-route
+router.use(auth_routes_1["default"]);
 //
 // //Color-route
 // router.use(ColorRouter)

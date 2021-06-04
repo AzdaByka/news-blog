@@ -46,7 +46,7 @@ class AppComponent extends Component {
                     <input className={'search-box-placeholder'} type="text" placeholder={'Статья, канал.'}/>
                     <img className={'vector'} src={vector}/>
 
-                    {/*<Navigation />*/}
+                    <Navigation />
                     <Switch>
                         {
                             AppRoutes.map((route: AppRoute) => (

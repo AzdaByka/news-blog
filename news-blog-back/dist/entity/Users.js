@@ -22,6 +22,18 @@ var Users = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Users.prototype, "id");
     __decorate([
+        typeorm_1.Column("character varying", { name: "login", length: 200 }),
+        __metadata("design:type", String)
+    ], Users.prototype, "login");
+    __decorate([
+        typeorm_1.Column("character varying", { name: "email", length: 200 }),
+        __metadata("design:type", String)
+    ], Users.prototype, "email");
+    __decorate([
+        typeorm_1.Column("character varying", { name: "password" }),
+        __metadata("design:type", String)
+    ], Users.prototype, "password");
+    __decorate([
         typeorm_1.Column("character varying", { name: "name", length: 255 }),
         __metadata("design:type", String)
     ], Users.prototype, "name");

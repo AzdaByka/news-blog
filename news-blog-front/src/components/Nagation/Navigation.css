@@ -6,7 +6,7 @@ ul.Navigation {
     overflow: hidden;
     right: 20px;
     width: 100px;
-    background-color: #333;
+    font-family: "Ubuntu";
 }
 
 li.NavigationLi {
@@ -15,16 +15,15 @@ li.NavigationLi {
 
 li.NavigationLi a {
     display: block;
-    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 li.NavigationLi a:hover {
-    background-color: #111;
+    border-radius: 10px;
+    background: #F3F1ED;
 }
 
 .active_item {
-    background-color: #111;
 }

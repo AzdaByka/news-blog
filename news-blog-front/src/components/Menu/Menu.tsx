@@ -37,9 +37,9 @@ export class Menu extends Component<IProps, IState> {
 
 
     render(){
-        return(<ul className='Navigation'>
+        return(<ul className='Menu'>
             {Rubrics.map((route: RubricRoute) => (
-                <li className="NavigationLi" key={route.id} onClick={() => this.handleClick(route.id, route.description)}>
+                <li className="MenuLi" key={route.id} onClick={() => this.handleClick(route.id, route.description)}>
                     <Link to={route.path}
                           className={(route.id === this.state.activeLink ? "active_item" : "")}>
                         {route.description}

@@ -1,5 +1,5 @@
 
-ul.Navigation {
+ul.Menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -13,14 +13,14 @@ ul.Navigation {
 
 }
 
-li.NavigationLi {
+li.MenuLi {
 
     width: 268px;
     height: 60px;
 
 }
 
-li.NavigationLi a {
+li.MenuLi a {
     display: block;
     color: black;
     border-radius: 10px;
@@ -29,7 +29,7 @@ li.NavigationLi a {
     text-decoration: none;
 }
 
-li.NavigationLi a:hover {
+li.MenuLi a:hover {
 
 }
 
