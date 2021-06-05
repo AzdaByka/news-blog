@@ -27,19 +27,20 @@ export class Menu extends Component<IProps, IState> {
         }
     }
 
-    handleClick = (id: number, description:string): void => {
+    handleClick = (id: number, description:string,path:string): void => {
         this.setState({activeLink: id,});
+        localStorage.setItem('path', path);
         if (id != 1)
             localStorage.setItem('rubrics', description);
-        else localStorage.setItem('rubrics', 'Ваша лента');
-
+        else
+            localStorage.setItem('rubrics', 'Ваша лента');
     }
 
 
     render(){
         return(<ul className='Menu'>
             {Rubrics.map((route: RubricRoute) => (
-                <li className="MenuLi" key={route.id} onClick={() => this.handleClick(route.id, route.description)}>
+                <li className="MenuLi" key={route.id} onClick={() => this.handleClick(route.id, route.description, route.path)}>
                     <Link to={route.path}
                           className={(route.id === this.state.activeLink ? "active_item" : "")}>
                         {route.description}

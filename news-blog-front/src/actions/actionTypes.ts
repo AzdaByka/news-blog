@@ -3,32 +3,32 @@ import {IArticle} from '../types/articles';
 import {type} from "os";
 import {ADD_COMMENT, RATE_ARTICLE} from "./acticleActions";
 
-export const loadNews=():NewsActionType=>{
-    return{
-        type:LOAD_NEWS
-    }
-}
-
-export const addNews=(article:IArticle):NewsActionType=>{
-    return{
-        type:ADD_NEWS,
-        article
-    }
-}
-
-export const removeNews =(id:string):NewsActionType=>{
-    return {
-        type:REMOVE_NEWS,
-        id
-    }
-}
-
-export const editNews =(article:IArticle):NewsActionType=>{
-    return {
-        type:EDIT_NEWS,
-        article
-    }
-}
+// export const loadNews=():NewsActionType=>{
+//     return{
+//         type:LOAD_NEWS
+//     }
+// }
+//
+// export const addNews=(article:IArticle):NewsActionType=>{
+//     return{
+//         type:ADD_NEWS,
+//         article
+//     }
+// }
+//
+// export const removeNews =(id:string):NewsActionType=>{
+//     return {
+//         type:REMOVE_NEWS,
+//         id
+//     }
+// }
+//
+// export const editNews =(article:IArticle):NewsActionType=>{
+//     return {
+//         type:EDIT_NEWS,
+//         article
+//     }
+// }
 
 
 export const rateArticle=(id:string, rate:number):ArticleActionType=>{
@@ -52,9 +52,11 @@ export interface ActionTypeBase{
 }
 
 export interface NewsActionType extends ActionTypeBase{
-    id?:string,
-    article?:IArticle,
+    id:string,
+    articles:IArticle [],
+    rubrics:string,
 }
+
 
 export interface ArticleActionType extends ActionTypeBase{
     id?:string,

@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as routes from "../../constants/routes";
-import { auth } from "../../firebase";
+import Auth from '../../connection/auth'
+import {BASE, SIGN_IN,HOME} from "../../constants/routes"
+
 
 interface InterfaceProps {
     email?: string;
@@ -10,7 +12,7 @@ interface InterfaceProps {
 }
 
 interface InterfaceState {
-    email: string;
+    login: string;
     error: any;
     password: string;
 }
@@ -20,7 +22,7 @@ export class SignInForm extends React.Component<
     InterfaceState
     > {
     private static INITIAL_STATE = {
-        email: "",
+        login: "",
         error: null,
         password: ""
     };
@@ -35,35 +37,44 @@ export class SignInForm extends React.Component<
         this.state = { ...SignInForm.INITIAL_STATE };
     }
 
+
+    async HandleFormSubmit(event: any){
+        event.preventDefault();
+        await Auth.login(this.state.login, this.state.password);
+        this.props.history.replace(HOME);
+        window.location.reload();
+    }
+
     public onSubmit = (event: any) => {
-        const { email, password } = this.state;
+        const { login, password } = this.state;
+
 
         const { history } = this.props;
 
-        auth
-            .doSignInWithEmailAndPassword(email, password)
-            .then(() => {
-                localStorage.setItem('authUser', email);
-                this.setState(() => ({ ...SignInForm.INITIAL_STATE }));
-                history.push(routes.HOME);
-            })
-            .catch(error => {
-                this.setState(SignInForm.propKey("error", error));
-            });
+        // auth
+        //     .doSignInWithEmailAndPassword(email, password)
+        //     .then(() => {
+        //         localStorage.setItem('authUser', email);
+        //         this.setState(() => ({ ...SignInForm.INITIAL_STATE }));
+        //         history.push(routes.HOME);
+        //     })
+        //     .catch(error => {
+        //         this.setState(SignInForm.propKey("error", error));
+        //     });
 
         event.preventDefault();
     };
 
     public render() {
-        const { email, password, error } = this.state;
+        const { login, password, error } = this.state;
 
-        const isInvalid = password === "" || email === "";
+        const isInvalid = password === "" || login === "";
 
         return (
-            <form onSubmit={event => this.onSubmit(event)}>
+            <form onSubmit={event => this.HandleFormSubmit(event)}>
                 <input
-                    value={email}
-                    onChange={event => this.setStateWithEvent(event, "email")}
+                    value={login}
+                    onChange={event => this.setStateWithEvent(event, "login")}
                     type="text"
                     placeholder="Email Address"
                 />

@@ -4,6 +4,6 @@ import CheckJwtMiddleware from "../middleware/checkJwt";
 
 const router = Router()
 const controller = new AuthController()
-router.post('/login', controller.login)
+router.post('/signin', controller.login)
 router.post("/user", [CheckJwtMiddleware.checkJwt], controller.me);
 export default router

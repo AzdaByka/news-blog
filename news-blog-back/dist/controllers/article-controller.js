@@ -51,7 +51,7 @@ var ArticlesController = /** @class */ (function () {
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find()];
                     case 1:
                         article = _a.sent();
-                        console.log(article);
+                        //console.log(article)
                         return [2 /*return*/, res.json(article)];
                 }
             });

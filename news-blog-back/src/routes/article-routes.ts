@@ -3,7 +3,13 @@ import ArticlesController from "../controllers/article-controller";
 
 const router = Router()
 const controller = new ArticlesController()
-router.get('/article', controller.getArticle)
+router.get('/', controller.getArticle)
+router.get('/top', controller.getArticle)
+router.get('/movie', controller.getArticle)
+router.get('/travel', controller.getArticle)
+router.get('/science', controller.getArticle)
+router.get('/corona', controller.getArticle)
+router.get('/car', controller.getArticle)
 //router.get('/articles', controller.getArticles)
 
 

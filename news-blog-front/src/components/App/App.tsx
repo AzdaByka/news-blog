@@ -3,30 +3,24 @@ import { Route, Switch, Router } from "react-router-dom";
 import './App.css'
 import magnifier from '../../stylesheets/imgs/magnifier.svg'
 import "typeface-ubuntu";
-import { firebase } from '../../firebase';
 
 import { Navigation } from "../Nagation/Navigation";
 import history from '../../constants/history';
 import { AppRoutes, AppRoute } from '../../routes/appRoutes';
-import { withAuthentication } from '../../firebase/withAuthentification';
 import logo from '../../stylesheets/imgs/logo.jpg'
 import vector from '../../stylesheets/imgs/vector.svg'
 
 class AppComponent extends Component {
     constructor(props: any) {
         super(props);
-
+        localStorage.setItem('user','')
         this.state = {
-            authUser: null
+
         };
     }
 
     public componentDidMount() {
-        firebase.auth.onAuthStateChanged((authUser: any) => {
-            authUser
-                ? this.setState(() => ({ authUser }))
-                : this.setState(() => ({ authUser: null }));
-        });
+
     }
 
 
@@ -46,7 +40,7 @@ class AppComponent extends Component {
                     <input className={'search-box-placeholder'} type="text" placeholder={'Статья, канал.'}/>
                     <img className={'vector'} src={vector}/>
 
-                    <Navigation />
+                    <Navigation history={history}/>
                     <Switch>
                         {
                             AppRoutes.map((route: AppRoute) => (
@@ -62,4 +56,4 @@ class AppComponent extends Component {
     }
 }
 
-export const App = withAuthentication(AppComponent);
+export const App = AppComponent;

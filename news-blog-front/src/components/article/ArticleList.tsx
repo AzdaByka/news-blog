@@ -3,6 +3,8 @@ import axios from "axios";
 import {IArticle} from "../../types/articles";
 import ArticleItem from "./ArticleItem";
 import './articleList.css'
+import {BASE, SIGN_IN} from "../../constants/routes"
+import {useSelector} from "react-redux";
 
 
 export interface IAppProps {
@@ -22,12 +24,12 @@ export class ArticleList extends Component<IAppProps>{
             isLoaded: false,
             articles: [],
         };
-
     }
 
     async componentDidMount() {
         try {
-            const response = await axios.get<IArticle[]>('http://localhost:3001/api/article')
+
+            const response = await axios.get<IArticle[]>(BASE+localStorage.getItem('path'))
             console.log(response.data[0].title)
             this.setState({
                 isLoaded: true,

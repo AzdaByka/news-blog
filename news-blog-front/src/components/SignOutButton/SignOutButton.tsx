@@ -1,6 +1,8 @@
 import * as React from "react";
-import { auth } from "../../firebase";
 import "./SO.css";
+import {HOME,ARTICLE} from "../../constants/routes";
+import history from "../../constants/history";
+import Auth from '../../connection/auth'
 
 export const SignOutButton = () => (
     <button type="button" onClick={doSignOut} className="NavigaionButton">
@@ -10,7 +12,9 @@ export const SignOutButton = () => (
 
 );
 
-const doSignOut = () => {
-    localStorage.setItem('authUser', '');
-    auth.doSignOut();
+
+async function doSignOut(){
+    await Auth.logout();
+    history.push(HOME);
+    window.location.reload();
 }

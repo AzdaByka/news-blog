@@ -8,6 +8,6 @@ var auth_controller_1 = __importDefault(require("../controllers/auth-controller"
 var checkJwt_1 = __importDefault(require("../middleware/checkJwt"));
 var router = express_1.Router();
 var controller = new auth_controller_1["default"]();
-router.post('/login', controller.login);
+router.post('/signin', controller.login);
 router.post("/user", [checkJwt_1["default"].checkJwt], controller.me);
 exports["default"] = router;

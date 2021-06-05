@@ -8,7 +8,7 @@ export default class ArticlesController{
     public async getArticle(req: Request, res: Response): Promise<Response>{
         let {ids}= req.body
         const article = await getRepository(Articles).find();
-        console.log(article)
+        //console.log(article)
         return res.json(article);
     }
 
