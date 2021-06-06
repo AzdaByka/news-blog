@@ -14,7 +14,7 @@ export default class UserItem extends Component<ArticleProps> {
                 <div className="ArticleTitle">
                     <h2>{user.name}</h2>
                 </div>
-                <img src={"data:image/gif;base64," + user.avatar} alt="Logo"/>
+                <img src={"data:image/gif;base64," + user.imgAvatar} alt="Logo"/>
             </div>
         );
     }

@@ -8,5 +8,5 @@ var auth_controller_1 = __importDefault(require("../controllers/auth-controller"
 var router = express_1.Router();
 var controller = new auth_controller_1["default"]();
 router.post('/signin', controller.login);
-router.post("/user", controller.me);
+router.get("/user", controller.me);
 exports["default"] = router;

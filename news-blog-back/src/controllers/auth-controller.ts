@@ -29,26 +29,39 @@ class AuthController {
             'id':user.id,
             'login':user.login,
             'email':user.email,
-            'access-token':token,
+            'token':token,
         }
         return res.status(200).json(response);
     }
 
-    public async isAuth(authHeader):Promise<boolean>{
-        const token = authHeader.split(' ')[1];
+    public async isAuth(token):Promise<boolean>{
         return <boolean>jwt.verify(token,  process.env.JWT_SECRET);
     }
 
     public async me(req: Request, res: Response): Promise<Response>{
-        const authHeader = <string>req.headers["authorization"];
-        const token = authHeader.split(' ')[1];
+        const token = <string>req.headers["authorization"].split(' ')[1];
+        console.log(token)
         const jwtPayload = <any>jwt.verify(token,  process.env.JWT_SECRET);
+        if (jwtPayload==null)
+            return res.status(401).send('jwt где?');
         const { id } = jwtPayload;
         const userRepository: LinqRepository<Users> = new LinqRepository(Users);
-        const userById = await userRepository.getOne()
+        const user = await userRepository.getOne()
             .where(u => u.id)
             .equal(id)
-        return res.status(200).json(userById);
+        if (user==null)
+            return res.status(401).send('user dont exist');
+        return res.status(200).json(user);
+        //     {
+        //     id:user.id,
+        //     email:user.email,
+        //     login:user.login,
+        //     name:user.name,
+        //     imgAvatar:user.imgAvatar,
+        //     surname:user.surname,
+        //     patronymic:user.patronymic,
+        //     tel:user.tel
+        // });
     }
 }
 export default AuthController;

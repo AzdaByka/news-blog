@@ -12,11 +12,13 @@ class Auth {
                 login: login,
                 password: password,
             });
-            cookie.set('user', JSON.stringify(response.data))
+            cookie.set('user', JSON.stringify(response.data.token))
+            console.log(response.data.token)
         }
 
         catch (error) {
             return error;
+
         }
     }
 
@@ -32,7 +34,7 @@ class Auth {
         return cookie.get('user');
     }
 
-    getUserJWY():string{
+    getUserJWT():string{
          return cookie.get('user');
     }
 

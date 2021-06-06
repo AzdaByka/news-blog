@@ -89,39 +89,41 @@ var AuthController = /** @class */ (function () {
                             'id': user.id,
                             'login': user.login,
                             'email': user.email,
-                            'access-token': token
+                            'token': token
                         };
                         return [2 /*return*/, res.status(200).json(response)];
                 }
             });
         });
     };
-    AuthController.prototype.isAuth = function (authHeader) {
+    AuthController.prototype.isAuth = function (token) {
         return __awaiter(this, void 0, void 0, function () {
-            var token;
             return __generator(this, function (_a) {
-                token = authHeader.split(' ')[1];
                 return [2 /*return*/, jwt.verify(token, process.env.JWT_SECRET)];
             });
         });
     };
     AuthController.prototype.me = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var authHeader, token, jwtPayload, id, userRepository, userById;
+            var token, jwtPayload, id, userRepository, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        authHeader = req.headers["authorization"];
-                        token = authHeader.split(' ')[1];
+                        token = req.headers["authorization"].split(' ')[1];
+                        console.log(token);
                         jwtPayload = jwt.verify(token, process.env.JWT_SECRET);
+                        if (jwtPayload == null)
+                            return [2 /*return*/, res.status(401).send('jwt где?')];
                         id = jwtPayload.id;
                         userRepository = new typeorm_linq_repository_1.LinqRepository(Users_1.Users);
                         return [4 /*yield*/, userRepository.getOne()
                                 .where(function (u) { return u.id; })
                                 .equal(id)];
                     case 1:
-                        userById = _a.sent();
-                        return [2 /*return*/, res.status(200).json(userById)];
+                        user = _a.sent();
+                        if (user == null)
+                            return [2 /*return*/, res.status(401).send('user dont exist')];
+                        return [2 /*return*/, res.status(200).json(user)];
                 }
             });
         });

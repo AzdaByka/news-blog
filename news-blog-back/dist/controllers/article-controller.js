@@ -53,8 +53,8 @@ var ArticlesController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         ids = req.body.ids;
-                        authHeader = req.headers["authorization"];
-                        if (!(authHeader != '')) return [3 /*break*/, 3];
+                        authHeader = req.headers["authorization"].split(' ')[1];
+                        if (!(authHeader != '' && authHeader != null)) return [3 /*break*/, 3];
                         return [4 /*yield*/, auth.isAuth(authHeader)];
                     case 1:
                         if (!_a.sent()) return [3 /*break*/, 3];

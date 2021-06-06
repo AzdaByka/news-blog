@@ -1,10 +1,18 @@
 
 
 export interface IUser{
-    id: string;
+    id: number;
+    login:string;
     email: string;
+    password:string;
     name: string;
-    avatar:string;
+    surname:string;
+    patronymic:string;
+    tel:number;
+    imgAvatar:string;
+    createdAt:string;
+    updatedAt:string;
+
 }
 
 // export interface IUserHash{

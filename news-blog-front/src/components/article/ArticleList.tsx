@@ -34,7 +34,7 @@ export class ArticleList extends Component<IAppProps>{
                 BASE+localStorage.getItem('path'),
                 {
                     headers:{
-                        authorization:Auth.getUserJWY(),
+                        authorization:"Bearer "+Auth.getUserJWT(),
                     },
                 }
                 )

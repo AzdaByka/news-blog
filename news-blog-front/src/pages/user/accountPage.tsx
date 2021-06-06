@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import ArticleItem from "../../components/article/ArticleItem";
 import axios from "axios";
-import { ArticleList } from '../../components/article/ArticleList';
+import {ArticleList, IAppProps} from '../../components/article/ArticleList';
 import  UserItem  from '../../components/User/UserItem';
 
 import  {Menu}  from '../../components/Menu/Menu';
@@ -17,41 +17,39 @@ import {IUser} from "../../types/user";
 export interface IProps {
     error: any;
     isLoaded: false;
+    user?:[]
 }
 
-export interface IState{
-    user:IUser
-}
 
-export class AccountPage extends Component{
 
-    constructor(props: IProps, state:IState) {
+export class AccountPage extends Component<IAppProps>{
+
+    constructor(props: IProps) {
         super(props);
         this.state = {
             error: '',
-            user:null
+            user:[],
         };
     }
 
     async componentDidMount() {
         try {
 
-            const response = await axios.get<IUser[]>(
+            const response = await axios.get<IUser>(
                 BASE+ME,
                 {
                     headers:{
-                        authorization:Auth.getUserJWY(),
+                        authorization:"Bearer "+Auth.getUserJWT(),
                     },
                 }
             )
+            console.log(response.data.name)
             this.setState({
                 isLoaded: true,
                 user: response.data
             })
         } catch (e) {
             alert(e)
-            console.log(Auth.getUserJWY())
-
             console.log(e)
             this.setState({
                 isLoaded: true,
@@ -59,6 +57,7 @@ export class AccountPage extends Component{
             });
         }
     }
+
 
     public render() {
         const localState: any = this.state;
@@ -68,11 +67,13 @@ export class AccountPage extends Component{
             return (
                 <div>
                     <div className='rubrics'>
-                        {localStorage.rubrics}
+                       fdfs
                     </div>
                     <div className={".NewsItemContainer"}>
                         <Menu history={history}/>
-                        {/*<UserItem user={localState.user}/>*/}
+                        <div className="NewsItemContainer">
+                            <UserItem key={localState.user.id} user={localState.user}/>
+                        </div>
                         <ArticleList />
                     </div>
                 </div>

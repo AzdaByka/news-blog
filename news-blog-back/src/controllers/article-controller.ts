@@ -11,8 +11,8 @@ export default class ArticlesController{
     public async getArticle(req: Request, res: Response): Promise<Response>{
         let {ids}= req.body
 
-        const authHeader = <string>req.headers["authorization"];
-        if (authHeader!='')
+        const authHeader = <string>req.headers["authorization"].split(' ')[1];
+        if (authHeader!='' && authHeader!=null)
             if (await auth.isAuth(authHeader)){
                 const article = await getRepository(Articles).find();
                 //console.log(article)
