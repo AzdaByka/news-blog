@@ -96,6 +96,15 @@ var AuthController = /** @class */ (function () {
             });
         });
     };
+    AuthController.prototype.isAuth = function (authHeader) {
+        return __awaiter(this, void 0, void 0, function () {
+            var token;
+            return __generator(this, function (_a) {
+                token = authHeader.split(' ')[1];
+                return [2 /*return*/, jwt.verify(token, process.env.JWT_SECRET)];
+            });
+        });
+    };
     AuthController.prototype.me = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var authHeader, token, jwtPayload, id, userRepository, userById;

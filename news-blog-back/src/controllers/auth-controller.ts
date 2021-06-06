@@ -34,6 +34,11 @@ class AuthController {
         return res.status(200).json(response);
     }
 
+    public async isAuth(authHeader):Promise<boolean>{
+        const token = authHeader.split(' ')[1];
+        return <boolean>jwt.verify(token,  process.env.JWT_SECRET);
+    }
+
     public async me(req: Request, res: Response): Promise<Response>{
         const authHeader = <string>req.headers["authorization"];
         const token = authHeader.split(' ')[1];

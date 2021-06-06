@@ -1,6 +1,6 @@
 
 import { HOME, TOP, CARS, CORONA, TRAVEL, SCIENCE, MOVIE, ACCOUNT, ARTICLE} from '../constants/routes';
-import { ArticlePage } from '../pages/articlePage'
+import { ArticlePage } from '../pages/article/articlePage'
 import { SignIn } from '../components/SignIn';
 
 

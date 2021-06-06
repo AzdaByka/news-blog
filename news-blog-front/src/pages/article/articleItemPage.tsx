@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {IArticle} from '../types/articles';
-import ArticleItem from "../components/article/ArticleItem";
+import {IArticle} from '../../types/articles';
+import ArticleItem from "../../components/article/ArticleItem";
 import axios from "axios";
 
 

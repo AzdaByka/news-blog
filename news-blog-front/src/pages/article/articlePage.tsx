@@ -1,14 +1,14 @@
 import React, {Component, useEffect, useState} from 'react';
-import {IArticle} from '../types/articles';
+import {IArticle} from '../../types/articles';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import ArticleItem from "../components/article/ArticleItem";
+import ArticleItem from "../../components/article/ArticleItem";
 import axios from "axios";
 import './articlePage.css'
 import {findAllByDisplayValue} from "@testing-library/react";
-import { ArticleList } from '../components/article/ArticleList';
-import  {Menu}  from '../components/Menu/Menu';
-import history from '../constants/history'
+import { ArticleList } from '../../components/article/ArticleList';
+import  {Menu}  from '../../components/Menu/Menu';
+import history from '../../constants/history'
 
 // const ArticlePage: React.FC=({})=> {
 //

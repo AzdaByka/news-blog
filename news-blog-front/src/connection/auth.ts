@@ -12,7 +12,6 @@ class Auth {
                 login: login,
                 password: password,
             });
-            localStorage.setItem('user', JSON.stringify(response.data))
             cookie.set('user', JSON.stringify(response.data))
         }
 
@@ -31,6 +30,10 @@ class Auth {
 
     isAuth() : boolean{
         return cookie.get('user');
+    }
+
+    getUserJWY():string{
+         return cookie.get('user');
     }
 
     // public getUser() : IUser{

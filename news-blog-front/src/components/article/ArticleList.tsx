@@ -5,6 +5,7 @@ import ArticleItem from "./ArticleItem";
 import './articleList.css'
 import {BASE, SIGN_IN} from "../../constants/routes"
 import {useSelector} from "react-redux";
+import Auth from '../../connection/auth'
 
 
 export interface IAppProps {
@@ -29,7 +30,15 @@ export class ArticleList extends Component<IAppProps>{
     async componentDidMount() {
         try {
 
-            const response = await axios.get<IArticle[]>(BASE+localStorage.getItem('path'))
+            const response = await axios.get<IArticle[]>(
+                BASE+localStorage.getItem('path'),
+                {
+                    headers:{
+                        authorization:Auth.getUserJWY(),
+                    },
+                }
+                )
+            console.log(localStorage.getItem('user')+" 1")
             console.log(response.data[0].title)
             this.setState({
                 isLoaded: true,
@@ -37,6 +46,7 @@ export class ArticleList extends Component<IAppProps>{
             })
         } catch (e) {
             alert(e)
+            console.log(localStorage.getItem('user')+" 1")
             console.log(e)
             this.setState({
                 isLoaded: true,

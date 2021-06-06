@@ -1,15 +1,24 @@
 import {Request, Response} from "express";
 import {getRepository} from "typeorm";
+import * as jwt from "jsonwebtoken";
 import {Articles} from "../entity/Articles";
+import AuthController from "./auth-controller";
 import { LinqRepository } from "typeorm-linq-repository";
+const auth = new AuthController()
 
 export default class ArticlesController{
 
     public async getArticle(req: Request, res: Response): Promise<Response>{
         let {ids}= req.body
-        const article = await getRepository(Articles).find();
-        //console.log(article)
-        return res.json(article);
+
+        const authHeader = <string>req.headers["authorization"];
+        if (authHeader!='')
+            if (await auth.isAuth(authHeader)){
+                const article = await getRepository(Articles).find();
+                //console.log(article)
+                return res.json(article);
+            }
+        return res.status(403).json("Нет такого пользователя")
     }
 
     public async getArticles(req: Request, res: Response): Promise<Response>{

@@ -35,24 +35,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var typeorm_1 = require("typeorm");
 var Articles_1 = require("../entity/Articles");
+var auth_controller_1 = __importDefault(require("./auth-controller"));
+var auth = new auth_controller_1["default"]();
 var ArticlesController = /** @class */ (function () {
     function ArticlesController() {
     }
     ArticlesController.prototype.getArticle = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var ids, article;
+            var ids, authHeader, article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         ids = req.body.ids;
-                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find()];
+                        authHeader = req.headers["authorization"];
+                        if (!(authHeader != '')) return [3 /*break*/, 3];
+                        return [4 /*yield*/, auth.isAuth(authHeader)];
                     case 1:
+                        if (!_a.sent()) return [3 /*break*/, 3];
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find()];
+                    case 2:
                         article = _a.sent();
                         //console.log(article)
                         return [2 /*return*/, res.json(article)];
+                    case 3: return [2 /*return*/, res.status(403).json("Нет такого пользователя")];
                 }
             });
         });
