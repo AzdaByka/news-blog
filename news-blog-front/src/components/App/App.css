@@ -2,45 +2,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 .logo{
-    position: absolute;
+
     width: 100px;
     height: 36px;
-    left: 177px;
-    top: 27px;
+
+    margin-left: 100px;
     font-size: 16pt ;
-    text-align: center;
+    text-align: left;
     font-family: 'Zilla Slab', serif;
 }
 .logo-img{
-    position: absolute;
-    left: 177px;
-    top: 22px;
+
     width: 36px;
     height: 36px;
 }
 .search-box{
-    position: absolute;
+    position: relative;
+    z-index: -1;
     width: 632px;
     height: 40px;
-    left: 288px;
-    top: 18px;
     background: #F3F1ED;
     border-radius: 20px;
 }
 .magnifier{
-    position: absolute;
+    position: relative;
+    z-index: 2;
     width: 16px;
     height: 16px;
-    left: 305px;
-    top: 30px;
+    left: 13px;
+    bottom:30px;
+
     color: #666666;
 }
 .search-box-placeholder{
-    position: absolute;
+    position: relative;
+    z-index: 2;
     width: 106px;
     height: 18px;
-    left: 329px;
-    top: 30px;
+    left: 20px;
+    bottom:28px;
     font-family: Ubuntu;
     font-style: normal;
     font-weight: normal;
@@ -50,11 +50,10 @@
     color: #666666;
 }
 .vector{
-    position: absolute;
+
     width: 17px;
     height: 17px;
-    right: 130px;
-    top: 30px;
+
 }
 
 

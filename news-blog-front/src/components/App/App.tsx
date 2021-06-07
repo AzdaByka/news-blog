@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch, Router } from "react-router-dom";
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import './App.css'
 import magnifier from '../../stylesheets/imgs/magnifier.svg'
 import "typeface-ubuntu";
-
 import { Navigation } from "../Nagation/Navigation";
 import history from '../../constants/history';
 import { AppRoutes, AppRoute } from '../../routes/appRoutes';
@@ -31,16 +31,24 @@ class AppComponent extends Component {
                 <link rel="preconnect" href="https://fonts.gstatic.com"/>
                 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet"/>
                 <div>
-                    <img className={'logo-img'} src={logo} />
-                    <div className={'logo'}>
-                        Star
-                    </div>
-                    <div className={'search-box'}/>
-                    <img className={'magnifier'} src={magnifier}/>
-                    <input className={'search-box-placeholder'} type="text" placeholder={'Статья, канал.'}/>
-                    <img className={'vector'} src={vector}/>
 
+                    <div className='row '>
+                        <div className='col-md-3 pl-5 py-4'>
+                            <div className={'logo'}>
+                            <img className={'logo-img'} src={logo} />
+                            Star
+                            </div>
+                        </div>
+                            <div className='col-md-6  py-4'>
+                        <div className={'search-box'}/>
+                        <img className={'magnifier'} src={magnifier}/>
+                        <input className={'search-box-placeholder'} type="text" placeholder={'Статья, канал.'}/>
+                            </div>
+                        <div className='col-md-3 align-content-end'>
+                        <img className={'vector'} src={vector}/>
                     <Navigation history={history}/>
+                        </div>
+                    </div>
                     <Switch>
                         {
                             AppRoutes.map((route: AppRoute) => (
@@ -50,7 +58,10 @@ class AppComponent extends Component {
                                        key={route.path} />))
                         }
                     </Switch>
-                </div>
+                        </div>
+
+
+
             </Router>
         );
     }
