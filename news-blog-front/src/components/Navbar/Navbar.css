@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+.logo{
+
+    width: 100px;
+    height: 36px;
+
+    font-size: 16pt ;
+    text-align: left;
+    font-family: 'Zilla Slab', serif;
+}
+.logo-img{
+    margin-left: 100px;
+
+    width: 36px;
+    height: 36px;
+}
+.search-box{
+    width: 500px;
+    background: #F3F1ED;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px ;
+}
+
+.search-box-btn{
+    position: relative;
+    background: #F3F1ED;
+    top: -3px;
+    right: 3px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px ;
+}
+.magnifier{
+    position: relative;
+    left: 20px;
+    z-index: 2;
+    width: 16px;
+    height: 16px;
+    color: #666666;
+}
+.search-box-placeholder{
+    position: relative;
+    z-index: 2;
+    width: 106px;
+    height: 18px;
+    left: 20px;
+    bottom:28px;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+
+    color: #666666;
+}
+.vector{
+    position: relative;
+    left: 200px;
+    width: 17px;
+    height: 17px;
+
+}
+
+

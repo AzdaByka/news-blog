@@ -38,7 +38,9 @@ export class Menu extends Component<IProps, IState> {
 
 
     render(){
-        return(<ul className='Menu'>
+        return(
+            <div>
+            <ul className='Menu'>
             {Rubrics.map((route: RubricRoute) => (
                 <li className="MenuLi" key={route.id} onClick={() => this.handleClick(route.id, route.description, route.path)}>
                     <Link to={route.path}
@@ -47,7 +49,8 @@ export class Menu extends Component<IProps, IState> {
                     </Link>
                 </li>
             ))}
-        </ul>);
+        </ul>
+            </div>);
     }
 }
 

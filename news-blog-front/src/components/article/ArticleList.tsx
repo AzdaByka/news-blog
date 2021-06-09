@@ -59,10 +59,16 @@ export class ArticleList extends Component<IAppProps>{
         if (localState.error) {
             return <div>Error: {localState.error!.message}</div>;
         } else if (!localState.isLoaded) {
-            return <div>Loading...</div>;
+            return <div className="spinner-border" role="status">
+                <span className="visually-hidden">Загрузка...</span>
+            </div>;
         } else {
             return (
-                <div className="NewsItemContainer">
+
+                <div className="row py-4">
+                    {localState.articles.map((article: IArticle)=>
+                        <ArticleItem key={article.id} article={article}/>
+                    )}
                     {localState.articles.map((article: IArticle)=>
                         <ArticleItem key={article.id} article={article}/>
                     )}

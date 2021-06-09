@@ -23,7 +23,7 @@ class AuthController {
         const token = jwt.sign(
             { id: user.id, login: user.login },
             process.env.JWT_SECRET,
-            { expiresIn: "24h" }
+            { expiresIn: "1h" }
         );
         const response = {
             'id':user.id,

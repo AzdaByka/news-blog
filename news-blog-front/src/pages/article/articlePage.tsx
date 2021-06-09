@@ -60,6 +60,7 @@ import history from '../../constants/history'
 export interface IAppProps {
     error: any;
     isLoaded: false;
+    body:string
 }
 
 export class ArticlePage extends Component{
@@ -68,25 +69,52 @@ export class ArticlePage extends Component{
         super(props);
         this.state = {
             error: '',
+            body:''
         };
     }
+
+
+    // handleBody = (e: ((prevState: string) => string) | string) => {
+    //     this.setState({
+    //         body:e,
+    //     });
+    // }
+
     public render() {
+
         const localState: any = this.state;
         if (localState.error) {
             return <div>Error: {localState.error!.message}</div>;
         }  else {
             return (
-                <div>
-                    <div className='rubrics'>
-                        {localStorage.rubrics}
-                    </div>
-                    <div className={".NewsItemContainer"}>
+
+
+                    <div className={"container"}>
+                        <div className={"row"}>
+                            <div className={"col-md-3"}>
                         <Menu history={history}/>
-                        <ArticleList />
+                            </div>
+                                <div className={"col-md-9"}>
+                            <div className='rubrics'>
+                                {localStorage.rubrics}
+                            </div>
 
+
+                        {/*<div className="row py-4">*/}
+                        {/*<ArticleList />*/}
+                        {/*</div>*/}
+                                    <ArticleList />
+                                </div>
+                                    {/*<ReactQuill*/}
+                                    {/*    placeholder="fdsdfsd"*/}
+                                    {/*    onChange={this.handleBody}*/}
+                                    {/*    value={localState.body}*/}
+                                    {/*/>*/}
 
                     </div>
-                </div>
+                    </div>
+
+
             );
         }
     }

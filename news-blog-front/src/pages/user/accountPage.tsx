@@ -17,7 +17,7 @@ import {IUser} from "../../types/user";
 export interface IProps {
     error: any;
     isLoaded: false;
-    user?:[]
+    user:[],
 }
 
 
@@ -34,7 +34,6 @@ export class AccountPage extends Component<IAppProps>{
 
     async componentDidMount() {
         try {
-
             const response = await axios.get<IUser>(
                 BASE+ME,
                 {
@@ -50,6 +49,7 @@ export class AccountPage extends Component<IAppProps>{
             })
         } catch (e) {
             alert(e)
+
             console.log(e)
             this.setState({
                 isLoaded: true,
@@ -66,16 +66,15 @@ export class AccountPage extends Component<IAppProps>{
         }  else {
             return (
                 <div>
-                    <div className='rubrics'>
-                       fdfs
-                    </div>
-                    <div className={".NewsItemContainer"}>
+                    <div className="container">
+                    <div className="row">
                         <Menu history={history}/>
-                        <div className="NewsItemContainer">
                             <UserItem key={localState.user.id} user={localState.user}/>
-                        </div>
-                        <ArticleList />
                     </div>
+
+                        <ArticleList />
+
+                </div>
                 </div>
             );
         }

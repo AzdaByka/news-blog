@@ -10,7 +10,8 @@ export default class NewsItem extends Component<ArticleProps> {
     public render() {
         const article = this.props.article;
         return (
-            <div className="Article" onClick={()=> this.handleClick(article)}>
+
+                <div className="Article col-md-6" onClick={()=> this.handleClick(article)}>
 
                 <div className="ArticleTitle">
                     <h2>{article.title}</h2>
@@ -18,6 +19,8 @@ export default class NewsItem extends Component<ArticleProps> {
                 <img src={"data:image/gif;base64," + article.preview} alt="Logo"/>
                 <div>{article.shortDescription}</div>
             </div>
+
+
         );
     }
 

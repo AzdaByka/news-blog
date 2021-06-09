@@ -9,12 +9,14 @@ export default class UserItem extends Component<ArticleProps> {
     public render() {
         const user = this.props.user;
         return (
-            <div className="User" >
+            <div className="User col-md-6" >
 
                 <div className="ArticleTitle">
                     <h2>{user.name}</h2>
+                    <h2>{user.surname}</h2>
+                    <h2>{user.patronymic}</h2>
                 </div>
-                <img src={"data:image/gif;base64," + user.imgAvatar} alt="Logo"/>
+                <img src={user.imgAvatar} alt="Logo"/>
             </div>
         );
     }

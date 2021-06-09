@@ -4,12 +4,10 @@ ul.Menu {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: absolute;
-    top:100px;
-    left: 20px;
+
     font-size: 16pt;
     font-family: "Ubuntu";
-
+    width: 268px;
 
 }
 
@@ -25,7 +23,7 @@ li.MenuLi a {
     color: black;
     border-radius: 10px;
     text-align: left;
-    padding: 14px 16px 16px 100px;
+    padding: 14px 16px 16px 16px;
     text-decoration: none;
 }
 
