@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {IArticle} from '../../types/articles';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import {Link, Route, Switch, withRouter} from "react-router-dom";
 import ArticleItem from "../../components/article/ArticleItem";
 import axios from "axios";
 import './editorChannelPage.css'
@@ -9,6 +10,7 @@ import {findAllByDisplayValue} from "@testing-library/react";
 import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
+import {ARTICLE_CREATE, HOME} from "../../constants/routes";
 
 export interface IAppProps {
     error: any;
@@ -74,8 +76,9 @@ export class EditorChannelPage extends Component{
                         <div className={"col-md-9 pl-5"}>
                             <div className={"row"}>
                                 <h2 className={"ml-5 d-inline"}>Публикации</h2>
-                            <button type="button" className={"btn btn-primary d-inline ml-5"}>
-                                Создать</button>
+                                <Link to={ARTICLE_CREATE} className="btn btn-primary d-inline ml-5" >
+                                    Создать
+                                </Link>
                             </div>
                             <ArticleList/>
                         </div>

@@ -7,6 +7,7 @@ import {
     ARTICLE_DETEiLED,
     ARTICLE,
     SIGN_OUT,
+    ARTICLE_CREATE,
     MOVIE,
     TOP,
     TRAVEL, SCIENCE, CORONA, CARS, ME
@@ -15,6 +16,7 @@ import { ArticlePage } from '../pages/article/articlePage'
 import { SignIn } from '../components/SignIn';
 import {SignOutButton} from "../components/SignOutButton/SignOutButton";
 import {AccountPage} from "../pages/user/accountPage";
+import { ArticleCreatePage } from '../pages/article/articleCreatePage'
 import {EditorChannelPage} from "../pages/сhannel/editorChannelPage";
 
 
@@ -72,6 +74,11 @@ export const AppRoutes: AppRoute[] = [
     {
         path: EDITOR,
         component: EditorChannelPage,
+        exact: true
+    },
+    {
+        path: ARTICLE_CREATE,
+        component: ArticleCreatePage,
         exact: true
     },
 ];
