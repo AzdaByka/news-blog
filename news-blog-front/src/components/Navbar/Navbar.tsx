@@ -1,4 +1,6 @@
 import './Navbar.css'
+
+
 import React, {Component} from "react";
 import { Rubrics, RubricRoute} from "../../routes/rubricsRoutes";
 import {Link, Route, Switch, withRouter} from "react-router-dom";
@@ -10,6 +12,8 @@ import logo from "../../stylesheets/imgs/logo.jpg";
 import magnifier from "../../stylesheets/imgs/magnifier.svg";
 import vector from "../../stylesheets/imgs/vector.svg";
 import {Navigation} from "../Navigation/Navigation";
+import {AuthRoutes} from "../../routes/authRoutes";
+import {HOME} from "../../constants/routes";
 
 
 
@@ -31,15 +35,24 @@ export class Navbar extends Component<IProps, IState> {
         }
     }
 
+        rubricChange(rub:string){
+        localStorage.setItem("rubrics",rub)
+        }
 
     render(){
-        return( <div className='row '>
+        return( <div className='row'>
             <div className='col-md-3 pl-5 py-4 '>
-                <img className={'logo-img d-inline-block'} src={logo} />
 
-                <div className={'logo d-inline-block'}>
-                    Star
-                </div>
+                <Link to={HOME} onClick={()=>this.rubricChange("Ваша лента")}>
+                    <img className={'logo-img d-inline-block'}  src={logo} />
+
+                    <div className={'logo d-inline-block'}>
+
+                        Star
+                    </div>
+                </Link>
+
+
 
             </div>
             <div className='col-md-6  py-4'>
@@ -52,7 +65,8 @@ export class Navbar extends Component<IProps, IState> {
 
             </div>
             <div className='col-md-3 py-4'>
-                <img className={'vector'} src={vector}/>
+
+                {/*<img className={'vector'} src={vector}/>*/}
                 <Navigation history={history}/>
 
             </div>

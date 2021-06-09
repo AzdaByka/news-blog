@@ -9,6 +9,7 @@ import {findAllByDisplayValue} from "@testing-library/react";
 import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
+import {Navbar} from "../../components/Navbar/Navbar";
 
 // const ArticlePage: React.FC=({})=> {
 //
@@ -90,6 +91,7 @@ export class ArticlePage extends Component{
 
 
                     <div className={"container"}>
+
                         <div className={"row"}>
                             <div className={"col-md-3"}>
                         <Menu history={history}/>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Navigation.css';
+
+import {Dropdown} from './dropDuwn'
 import { Link, withRouter } from "react-router-dom";
 import { AuthRoutes, NonAuthRoutes, Route } from '../../routes/authRoutes';
 import { SignOutButton } from '../SignOutButton/SignOutButton';
@@ -41,7 +43,11 @@ export class Navigation extends Component<IProps, IState> {
 
     render(){
         if(this.state.isAuth){
-            return(<ul className='Navigation'>
+            return(
+                <div>
+
+                <ul className='Navigation'>
+
                 {AuthRoutes.map((route: Route) => (
                     <li className="NavigationLi" key={route.id} onClick={() => this.handleClick(route.id)}>
                         <Link to={route.path}
@@ -50,8 +56,13 @@ export class Navigation extends Component<IProps, IState> {
                         </Link>
                     </li>
                 ))}
+
                 <li className="NavigationLi"><SignOutButton/></li>
-            </ul>);
+
+            </ul>
+
+                </div>
+            );
         }
         else
             return(

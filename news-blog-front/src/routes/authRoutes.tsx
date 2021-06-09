@@ -1,4 +1,4 @@
-import {HOME, ACCOUNT, ARTICLE, SIGN_IN, SIGN_OUT, ME} from '../constants/routes';
+import {HOME, EDITOR, ARTICLE, SIGN_IN, SIGN_OUT, ME} from '../constants/routes';
 
 export interface Route {
     id: number;
@@ -12,12 +12,17 @@ export const AuthRoutes: Route[] = [
         path: ME,
         description: 'Account',
     },
+    {
+        id: 2,
+        path: EDITOR,
+        description: 'Мой канал',
+    },
 ];
 
 export const NonAuthRoutes: Route[] = [
 
     {
-        id: 2,
+        id: 3,
         path: SIGN_IN,
         description: 'Sign In'
     }

@@ -72,6 +72,7 @@ export class ArticleList extends Component<IAppProps>{
                     {localState.articles.map((article: IArticle)=>
                         <ArticleItem key={article.id} article={article}/>
                     )}
+
                 </div>
             );
         }

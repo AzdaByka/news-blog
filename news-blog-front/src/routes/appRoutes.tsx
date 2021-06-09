@@ -1,6 +1,6 @@
 
 import {
-    ACCOUNT,
+    EDITOR,
     HOME,
     SIGN_UP,
     SIGN_IN,
@@ -15,6 +15,7 @@ import { ArticlePage } from '../pages/article/articlePage'
 import { SignIn } from '../components/SignIn';
 import {SignOutButton} from "../components/SignOutButton/SignOutButton";
 import {AccountPage} from "../pages/user/accountPage";
+import {EditorChannelPage} from "../pages/сhannel/editorChannelPage";
 
 
 export interface AppRoute {
@@ -66,6 +67,11 @@ export const AppRoutes: AppRoute[] = [
     {
         path: ME,
         component: AccountPage,
+        exact: true
+    },
+    {
+        path: EDITOR,
+        component: EditorChannelPage,
         exact: true
     },
 ];

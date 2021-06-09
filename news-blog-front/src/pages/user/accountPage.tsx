@@ -12,6 +12,7 @@ import history from '../../constants/history'
 import {BASE, ME} from "../../constants/routes";
 import Auth from "../../connection/auth";
 import {IUser} from "../../types/user";
+import {Navbar} from "../../components/Navbar/Navbar";
 
 
 export interface IProps {
@@ -65,16 +66,20 @@ export class AccountPage extends Component<IAppProps>{
             return <div>Error: {localState.error!.message}</div>;
         }  else {
             return (
-                <div>
-                    <div className="container">
+                <div className="container">
+
                     <div className="row">
+                        <div className={"col-md-3"}>
                         <Menu history={history}/>
+                        </div>
+                            <div className={"col-md-9"}>
                             <UserItem key={localState.user.id} user={localState.user}/>
+                            </div>
+                    </div>
+                    <div className="row">
+                        <ArticleList />
                     </div>
 
-                        <ArticleList />
-
-                </div>
                 </div>
             );
         }
