@@ -54,12 +54,13 @@ export class ArticleCreatePage extends Component{
             return <div>Error: {localState.error!.message}</div>;
         }  else {
             return (
-                <div>
+                <div className={"container-fluid "}>
 
                     <button type="button" className="btn btn-primary btnPublish" onClick={() => this.setModalShow(true)}>Опубликовать</button>
                     <MyVerticallyCenteredModal
                         show={localState.show}
                         onHide={() => this.setModalShow(false)}
+                        text={localState.body}
                     />
 
                 <div className={"container"}>
@@ -90,6 +91,7 @@ export class ArticleCreatePage extends Component{
 interface IProps{
     onHide:()=>void,
     show:boolean
+    text:string
 
 }
 
@@ -98,11 +100,13 @@ interface IProps{
 
 function MyVerticallyCenteredModal(props:IProps) {
 
-    const addNews= async ({title,rubrics,preview}:{title:string,rubrics:[],preview:string})=>{
+    const addNews= async ({title,rubrics,shortDescription}:{title:string,rubrics:[],shortDescription:string})=>{
         const article={
+            text:text,
             title:title,
             rubrics:rubrics,
             preview:preview,
+            shortDescription:shortDescription,
         }
         console.log(article)
         // const response = await axios.post<IArticle[]>(
@@ -120,10 +124,32 @@ function MyVerticallyCenteredModal(props:IProps) {
         //         ids:'1'
         //     }})
     }
-    const [title, setTitle] = useState('')
-    const [rubrics, setRubrics] = useState([])
-    const [preview, setPreview] = useState('')
+
+
+    const uploadImage = async (e:any)=>{
+        const file = e.target.files[0]
+        const base64 = await convertBase64(file);
+        setPreview(base64);
+        console.log(preview)
+    }
+
+    const convertBase64 = (file:any):Promise<string|null|ArrayBuffer> => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+        });
+    };
+
+    const [text, setText] = useState('')
+    const [preview, setPreview] = useState<string|null|ArrayBuffer>('')
     const {register, handleSubmit, formState: { errors }, setValue} = useForm();
+
+
     return (
         <Modal
             {...props}
@@ -145,8 +171,12 @@ function MyVerticallyCenteredModal(props:IProps) {
                         Не делайте слишком клик-бэйтные заголовки
                     </Form.Text>
                 </Form.Group>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Короткое описание</Form.Label>
+                    <Form.Control as="textarea" rows={3} { ...register("shortDescription", {required: 'Обязательное поле для заполнения'})}/>
+                </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect2">
-                    <Form.Label>Выберите рубрики</Form.Label>
+                    <Form.Label>Рубрики</Form.Label>
                     <Form.Control as="select" multiple { ...register("rubrics", {required: 'Обязательное поле для заполнения'})}>
                         <option>Кино</option>
                         <option>Путешествия</option>
@@ -157,12 +187,15 @@ function MyVerticallyCenteredModal(props:IProps) {
                 </Form.Group>
                 <Form.Group>
                     <label htmlFor="exampleControlsFile1">Выбирите preview</label>
-                    <Form.File id="exampleControlsFile1" { ...register("preview", {required: 'Обязательное поле для заполнения'})}/>
+                    <Form.File id="exampleControlsFile1" onChange={(e:any)=>{
+                        uploadImage(e)
+                    }}/>
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
-                <Button variant="primary" onClick={props.onHide} type="submit">
+                <Button variant="primary" onClick={function(event){
+                    props.onHide(); setText(props.text)}} type="submit">
                     Submit
                 </Button>
             </Modal.Footer>

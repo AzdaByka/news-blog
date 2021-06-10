@@ -5,6 +5,10 @@ import {Articles} from "../entity/Articles";
 import AuthController from "./auth-controller";
 import { LinqRepository } from "typeorm-linq-repository";
 import {isNumber} from "class-validator";
+import {StatisticsArticles} from "../entity/StatisticsArticles";
+import {Categories} from "../entity/Categories";
+import {ChannelArticles} from "../entity/ChannelArticles";
+import {Channels} from "../entity/Channels";
 const auth = new AuthController()
 
 export default class ArticlesController{
@@ -23,7 +27,74 @@ export default class ArticlesController{
     }
 
     public async addArticle(req:Request, res:Response):Promise<Response>{
-        return res
+        // const id= Number(req.query.id)
+        // const title=String(req.query.title)
+        // const text= String(req.query.text)
+        // const shortDescription= String(req.query.shortDescription)
+        // const preview= String(req.query.preview)
+        // const rubrics = req.query.rubrics
+
+        const {id,title, text, shortDescription, preview, rubrics}=req.body
+
+        // const article:Articles={
+        //     title,
+        //     text,
+        //     shortDescription,
+        //     imgs:preview,
+        //     rubrics,
+        //
+        // }
+
+        console.log(rubrics)
+
+        const article= new Articles()
+        article.title=title
+        article.text=text
+        article.shortDescription=shortDescription
+        article.imgs=preview
+        article.createdAt= new Date()
+        article.updatedAt= new Date()
+        await getRepository(Articles).save(article)
+
+
+        const statistic= new StatisticsArticles()
+        statistic.ctr=0
+        statistic.shows=0
+        statistic.subscriptions=0
+        statistic.article=article
+        statistic.createdAt= new Date()
+        statistic.updatedAt= new Date()
+        await getRepository(StatisticsArticles).save(statistic)
+
+        if (Array.isArray(rubrics))
+        for (const rub of rubrics) {
+        const category= new Categories()
+        category.name=String(rub)
+        category.article=article
+        category.createdAt= new Date()
+        category.updatedAt= new Date()
+        await getRepository(Categories).save(category)
+        }
+
+        const channel= await getRepository(Channels).findOne(id)
+        console.log(channel)
+        const channelArticles= new ChannelArticles()
+        channelArticles.channel= channel
+        channelArticles.article=article
+        channelArticles.createdAt= new Date()
+        channelArticles.updatedAt= new Date()
+        await getRepository(ChannelArticles).save(channelArticles)
+
+
+        return res.status(201).json("Статья добавлена")
+    }
+
+    public async deleteArticle(req:Request, res:Response):Promise<Response>{
+
+
+
+        // const newUser = getRepository(Articles).create(article);
+        return res.status(201).json("Статья добавлена")
     }
 
     public async getArticleById(req:Request, res:Response):Promise<Response>{
@@ -39,7 +110,6 @@ export default class ArticlesController{
         //     .getOne()
         //     .where(m => m.id)
         //     .equal(id)
-        console.log(article)
         return res.json(article);
 
 

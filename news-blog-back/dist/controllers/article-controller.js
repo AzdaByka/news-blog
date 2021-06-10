@@ -42,6 +42,10 @@ exports.__esModule = true;
 var typeorm_1 = require("typeorm");
 var Articles_1 = require("../entity/Articles");
 var auth_controller_1 = __importDefault(require("./auth-controller"));
+var StatisticsArticles_1 = require("../entity/StatisticsArticles");
+var Categories_1 = require("../entity/Categories");
+var ChannelArticles_1 = require("../entity/ChannelArticles");
+var Channels_1 = require("../entity/Channels");
 var auth = new auth_controller_1["default"]();
 var ArticlesController = /** @class */ (function () {
     function ArticlesController() {
@@ -70,8 +74,79 @@ var ArticlesController = /** @class */ (function () {
     };
     ArticlesController.prototype.addArticle = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
+            var _a, id, title, text, shortDescription, preview, rubrics, article, statistic, _i, rubrics_1, rub, category, channel, channelArticles;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, id = _a.id, title = _a.title, text = _a.text, shortDescription = _a.shortDescription, preview = _a.preview, rubrics = _a.rubrics;
+                        // const article:Articles={
+                        //     title,
+                        //     text,
+                        //     shortDescription,
+                        //     imgs:preview,
+                        //     rubrics,
+                        //
+                        // }
+                        console.log(rubrics);
+                        article = new Articles_1.Articles();
+                        article.title = title;
+                        article.text = text;
+                        article.shortDescription = shortDescription;
+                        article.imgs = preview;
+                        article.createdAt = new Date();
+                        article.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).save(article)];
+                    case 1:
+                        _b.sent();
+                        statistic = new StatisticsArticles_1.StatisticsArticles();
+                        statistic.ctr = 0;
+                        statistic.shows = 0;
+                        statistic.subscriptions = 0;
+                        statistic.article = article;
+                        statistic.createdAt = new Date();
+                        statistic.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).save(statistic)];
+                    case 2:
+                        _b.sent();
+                        if (!Array.isArray(rubrics)) return [3 /*break*/, 6];
+                        _i = 0, rubrics_1 = rubrics;
+                        _b.label = 3;
+                    case 3:
+                        if (!(_i < rubrics_1.length)) return [3 /*break*/, 6];
+                        rub = rubrics_1[_i];
+                        category = new Categories_1.Categories();
+                        category.name = String(rub);
+                        category.article = article;
+                        category.createdAt = new Date();
+                        category.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).save(statistic)];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5:
+                        _i++;
+                        return [3 /*break*/, 3];
+                    case 6: return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne(id)];
+                    case 7:
+                        channel = _b.sent();
+                        channelArticles = new ChannelArticles_1.ChannelArticles();
+                        channelArticles.channel = channel;
+                        channelArticles.article = article;
+                        channelArticles.createdAt = new Date();
+                        channelArticles.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).save(channelArticles)];
+                    case 8:
+                        _b.sent();
+                        return [2 /*return*/, res.status(201).json("Статья добавлена")];
+                }
+            });
+        });
+    };
+    ArticlesController.prototype.deleteArticle = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, res];
+                // const newUser = getRepository(Articles).create(article);
+                return [2 /*return*/, res.status(201).json("Статья добавлена")];
             });
         });
     };
@@ -100,7 +175,6 @@ var ArticlesController = /** @class */ (function () {
                         //     .getOne()
                         //     .where(m => m.id)
                         //     .equal(id)
-                        console.log(article);
                         return [2 /*return*/, res.json(article)];
                 }
             });

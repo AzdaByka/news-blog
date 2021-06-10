@@ -16,7 +16,7 @@ export default class NewsItem extends Component<ArticleProps> {
                 <div className="ArticleTitle">
                     <h2>{article?.title}</h2>
                 </div>
-                <img src={"data:image/gif;base64," + article?.imgs} alt="Logo"/>
+                <img src={"" + article?.imgs} alt="Logo"/>
                 <div>{article?.shortDescription}</div>
 
             </div>

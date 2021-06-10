@@ -19,10 +19,10 @@ export class Articles {
   @Column("character varying", { name: "title", length: 255 })
   title: string;
 
-  @Column("character varying", { name: "text" })
+  @Column("character varying", { name: "shortDescription" })
   shortDescription: string;
 
-  @Column("character varying", { name: "text", length: 255 })
+  @Column("character varying", { name: "text"})
   text: string;
 
   @Column("character varying", { name: "imgs" })

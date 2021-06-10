@@ -84,7 +84,7 @@ var AuthController = /** @class */ (function () {
                         error_1 = _b.sent();
                         return [2 /*return*/, res.status(401).send('user dont exist')];
                     case 4:
-                        token = jwt.sign({ id: user.id, login: user.login }, process.env.JWT_SECRET, { expiresIn: "1h" });
+                        token = jwt.sign({ id: user.id, login: user.login }, process.env.JWT_SECRET, { expiresIn: "10h" });
                         response = {
                             'id': user.id,
                             'login': user.login,

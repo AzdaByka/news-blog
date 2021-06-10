@@ -108,8 +108,8 @@ if (articles)
                     <div className={"row"}>
                         <h3>{articles.title}</h3>
                     </div>
-                    <div className={"row"}>
-                        {articles.text}
+                    <div className={"row"} >
+                            <div dangerouslySetInnerHTML={{ __html: articles.text }}></div>
                     </div>
                 </div>
             </div>

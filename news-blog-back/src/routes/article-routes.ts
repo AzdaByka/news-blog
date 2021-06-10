@@ -10,6 +10,13 @@ router.get('/travel', controller.getArticle)
 router.get('/science', controller.getArticle)
 router.get('/corona', controller.getArticle)
 router.get('/car', controller.getArticle)
+
+
+
+router.post('/articleAdd', controller.addArticle)
+router.delete('/article', controller.addArticle)
+
+
 router.get('/articleById', controller.getArticleById)
 
 
