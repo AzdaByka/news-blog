@@ -2,7 +2,8 @@ export interface IArticle{
     id:number
     title:string
     shortDescription:string
-    preview:string
+    text:string
+    imgs:string
     createdAt:string
     updatedAt:string
 }

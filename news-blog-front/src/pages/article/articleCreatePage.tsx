@@ -10,8 +10,10 @@ import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
 import {Navbar} from "../../components/Navbar/Navbar";
-import {Button, Modal} from "react-bootstrap";
-
+import {Button, Form, FormControl, InputGroup, Modal} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {BASE} from "../../constants/routes";
+import Auth from "../../connection/auth";
 
 
 export interface IAppProps {
@@ -95,6 +97,33 @@ interface IProps{
 
 
 function MyVerticallyCenteredModal(props:IProps) {
+
+    const addNews= async ({title,rubrics,preview}:{title:string,rubrics:[],preview:string})=>{
+        const article={
+            title:title,
+            rubrics:rubrics,
+            preview:preview,
+        }
+        console.log(article)
+        // const response = await axios.post<IArticle[]>(
+        //     BASE+localStorage.getItem('path'),
+        //     article,
+        //     {
+        //         headers: {
+        //             authorization: "Bearer " + Auth.getUserJWT(),
+        //         },
+        //     }
+        //
+        //
+        // )
+        // const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
+        //         ids:'1'
+        //     }})
+    }
+    const [title, setTitle] = useState('')
+    const [rubrics, setRubrics] = useState([])
+    const [preview, setPreview] = useState('')
+    const {register, handleSubmit, formState: { errors }, setValue} = useForm();
     return (
         <Modal
             {...props}
@@ -104,20 +133,40 @@ function MyVerticallyCenteredModal(props:IProps) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
+                    Заполните дополнительную информацию про статью
                 </Modal.Title>
             </Modal.Header>
+            <Form onSubmit={handleSubmit(addNews)}>
             <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-                </p>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Заголовок статьи</Form.Label>
+                    <Form.Control type="text" placeholder=""  { ...register("title", {required: 'Обязательное поле для заполнения'})}/>
+                    <Form.Text className="text-muted"  >
+                        Не делайте слишком клик-бэйтные заголовки
+                    </Form.Text>
+                </Form.Group>
+                <Form.Group controlId="exampleForm.ControlSelect2">
+                    <Form.Label>Выберите рубрики</Form.Label>
+                    <Form.Control as="select" multiple { ...register("rubrics", {required: 'Обязательное поле для заполнения'})}>
+                        <option>Кино</option>
+                        <option>Путешествия</option>
+                        <option>Наука</option>
+                        <option>Коронавирус</option>
+                        <option>Авто</option>
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <label htmlFor="exampleControlsFile1">Выбирите preview</label>
+                    <Form.File id="exampleControlsFile1" { ...register("preview", {required: 'Обязательное поле для заполнения'})}/>
+                </Form.Group>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
+                <Button variant="primary" onClick={props.onHide} type="submit">
+                    Submit
+                </Button>
             </Modal.Footer>
+            </Form>
         </Modal>
     );
 }

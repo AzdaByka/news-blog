@@ -14,10 +14,10 @@ export default class NewsItem extends Component<ArticleProps> {
                 <div className="Article col-md-6" onClick={()=> this.handleClick(article)}>
 
                 <div className="ArticleTitle">
-                    <h2>{article.title}</h2>
+                    <h2>{article?.title}</h2>
                 </div>
-                <img src={"data:image/gif;base64," + article.preview} alt="Logo"/>
-                <div>{article.shortDescription}</div>
+                <img src={"data:image/gif;base64," + article?.imgs} alt="Logo"/>
+                <div>{article?.shortDescription}</div>
 
             </div>
 
@@ -26,6 +26,7 @@ export default class NewsItem extends Component<ArticleProps> {
     }
 
     handleClick(article: IArticle)  {
+        localStorage.setItem('id', String(article.id))
         history.push("/article/" + article.id, {article: article});
     }
 }

@@ -68,6 +68,44 @@ var ArticlesController = /** @class */ (function () {
             });
         });
     };
+    ArticlesController.prototype.addArticle = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, res];
+            });
+        });
+    };
+    ArticlesController.prototype.getArticleById = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, article;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = Number(req.query.id);
+                        // if (!id){
+                        //     id=req.body.id
+                        // }
+                        console.log(id);
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(id)
+                            // const articleLinqRepository: LinqRepository<Articles> = new LinqRepository(Articles);
+                            // const article = await articleLinqRepository
+                            //     .getOne()
+                            //     .where(m => m.id)
+                            //     .equal(id)
+                        ];
+                    case 1:
+                        article = _a.sent();
+                        // const articleLinqRepository: LinqRepository<Articles> = new LinqRepository(Articles);
+                        // const article = await articleLinqRepository
+                        //     .getOne()
+                        //     .where(m => m.id)
+                        //     .equal(id)
+                        console.log(article);
+                        return [2 /*return*/, res.json(article)];
+                }
+            });
+        });
+    };
     ArticlesController.prototype.getArticles = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var article;

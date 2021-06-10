@@ -4,6 +4,7 @@ import * as jwt from "jsonwebtoken";
 import {Articles} from "../entity/Articles";
 import AuthController from "./auth-controller";
 import { LinqRepository } from "typeorm-linq-repository";
+import {isNumber} from "class-validator";
 const auth = new AuthController()
 
 export default class ArticlesController{
@@ -19,6 +20,29 @@ export default class ArticlesController{
                 return res.json(article);
             }
         return res.status(403).json("Нет такого пользователя")
+    }
+
+    public async addArticle(req:Request, res:Response):Promise<Response>{
+        return res
+    }
+
+    public async getArticleById(req:Request, res:Response):Promise<Response>{
+         let id= Number(req.query.id)
+        // if (!id){
+        //     id=req.body.id
+        // }
+        console.log(id)
+        // let {id}= req.body
+        const article= await getRepository(Articles).findOne(id)
+        // const articleLinqRepository: LinqRepository<Articles> = new LinqRepository(Articles);
+        // const article = await articleLinqRepository
+        //     .getOne()
+        //     .where(m => m.id)
+        //     .equal(id)
+        console.log(article)
+        return res.json(article);
+
+
     }
 
     public async getArticles(req: Request, res: Response): Promise<Response>{

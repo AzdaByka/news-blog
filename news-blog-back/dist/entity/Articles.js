@@ -27,13 +27,17 @@ var Articles = /** @class */ (function () {
         __metadata("design:type", String)
     ], Articles.prototype, "title");
     __decorate([
-        typeorm_1.Column("character varying", { name: "text", length: 255 }),
+        typeorm_1.Column("character varying", { name: "text" }),
         __metadata("design:type", String)
     ], Articles.prototype, "shortDescription");
     __decorate([
+        typeorm_1.Column("character varying", { name: "text", length: 255 }),
+        __metadata("design:type", String)
+    ], Articles.prototype, "text");
+    __decorate([
         typeorm_1.Column("character varying", { name: "imgs" }),
         __metadata("design:type", String)
-    ], Articles.prototype, "preview");
+    ], Articles.prototype, "imgs");
     __decorate([
         typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
         __metadata("design:type", Date)
