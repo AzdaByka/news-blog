@@ -106,10 +106,10 @@ if (articles)
                 </div>
                 <div className={"col-md-9"}>
                     <div className={"row"}>
-                        <h3>{articles.title}</h3>
+                        <h3 className={"rowRed"}>{articles.title}</h3>
                     </div>
                     <div className={"row"} >
-                            <div dangerouslySetInnerHTML={{ __html: articles.text }}></div>
+                            <div className={"articleImgs"} dangerouslySetInnerHTML={{ __html: articles.text }}></div>
                     </div>
                 </div>
             </div>

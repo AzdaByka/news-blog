@@ -17,11 +17,11 @@ export const Rubrics: RubricRoute[] = [
         path: HOME,
         description: 'Лента',
     },
-    {
-        id: 2,
-        path: TOP,
-        description: 'TOP',
-    },
+    // {
+    //     id: 2,
+    //     path: TOP,
+    //     description: 'TOP',
+    // },
     {
         id: 3,
         path: MOVIE,

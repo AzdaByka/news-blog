@@ -87,7 +87,14 @@ var ArticlesController = /** @class */ (function () {
                         //     rubrics,
                         //
                         // }
+                        console.log(id);
+                        console.log(title);
+                        console.log(text);
+                        console.log(shortDescription);
+                        console.log(preview);
                         console.log(rubrics);
+                        if (isNaN(id))
+                            return [2 /*return*/, res.status(405).json('loh')];
                         article = new Articles_1.Articles();
                         article.title = title;
                         article.text = text;
@@ -102,7 +109,7 @@ var ArticlesController = /** @class */ (function () {
                         statistic.ctr = 0;
                         statistic.shows = 0;
                         statistic.subscriptions = 0;
-                        statistic.article = article;
+                        // statistic.article=article
                         statistic.createdAt = new Date();
                         statistic.updatedAt = new Date();
                         return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).save(statistic)];
@@ -119,7 +126,7 @@ var ArticlesController = /** @class */ (function () {
                         category.article = article;
                         category.createdAt = new Date();
                         category.updatedAt = new Date();
-                        return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).save(statistic)];
+                        return [4 /*yield*/, typeorm_1.getRepository(Categories_1.Categories).save(category)];
                     case 4:
                         _b.sent();
                         _b.label = 5;
@@ -129,6 +136,7 @@ var ArticlesController = /** @class */ (function () {
                     case 6: return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne(id)];
                     case 7:
                         channel = _b.sent();
+                        console.log(channel);
                         channelArticles = new ChannelArticles_1.ChannelArticles();
                         channelArticles.channel = channel;
                         channelArticles.article = article;

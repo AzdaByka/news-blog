@@ -1,23 +1,25 @@
 import {Router} from "express"
 import ArticlesController from "../controllers/article-controller";
+import RubricController from "../controllers/rubric-controller";
 
 const router = Router()
-const controller = new ArticlesController()
-router.get('/', controller.getArticle)
-router.get('/top', controller.getArticle)
-router.get('/movie', controller.getArticle)
-router.get('/travel', controller.getArticle)
-router.get('/science', controller.getArticle)
-router.get('/corona', controller.getArticle)
-router.get('/car', controller.getArticle)
+const articlesController = new ArticlesController()
+const rubricController=new RubricController()
+router.get('/', articlesController.getArticle)
+router.get('/top', rubricController.top)
+router.get('/movie', rubricController.movie)
+router.get('/travel', rubricController.travel)
+router.get('/science', rubricController.science)
+router.get('/corona', rubricController.corona)
+router.get('/car', rubricController.car)
 
 
 
-router.post('/articleAdd', controller.addArticle)
-router.delete('/article', controller.addArticle)
+router.post('/articleAdd', articlesController.addArticle)
+router.delete('/article', articlesController.addArticle)
 
 
-router.get('/articleById', controller.getArticleById)
+router.get('/articleById', articlesController.getArticleById)
 
 
 

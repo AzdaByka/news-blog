@@ -13,6 +13,7 @@ class Auth {
                 password: password,
             });
             cookie.set('user', JSON.stringify(response.data.token))
+            cookie.set('userId', JSON.stringify(response.data.id))
             console.log(response.data.token)
         }
 
@@ -36,6 +37,10 @@ class Auth {
 
     getUserJWT():string{
          return cookie.get('user');
+    }
+
+    getUserId():string{
+        return cookie.get('userId');
     }
 
     // public getUser() : IUser{

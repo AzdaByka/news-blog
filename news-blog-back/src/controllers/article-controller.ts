@@ -44,9 +44,14 @@ export default class ArticlesController{
         //     rubrics,
         //
         // }
-
+        console.log(id)
+        console.log(title)
+        console.log(text)
+        console.log(shortDescription)
+        console.log(preview)
         console.log(rubrics)
-
+        if (isNaN(id))
+            return res.status(405).json('loh')
         const article= new Articles()
         article.title=title
         article.text=text
@@ -61,20 +66,21 @@ export default class ArticlesController{
         statistic.ctr=0
         statistic.shows=0
         statistic.subscriptions=0
-        statistic.article=article
+       // statistic.article=article
         statistic.createdAt= new Date()
         statistic.updatedAt= new Date()
         await getRepository(StatisticsArticles).save(statistic)
 
+
         if (Array.isArray(rubrics))
-        for (const rub of rubrics) {
-        const category= new Categories()
-        category.name=String(rub)
-        category.article=article
-        category.createdAt= new Date()
-        category.updatedAt= new Date()
-        await getRepository(Categories).save(category)
-        }
+            for (const rub of rubrics) {
+                const category= new Categories()
+                category.name=String(rub)
+                category.article=article
+                category.createdAt= new Date()
+                category.updatedAt= new Date()
+                await getRepository(Categories).save(category)
+            }
 
         const channel= await getRepository(Channels).findOne(id)
         console.log(channel)
@@ -86,7 +92,7 @@ export default class ArticlesController{
         await getRepository(ChannelArticles).save(channelArticles)
 
 
-        return res.status(201).json("Статья добавлена")
+         return res.status(201).json("Статья добавлена")
     }
 
     public async deleteArticle(req:Request, res:Response):Promise<Response>{

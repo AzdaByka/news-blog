@@ -45,30 +45,28 @@ export class ArticleList extends Component<IAppProps>{
                 articles: response.data
             })
         } catch (e) {
-            alert(e)
+            //alert(e)
             console.log(localStorage.getItem('user')+" 1")
             console.log(e)
             this.setState({
                 isLoaded: true,
-                e
+                error:"В рубрике пока нет статей",
+
             });
         }
     }
     public render() {
         const localState: any = this.state;
         if (localState.error) {
-            return <div>Error: {localState.error!.message}</div>;
+            return <div className={"my-5"}>Error: {localState.error}</div>;
         } else if (!localState.isLoaded) {
-            return <div className="spinner-border" role="status">
-                <span className="visually-hidden">Загрузка...</span>
+            return <div className="spinner-border my-5" role="status">
+                <span className="visually-hidden ">Загрузка...</span>
             </div>;
         } else {
             return (
 
                 <div className="row py-4">
-                    {localState.articles.map((article: IArticle)=>
-                        <ArticleItem key={article.id} article={article}/>
-                    )}
                     {localState.articles.map((article: IArticle)=>
                         <ArticleItem key={article.id} article={article}/>
                     )}

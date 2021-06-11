@@ -1,0 +1,9 @@
+.articleImgs>p>img{
+    display: block;
+    max-width: 100%;
+}
+
+.articleImgs>img{
+    display: block;
+    max-width: 100%;
+}

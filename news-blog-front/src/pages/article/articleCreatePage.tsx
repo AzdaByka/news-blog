@@ -67,7 +67,7 @@ export class ArticleCreatePage extends Component{
 
                     <div className={"row"}>
                         <div className={"col-md-1"}>
-                        Стрелочка назад
+                        {/*Стрелочка назад*/}
                     </div>
                         <div className={"col-md-11"}>
 
@@ -101,25 +101,21 @@ interface IProps{
 function MyVerticallyCenteredModal(props:IProps) {
 
     const addNews= async ({title,rubrics,shortDescription}:{title:string,rubrics:[],shortDescription:string})=>{
-        const article={
-            text:text,
-            title:title,
-            rubrics:rubrics,
-            preview:preview,
-            shortDescription:shortDescription,
-        }
-        console.log(article)
-        // const response = await axios.post<IArticle[]>(
-        //     BASE+localStorage.getItem('path'),
-        //     article,
-        //     {
-        //         headers: {
-        //             authorization: "Bearer " + Auth.getUserJWT(),
-        //         },
-        //     }
-        //
-        //
-        // )
+       // console.log(article)
+        const response = await axios.post<IArticle[]>(
+            BASE+'/articleAdd',
+            {
+                id:Auth.getUserId(),
+                text:text,
+                title:title,
+                rubrics:rubrics,
+                preview:preview,
+                shortDescription:shortDescription,
+                headers: {
+                    authorization: "Bearer " + Auth.getUserJWT(),
+                },
+            }
+        )
         // const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
         //         ids:'1'
         //     }})

@@ -5,18 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = require("express");
 var article_controller_1 = __importDefault(require("../controllers/article-controller"));
+var rubric_controller_1 = __importDefault(require("../controllers/rubric-controller"));
 var router = express_1.Router();
-var controller = new article_controller_1["default"]();
-router.get('/', controller.getArticle);
-router.get('/top', controller.getArticle);
-router.get('/movie', controller.getArticle);
-router.get('/travel', controller.getArticle);
-router.get('/science', controller.getArticle);
-router.get('/corona', controller.getArticle);
-router.get('/car', controller.getArticle);
-router.post('/articleAdd', controller.addArticle);
-router["delete"]('/article', controller.addArticle);
-router.get('/articleById', controller.getArticleById);
+var articlesController = new article_controller_1["default"]();
+var rubricController = new rubric_controller_1["default"]();
+router.get('/', articlesController.getArticle);
+router.get('/top', rubricController.top);
+router.get('/movie', rubricController.movie);
+router.get('/travel', rubricController.travel);
+router.get('/science', rubricController.science);
+router.get('/corona', rubricController.corona);
+router.get('/car', rubricController.car);
+router.post('/articleAdd', articlesController.addArticle);
+router["delete"]('/article', articlesController.addArticle);
+router.get('/articleById', articlesController.getArticleById);
 //router.post('/users', controller.createUser)
 // router.get('/users/:id', )
 // router.put('/users', )
