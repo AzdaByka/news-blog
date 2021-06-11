@@ -7,6 +7,7 @@ import history from '../../constants/history';
 import './articleItemPage.css';
 import {BASE} from "../../constants/routes";
 import Auth from "../../connection/auth";
+import {Navbar} from "../../components/Navbar/Navbar";
 
 // export interface IAppProps {
 //     error?: any;
@@ -99,6 +100,8 @@ const ArticleItemPage: React.FC=({})=> {
 
 if (articles)
     return (
+        <>
+            <Navbar history={history}/>
         <div className={'container'}>
             <div className={"row"}>
                 <div className={"col-md-3"}>
@@ -116,6 +119,7 @@ if (articles)
 
 
         </div>
+        </>
     );
 else return <div></div>
 }

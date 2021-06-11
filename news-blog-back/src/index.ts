@@ -6,7 +6,7 @@ import log4js from 'log4js'
 import cors from 'cors'
 import morgan from 'morgan'
 import BaseRouter from './routes/index';
-
+import errorHandler from "errorhandler";
 
 createConnection();
 dotenv.config();
@@ -19,11 +19,10 @@ const port = process.env.PORT;
 
 
 
-
 /** Parse the body of the request */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(errorHandler());
 app.use(cors());
 app.use(morgan('dev'));
 app.use('/api', BaseRouter)

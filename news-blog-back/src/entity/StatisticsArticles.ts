@@ -23,6 +23,13 @@ export class StatisticsArticles {
   @Column("integer", { name: "subscriptions" })
   subscriptions: number;
 
+  @Column("integer", { name: "like" })
+  like: number;
+
+  @Column("integer", { name: "dislike" })
+  dislike: number;
+
+
   @Column("timestamp with time zone", { name: "createdAt" })
   createdAt: Date;
 

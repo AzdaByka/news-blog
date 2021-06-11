@@ -79,22 +79,6 @@ var ArticlesController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, id = _a.id, title = _a.title, text = _a.text, shortDescription = _a.shortDescription, preview = _a.preview, rubrics = _a.rubrics;
-                        // const article:Articles={
-                        //     title,
-                        //     text,
-                        //     shortDescription,
-                        //     imgs:preview,
-                        //     rubrics,
-                        //
-                        // }
-                        console.log(id);
-                        console.log(title);
-                        console.log(text);
-                        console.log(shortDescription);
-                        console.log(preview);
-                        console.log(rubrics);
-                        if (isNaN(id))
-                            return [2 /*return*/, res.status(405).json('loh')];
                         article = new Articles_1.Articles();
                         article.title = title;
                         article.text = text;
@@ -109,7 +93,7 @@ var ArticlesController = /** @class */ (function () {
                         statistic.ctr = 0;
                         statistic.shows = 0;
                         statistic.subscriptions = 0;
-                        // statistic.article=article
+                        statistic.article = article;
                         statistic.createdAt = new Date();
                         statistic.updatedAt = new Date();
                         return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).save(statistic)];
@@ -136,7 +120,6 @@ var ArticlesController = /** @class */ (function () {
                     case 6: return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne(id)];
                     case 7:
                         channel = _b.sent();
-                        console.log(channel);
                         channelArticles = new ChannelArticles_1.ChannelArticles();
                         channelArticles.channel = channel;
                         channelArticles.article = article;
@@ -154,7 +137,32 @@ var ArticlesController = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 // const newUser = getRepository(Articles).create(article);
-                return [2 /*return*/, res.status(201).json("Статья добавлена")];
+                return [2 /*return*/, Promise.reject(new Error("loh "))];
+            });
+        });
+    };
+    ArticlesController.prototype.getEditor = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, channelArticles, result, _i, channelArticles_1, channelArticle;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.body.id;
+                        return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).find({ relations: ["article"] })];
+                    case 1:
+                        channelArticles = _a.sent();
+                        console.log(id);
+                        result = [];
+                        for (_i = 0, channelArticles_1 = channelArticles; _i < channelArticles_1.length; _i++) {
+                            channelArticle = channelArticles_1[_i];
+                            if (channelArticle.channelId == 2) {
+                                result.push(channelArticle.article);
+                            }
+                        }
+                        if (result.length == 0)
+                            return [2 /*return*/, res.status(404).send('У вас нет статей')];
+                        return [2 /*return*/, res.status(200).json(result)];
+                }
             });
         });
     };

@@ -33,24 +33,27 @@ export class ArticleList extends Component<IAppProps>{
             const response = await axios.get<IArticle[]>(
                 BASE+localStorage.getItem('path'),
                 {
+                    params:{
+                        "id":Auth.getUserId(),
+                    },
                     headers:{
                         authorization:"Bearer "+Auth.getUserJWT(),
                     },
                 }
                 )
-            console.log(localStorage.getItem('user')+" 1")
-            console.log(response.data[0].title)
+            console.log(response.data)
+
             this.setState({
                 isLoaded: true,
                 articles: response.data
             })
         } catch (e) {
             //alert(e)
-            console.log(localStorage.getItem('user')+" 1")
-            console.log(e)
+            console.log(e.response)
             this.setState({
                 isLoaded: true,
-                error:"В рубрике пока нет статей",
+                error:e.response.data,
+
 
             });
         }

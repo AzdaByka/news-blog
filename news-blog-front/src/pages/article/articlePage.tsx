@@ -88,7 +88,8 @@ export class ArticlePage extends Component{
             return <div>Error: {localState.error!.message}</div>;
         }  else {
             return (
-
+                <>
+                    <Navbar history={history}/>
 
                     <div className={"container"}>
 
@@ -116,7 +117,7 @@ export class ArticlePage extends Component{
                     </div>
                     </div>
 
-
+                </>
             );
         }
     }

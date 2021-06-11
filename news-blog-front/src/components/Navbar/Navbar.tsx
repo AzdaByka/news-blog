@@ -37,6 +37,7 @@ export class Navbar extends Component<IProps, IState> {
 
         rubricChange(rub:string){
         localStorage.setItem("rubrics",rub)
+            localStorage.setItem("path","/")
         }
 
     render(){

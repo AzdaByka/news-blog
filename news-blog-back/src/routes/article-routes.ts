@@ -5,6 +5,8 @@ import RubricController from "../controllers/rubric-controller";
 const router = Router()
 const articlesController = new ArticlesController()
 const rubricController=new RubricController()
+
+
 router.get('/', articlesController.getArticle)
 router.get('/top', rubricController.top)
 router.get('/movie', rubricController.movie)
@@ -13,6 +15,8 @@ router.get('/science', rubricController.science)
 router.get('/corona', rubricController.corona)
 router.get('/car', rubricController.car)
 
+
+router.get('/editor',articlesController.getEditor)
 
 
 router.post('/articleAdd', articlesController.addArticle)

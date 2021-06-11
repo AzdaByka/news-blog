@@ -32,7 +32,7 @@ class AppComponent extends Component {
                 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet"/>
                 <div>
 
-                    <Navbar history={history}/>
+
                     <Switch>
                         {
                             AppRoutes.map((route: AppRoute) => (

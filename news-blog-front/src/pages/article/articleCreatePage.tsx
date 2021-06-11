@@ -12,7 +12,7 @@ import history from '../../constants/history'
 import {Navbar} from "../../components/Navbar/Navbar";
 import {Button, Form, FormControl, InputGroup, Modal} from "react-bootstrap";
 import {useForm} from "react-hook-form";
-import {BASE} from "../../constants/routes";
+import {BASE, HOME} from "../../constants/routes";
 import Auth from "../../connection/auth";
 
 
@@ -54,6 +54,8 @@ export class ArticleCreatePage extends Component{
             return <div>Error: {localState.error!.message}</div>;
         }  else {
             return (
+                <>
+                <Navbar history={history}/>
                 <div className={"container-fluid "}>
 
                     <button type="button" className="btn btn-primary btnPublish" onClick={() => this.setModalShow(true)}>Опубликовать</button>
@@ -67,7 +69,7 @@ export class ArticleCreatePage extends Component{
 
                     <div className={"row"}>
                         <div className={"col-md-1"}>
-                        {/*Стрелочка назад*/}
+                        Стрелочка назад
                     </div>
                         <div className={"col-md-11"}>
 
@@ -81,7 +83,7 @@ export class ArticleCreatePage extends Component{
                     </div>
                 </div>
                 </div>
-
+                </>
 
             );
         }
@@ -116,6 +118,8 @@ function MyVerticallyCenteredModal(props:IProps) {
                 },
             }
         )
+        history.replace(HOME);
+        window.location.reload();
         // const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
         //         ids:'1'
         //     }})

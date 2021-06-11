@@ -1,4 +1,4 @@
-import {HOME, EDITOR, ARTICLE, SIGN_IN, SIGN_OUT, ME} from '../constants/routes';
+import {HOME, EDITOR, ARTICLE, SIGN_IN, SIGN_OUT, ME, SIGN_UP} from '../constants/routes';
 
 export interface Route {
     id: number;
@@ -25,5 +25,10 @@ export const NonAuthRoutes: Route[] = [
         id: 3,
         path: SIGN_IN,
         description: 'Sign In'
+    },
+    {
+        id: 4,
+        path: SIGN_UP,
+        description: 'Sign Up'
     }
 ];

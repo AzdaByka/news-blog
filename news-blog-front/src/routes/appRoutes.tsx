@@ -68,6 +68,11 @@ export const AppRoutes: AppRoute[] = [
         exact: true
     },
     {
+        path: SIGN_UP,
+        component: SignIn,
+        exact: true
+    },
+    {
         path: ME,
         component: AccountPage,
         exact: true

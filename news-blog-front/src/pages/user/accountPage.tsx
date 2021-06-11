@@ -66,6 +66,8 @@ export class AccountPage extends Component<IAppProps>{
             return <div>Error: {localState.error!.message}</div>;
         }  else {
             return (
+                <>
+                <Navbar history={history}/>
                 <div className="container">
 
                     <div className="row">
@@ -81,6 +83,7 @@ export class AccountPage extends Component<IAppProps>{
                     </div>
 
                 </div>
+                    </>
             );
         }
     }

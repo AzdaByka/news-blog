@@ -11,6 +11,10 @@ import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
 import {ARTICLE_CREATE, HOME} from "../../constants/routes";
+import {Navbar} from "../../components/Navbar/Navbar";
+
+
+
 
 export interface IAppProps {
     error: any;
@@ -36,8 +40,10 @@ export class EditorChannelPage extends Component{
         if (localState.error) {
             return <div>Error: {localState.error!.message}</div>;
         }  else {
+            localStorage.setItem('path','/editor')
             return (
-
+                <>
+                <Navbar history={history}/>
 
                 <div className={"container"}>
                     <div className="row">
@@ -86,7 +92,7 @@ export class EditorChannelPage extends Component{
 
                 </div>
 
-
+</>
             );
         }
     }

@@ -16,6 +16,7 @@ router.get('/travel', rubricController.travel);
 router.get('/science', rubricController.science);
 router.get('/corona', rubricController.corona);
 router.get('/car', rubricController.car);
+router.get('/editor', articlesController.getEditor);
 router.post('/articleAdd', articlesController.addArticle);
 router["delete"]('/article', articlesController.addArticle);
 router.get('/articleById', articlesController.getArticleById);

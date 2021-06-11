@@ -9,6 +9,7 @@ import {StatisticsArticles} from "../entity/StatisticsArticles";
 import {Categories} from "../entity/Categories";
 import {ChannelArticles} from "../entity/ChannelArticles";
 import {Channels} from "../entity/Channels";
+import {Users} from "../entity/Users";
 const auth = new AuthController()
 
 export default class ArticlesController{
@@ -27,31 +28,10 @@ export default class ArticlesController{
     }
 
     public async addArticle(req:Request, res:Response):Promise<Response>{
-        // const id= Number(req.query.id)
-        // const title=String(req.query.title)
-        // const text= String(req.query.text)
-        // const shortDescription= String(req.query.shortDescription)
-        // const preview= String(req.query.preview)
-        // const rubrics = req.query.rubrics
+
 
         const {id,title, text, shortDescription, preview, rubrics}=req.body
 
-        // const article:Articles={
-        //     title,
-        //     text,
-        //     shortDescription,
-        //     imgs:preview,
-        //     rubrics,
-        //
-        // }
-        console.log(id)
-        console.log(title)
-        console.log(text)
-        console.log(shortDescription)
-        console.log(preview)
-        console.log(rubrics)
-        if (isNaN(id))
-            return res.status(405).json('loh')
         const article= new Articles()
         article.title=title
         article.text=text
@@ -65,8 +45,10 @@ export default class ArticlesController{
         const statistic= new StatisticsArticles()
         statistic.ctr=0
         statistic.shows=0
+        statistic.like=0
+        statistic.dislike=0
         statistic.subscriptions=0
-       // statistic.article=article
+        statistic.article=article
         statistic.createdAt= new Date()
         statistic.updatedAt= new Date()
         await getRepository(StatisticsArticles).save(statistic)
@@ -83,7 +65,6 @@ export default class ArticlesController{
             }
 
         const channel= await getRepository(Channels).findOne(id)
-        console.log(channel)
         const channelArticles= new ChannelArticles()
         channelArticles.channel= channel
         channelArticles.article=article
@@ -100,7 +81,22 @@ export default class ArticlesController{
 
 
         // const newUser = getRepository(Articles).create(article);
-        return res.status(201).json("Статья добавлена")
+        return Promise.reject(new Error("loh "))
+    }
+
+    public async getEditor(req:Request, res:Response):Promise<Response>{
+        const {id}=req.body
+        const channelArticles = await getRepository(ChannelArticles).find({relations:["article"]});
+        console.log(id)
+        const result:any[]=[]
+        for (const channelArticle of channelArticles) {
+            if (channelArticle.channelId==2){
+                result.push(channelArticle.article)
+            }
+        }
+       if (result.length==0)
+              return res.status(404).send('У вас нет статей')
+        return res.status(200).json(result)
     }
 
     public async getArticleById(req:Request, res:Response):Promise<Response>{
@@ -132,3 +128,5 @@ export default class ArticlesController{
         return res.json(article);
     }
 }
+
+
