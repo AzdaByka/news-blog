@@ -46,11 +46,11 @@ var Users = /** @class */ (function () {
         __metadata("design:type", String)
     ], Users.prototype, "patronymic");
     __decorate([
-        typeorm_1.Column("integer", { name: "tel" }),
-        __metadata("design:type", Number)
+        typeorm_1.Column("character varying", { name: "tel" }),
+        __metadata("design:type", String)
     ], Users.prototype, "tel");
     __decorate([
-        typeorm_1.Column("character varying", { name: "img_avatar", length: 255 }),
+        typeorm_1.Column("character varying", { name: "img_avatar" }),
         __metadata("design:type", String)
     ], Users.prototype, "imgAvatar");
     __decorate([

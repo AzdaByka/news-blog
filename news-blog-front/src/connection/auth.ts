@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie"
 import axios from "axios";
 import {IUser} from "../types/user"
-import {BASE, SIGN_IN} from "../constants/routes"
+import {BASE, SIGN_IN, SIGN_UP} from "../constants/routes"
 const cookie = new Cookies()
 
 class Auth {
@@ -27,7 +27,30 @@ class Auth {
         cookie.set('user', '')
     }
 
-    register(username : string, email : string, password : string) {
+    async register(login : string, email : string, password : string,avatar:string,
+             tel:string, name:string,surname:string,patronymic:string) {
+        try {
+            const response = await axios.post(BASE + SIGN_UP, {
+                login: login,
+                email:email,
+                password: password,
+                name:name,
+                surname:surname,
+                patronymic:patronymic,
+                tel:tel,
+                img_avatar:avatar
+
+            });
+            await this.login(login, password)
+            // cookie.set('user', JSON.stringify(response.data.token))
+            // cookie.set('userId', JSON.stringify(response.data.id))
+            // console.log(response.data.token)
+        }
+
+        catch (error) {
+            return error;
+
+        }
 
     }
 

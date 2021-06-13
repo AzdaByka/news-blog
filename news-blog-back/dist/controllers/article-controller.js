@@ -69,9 +69,9 @@ var ArticlesController = /** @class */ (function () {
     };
     ArticlesController.prototype.addArticle = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, id, title, text, shortDescription, preview, rubrics, article, statistic, _i, rubrics_1, rub, category, channel, channelArticles;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, id, title, text, shortDescription, preview, rubrics, article, statistic, _i, rubrics_1, rub, category, channels, channel, _b, channels_1, channelItem, channelArticles;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         _a = req.body, id = _a.id, title = _a.title, text = _a.text, shortDescription = _a.shortDescription, preview = _a.preview, rubrics = _a.rubrics;
                         article = new Articles_1.Articles();
@@ -83,7 +83,7 @@ var ArticlesController = /** @class */ (function () {
                         article.updatedAt = new Date();
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).save(article)];
                     case 1:
-                        _b.sent();
+                        _c.sent();
                         statistic = new StatisticsArticles_1.StatisticsArticles();
                         statistic.ctr = 0;
                         statistic.shows = 0;
@@ -95,10 +95,10 @@ var ArticlesController = /** @class */ (function () {
                         statistic.updatedAt = new Date();
                         return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).save(statistic)];
                     case 2:
-                        _b.sent();
+                        _c.sent();
                         if (!Array.isArray(rubrics)) return [3 /*break*/, 6];
                         _i = 0, rubrics_1 = rubrics;
-                        _b.label = 3;
+                        _c.label = 3;
                     case 3:
                         if (!(_i < rubrics_1.length)) return [3 /*break*/, 6];
                         rub = rubrics_1[_i];
@@ -109,14 +109,22 @@ var ArticlesController = /** @class */ (function () {
                         category.updatedAt = new Date();
                         return [4 /*yield*/, typeorm_1.getRepository(Categories_1.Categories).save(category)];
                     case 4:
-                        _b.sent();
-                        _b.label = 5;
+                        _c.sent();
+                        _c.label = 5;
                     case 5:
                         _i++;
                         return [3 /*break*/, 3];
-                    case 6: return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne(id)];
+                    case 6: return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).find({ relations: ["user"] })];
                     case 7:
-                        channel = _b.sent();
+                        channels = _c.sent();
+                        channel = null;
+                        for (_b = 0, channels_1 = channels; _b < channels_1.length; _b++) {
+                            channelItem = channels_1[_b];
+                            if (channelItem.user.id == id) {
+                                channel = channelItem;
+                                break;
+                            }
+                        }
                         channelArticles = new ChannelArticles_1.ChannelArticles();
                         channelArticles.channel = channel;
                         channelArticles.article = article;
@@ -124,7 +132,7 @@ var ArticlesController = /** @class */ (function () {
                         channelArticles.updatedAt = new Date();
                         return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).save(channelArticles)];
                     case 8:
-                        _b.sent();
+                        _c.sent();
                         return [2 /*return*/, res.status(201).json("Статья добавлена")];
                 }
             });
@@ -140,19 +148,32 @@ var ArticlesController = /** @class */ (function () {
     };
     ArticlesController.prototype.getEditor = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, channelArticles, result, _i, channelArticles_1, channelArticle;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var id, channels, channel, _i, channels_2, channelItem, channelArticles, result, _a, channelArticles_1, channelArticle;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        id = req.body.id;
-                        return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).find({ relations: ["article"] })];
+                        id = Number(req.query.id);
+                        return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).find({ relations: ["user"] })];
                     case 1:
-                        channelArticles = _a.sent();
+                        channels = _b.sent();
+                        console.log(channels);
+                        channel = null;
+                        for (_i = 0, channels_2 = channels; _i < channels_2.length; _i++) {
+                            channelItem = channels_2[_i];
+                            if (channelItem.user !== null)
+                                if (channelItem.user.id == id) {
+                                    channel = channelItem;
+                                    break;
+                                }
+                        }
+                        return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).find({ relations: ["article"] })];
+                    case 2:
+                        channelArticles = _b.sent();
                         console.log(id);
                         result = [];
-                        for (_i = 0, channelArticles_1 = channelArticles; _i < channelArticles_1.length; _i++) {
-                            channelArticle = channelArticles_1[_i];
-                            if (channelArticle.channelId == 2) {
+                        for (_a = 0, channelArticles_1 = channelArticles; _a < channelArticles_1.length; _a++) {
+                            channelArticle = channelArticles_1[_a];
+                            if (channelArticle.channelId == channel.id) {
                                 result.push(channelArticle.article);
                             }
                         }

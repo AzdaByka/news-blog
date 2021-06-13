@@ -3,6 +3,8 @@ import * as jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 import { Users } from "../entity/Users";
 import { LinqRepository } from "typeorm-linq-repository";
+import bcrypt from 'bcrypt';
+
 
 class AuthController {
     public async login(req: Request, res: Response): Promise<Response>
@@ -32,6 +34,14 @@ class AuthController {
             'token':token,
         }
         return res.status(200).json(response);
+    }
+
+    private comparePassword = function(plainPass, hashword, callback) {
+        bcrypt.compare(plainPass, hashword, function (err, isPasswordMatch) {
+            return err == null ?
+                callback(null, isPasswordMatch) :
+                callback(err);
+        });
     }
 
     public async isAuth(token):Promise<boolean>{

@@ -29,7 +29,7 @@ export class ArticleList extends Component<IAppProps>{
 
     async componentDidMount() {
         try {
-
+                console.log(Auth.getUserId())
             const response = await axios.get<IArticle[]>(
                 BASE+localStorage.getItem('path'),
                 {

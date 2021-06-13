@@ -33,10 +33,10 @@ export class Users {
   @Column("character varying", { name: "patronymic", length: 255 })
   patronymic: string;
 
-  @Column("integer", { name: "tel" })
-  tel: number;
+  @Column("character varying", { name: "tel" })
+  tel: string;
 
-  @Column("character varying", { name: "img_avatar", length: 255 })
+  @Column("character varying", { name: "img_avatar" })
   imgAvatar: string;
 
   @Column("timestamp with time zone", { name: "createdAt" })

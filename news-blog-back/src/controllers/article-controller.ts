@@ -67,7 +67,15 @@ export default class ArticlesController{
                 await getRepository(Categories).save(category)
             }
 
-        const channel= await getRepository(Channels).findOne(id)
+        const channels= await getRepository(Channels).find({relations:["user"]})
+        let channel:Channels=null
+        for (const channelItem of channels)
+            if (channelItem.user.id == id)
+            {
+                channel  =  channelItem
+                break
+            }
+
         const channelArticles= new ChannelArticles()
         channelArticles.channel= channel
         channelArticles.article=article
@@ -88,12 +96,24 @@ export default class ArticlesController{
     }
 
     public async getEditor(req:Request, res:Response):Promise<Response>{
-        const {id}=req.body
+       // const {id}=req.body
+        if ()
+        const id=Number( req.query.id)
+        const channels= await getRepository(Channels).find({relations:["user"]})
+        console.log(channels)
+        let channel:Channels=null
+        for (const channelItem of channels)
+            if (channelItem.user!==null)
+                if (channelItem.user.id == id)
+                {
+                    channel  =  channelItem
+                    break
+                }
         const channelArticles = await getRepository(ChannelArticles).find({relations:["article"]});
         console.log(id)
         const result:any[]=[]
         for (const channelArticle of channelArticles) {
-            if (channelArticle.channelId==2){
+            if (channelArticle.channelId==channel.id){
                 result.push(channelArticle.article)
             }
         }

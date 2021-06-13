@@ -57,8 +57,11 @@ export class SignUpForm extends React.Component<
 
 
     async HandleFormSubmit(event: any){
+        const localState:any=this.state
         event.preventDefault();
-        await Auth.login(this.state.login, this.state.password1);
+        await Auth.register(localState.login,localState.email, localState.password1,localState.avatar,
+            localState.tel, localState.name,localState.surname,localState.patronymic);
+        localStorage.setItem('rubrics','Ваша лента')
         this.props.history.replace(HOME);
         window.location.reload();
     }

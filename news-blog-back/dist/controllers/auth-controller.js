@@ -54,13 +54,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var jwt = __importStar(require("jsonwebtoken"));
 var typeorm_1 = require("typeorm");
 var Users_1 = require("../entity/Users");
 var typeorm_linq_repository_1 = require("typeorm-linq-repository");
+var bcrypt_1 = __importDefault(require("bcrypt"));
 var AuthController = /** @class */ (function () {
     function AuthController() {
+        this.comparePassword = function (plainPass, hashword, callback) {
+            bcrypt_1["default"].compare(plainPass, hashword, function (err, isPasswordMatch) {
+                return err == null ?
+                    callback(null, isPasswordMatch) :
+                    callback(err);
+            });
+        };
     }
     AuthController.prototype.login = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {

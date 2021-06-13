@@ -12,7 +12,7 @@ import history from '../../constants/history'
 import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 import {Button, Form, FormControl, InputGroup, Modal} from "react-bootstrap";
 import {useForm} from "react-hook-form";
-import {BASE, HOME} from "../../constants/routes";
+import {BASE, EDITOR, HOME} from "../../constants/routes";
 import Auth from "../../connection/auth";
 
 
@@ -118,7 +118,7 @@ function MyVerticallyCenteredModal(props:IProps) {
                 },
             }
         )
-        history.replace(HOME);
+        history.replace(EDITOR);
         window.location.reload();
         // const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
         //         ids:'1'
