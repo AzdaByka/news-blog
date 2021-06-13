@@ -86,7 +86,7 @@ export class EditorChannelPage extends Component{
                                     Создать
                                 </Link>
                             </div>
-                            <ArticleList/>
+                            <ArticleList editor={true}/>
                         </div>
                     </div>
 

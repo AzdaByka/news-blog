@@ -61,6 +61,7 @@ export class SignUpForm extends React.Component<
         event.preventDefault();
         await Auth.register(localState.login,localState.email, localState.password1,localState.avatar,
             localState.tel, localState.name,localState.surname,localState.patronymic);
+        localStorage.setItem('path','/')
         localStorage.setItem('rubrics','Ваша лента')
         this.props.history.replace(HOME);
         window.location.reload();

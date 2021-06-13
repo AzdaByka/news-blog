@@ -12,6 +12,7 @@ export interface IAppProps {
     error?: any;
     isLoaded?: false;
     articles?: [];
+    editor?:boolean;
 }
 
 
@@ -24,6 +25,7 @@ export class ArticleList extends Component<IAppProps>{
             error: '',
             isLoaded: false,
             articles: [],
+            editor: this.props?.editor||false,
         };
     }
 
@@ -71,7 +73,7 @@ export class ArticleList extends Component<IAppProps>{
 
                 <div className="row py-4">
                     {localState.articles.map((article: IArticle)=>
-                        <ArticleItem key={article.id} article={article}/>
+                        <ArticleItem key={article.id} article={article} editor={localState?.editor}/>
                     )}
 
                 </div>

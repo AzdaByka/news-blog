@@ -2,3 +2,8 @@
     position: absolute;
     right: 260px;
 }
+
+.preview{
+    max-width: 10%;
+    max-height: 10%;
+}

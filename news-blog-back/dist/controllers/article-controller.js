@@ -138,6 +138,67 @@ var ArticlesController = /** @class */ (function () {
             });
         });
     };
+    ArticlesController.prototype.putArticle = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, id, title, text, shortDescription, preview, rubrics, article, articlesCategories, _i, articlesCategories_1, articleItem, _b, rubrics_2, rub, category;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = req.body, id = _a.id, title = _a.title, text = _a.text, shortDescription = _a.shortDescription, preview = _a.preview, rubrics = _a.rubrics;
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(id)
+                            // const article= new Articles()
+                        ];
+                    case 1:
+                        article = _c.sent();
+                        // const article= new Articles()
+                        article.title = title;
+                        article.text = text;
+                        article.shortDescription = shortDescription;
+                        article.imgs = preview;
+                        article.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).save(article)];
+                    case 2:
+                        _c.sent();
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find({ relations: ["categories"] })];
+                    case 3:
+                        articlesCategories = _c.sent();
+                        _i = 0, articlesCategories_1 = articlesCategories;
+                        _c.label = 4;
+                    case 4:
+                        if (!(_i < articlesCategories_1.length)) return [3 /*break*/, 7];
+                        articleItem = articlesCategories_1[_i];
+                        if (!(articleItem.id == id)) return [3 /*break*/, 6];
+                        return [4 /*yield*/, typeorm_1.getRepository(Categories_1.Categories).remove(articleItem.categories)];
+                    case 5:
+                        _c.sent();
+                        _c.label = 6;
+                    case 6:
+                        _i++;
+                        return [3 /*break*/, 4];
+                    case 7:
+                        if (!Array.isArray(rubrics)) return [3 /*break*/, 11];
+                        _b = 0, rubrics_2 = rubrics;
+                        _c.label = 8;
+                    case 8:
+                        if (!(_b < rubrics_2.length)) return [3 /*break*/, 11];
+                        rub = rubrics_2[_b];
+                        category = new Categories_1.Categories();
+                        category.name = String(rub);
+                        category.article = article;
+                        category.createdAt = new Date();
+                        category.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(Categories_1.Categories).save(category)];
+                    case 9:
+                        _c.sent();
+                        _c.label = 10;
+                    case 10:
+                        _b++;
+                        return [3 /*break*/, 8];
+                    case 11: return [2 /*return*/, res.status(200).json("Статья обнавлена")];
+                }
+            });
+        });
+    };
     ArticlesController.prototype.deleteArticle = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -191,11 +252,11 @@ var ArticlesController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         id = Number(req.query.id);
-                        // if (!id){
-                        //     id=req.body.id
-                        // }
+                        if (!id) {
+                            id = req.body.id;
+                        }
                         console.log(id);
-                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(id)
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(id, { relations: ['categories'] })
                             // const articleLinqRepository: LinqRepository<Articles> = new LinqRepository(Articles);
                             // const article = await articleLinqRepository
                             //     .getOne()

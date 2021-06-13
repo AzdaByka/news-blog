@@ -4,6 +4,7 @@ export interface IArticle{
     shortDescription:string
     text:string
     imgs:string
+    categories:[]
     createdAt:string
     updatedAt:string
 }

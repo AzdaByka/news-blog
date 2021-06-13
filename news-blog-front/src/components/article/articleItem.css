@@ -12,6 +12,11 @@
     width: 100%;
 }
 
-img {
+.imgPreview {
     width: inherit;
 }
+
+/*.Icons{*/
+/*    position: relative;*/
+/*    z-index: auto;*/
+/*}*/

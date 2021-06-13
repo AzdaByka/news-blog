@@ -87,6 +87,43 @@ export default class ArticlesController{
          return res.status(201).json("Статья добавлена")
     }
 
+
+    public async putArticle(req:Request, res:Response):Promise<Response>{
+
+        const {id,title, text, shortDescription, preview, rubrics}=req.body
+        const article= await getRepository(Articles).findOne(id)
+        // const article= new Articles()
+        article.title=title
+        article.text=text
+        article.shortDescription=shortDescription
+        article.imgs=preview
+        article.updatedAt= new Date()
+        await getRepository(Articles).save(article)
+
+        const articlesCategories= await getRepository(Articles).find({relations:["categories"]})
+
+        for (const articleItem of articlesCategories) {
+            if (articleItem.id==id)
+                await getRepository(Categories).remove(articleItem.categories)
+        }
+
+
+
+        if (Array.isArray(rubrics))
+            for (const rub of rubrics) {
+                const category= new Categories()
+                category.name=String(rub)
+                category.article=article
+                category.createdAt= new Date()
+                category.updatedAt= new Date()
+                await getRepository(Categories).save(category)
+            }
+
+
+
+        return res.status(200).json("Статья обнавлена")
+    }
+
     public async deleteArticle(req:Request, res:Response):Promise<Response>{
 
 
@@ -97,7 +134,7 @@ export default class ArticlesController{
 
     public async getEditor(req:Request, res:Response):Promise<Response>{
        // const {id}=req.body
-        if ()
+
         const id=Number( req.query.id)
         const channels= await getRepository(Channels).find({relations:["user"]})
         console.log(channels)
@@ -124,12 +161,12 @@ export default class ArticlesController{
 
     public async getArticleById(req:Request, res:Response):Promise<Response>{
          let id= Number(req.query.id)
-        // if (!id){
-        //     id=req.body.id
-        // }
+        if (!id){
+            id=req.body.id
+        }
         console.log(id)
         // let {id}= req.body
-        const article= await getRepository(Articles).findOne(id)
+        const article= await getRepository(Articles).findOne(id,{relations:['categories']})
         // const articleLinqRepository: LinqRepository<Articles> = new LinqRepository(Articles);
         // const article = await articleLinqRepository
         //     .getOne()

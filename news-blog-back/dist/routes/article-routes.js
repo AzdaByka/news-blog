@@ -18,7 +18,8 @@ router.get('/corona', rubricController.corona);
 router.get('/car', rubricController.car);
 router.get('/editor', articlesController.getEditor);
 router.post('/articleAdd', articlesController.addArticle);
-router["delete"]('/article', articlesController.addArticle);
+router.put('/article/update', articlesController.putArticle);
+router["delete"]('/article', articlesController.deleteArticle);
 router.get('/articleById', articlesController.getArticleById);
 //router.post('/users', controller.createUser)
 // router.get('/users/:id', )

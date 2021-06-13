@@ -20,7 +20,8 @@ router.get('/editor',articlesController.getEditor)
 
 
 router.post('/articleAdd', articlesController.addArticle)
-router.delete('/article', articlesController.addArticle)
+router.put('/article/update', articlesController.putArticle)
+router.delete('/article', articlesController.deleteArticle)
 
 
 router.get('/articleById', articlesController.getArticleById)

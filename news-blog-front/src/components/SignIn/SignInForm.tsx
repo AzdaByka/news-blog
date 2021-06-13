@@ -44,6 +44,8 @@ export class SignInForm extends React.Component<
     async HandleFormSubmit(event: any){
         event.preventDefault();
         await Auth.login(this.state.login, this.state.password);
+        localStorage.setItem('path','/')
+        localStorage.setItem('rubrics','Ваша лента')
         this.props.history.replace(HOME);
         window.location.reload();
     }
