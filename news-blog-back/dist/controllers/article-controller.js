@@ -58,16 +58,11 @@ var ArticlesController = /** @class */ (function () {
                     case 0:
                         ids = req.body.ids;
                         authHeader = req.headers["authorization"].split(' ')[1];
-                        if (!(authHeader != '' && authHeader != null)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, auth.isAuth(authHeader)];
-                    case 1:
-                        if (!_a.sent()) return [3 /*break*/, 3];
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find()];
-                    case 2:
+                    case 1:
                         article = _a.sent();
                         //console.log(article)
                         return [2 /*return*/, res.json(article)];
-                    case 3: return [2 /*return*/, res.status(403).json("Нет такого пользователя")];
                 }
             });
         });
@@ -92,6 +87,8 @@ var ArticlesController = /** @class */ (function () {
                         statistic = new StatisticsArticles_1.StatisticsArticles();
                         statistic.ctr = 0;
                         statistic.shows = 0;
+                        statistic.like = 0;
+                        statistic.dislike = 0;
                         statistic.subscriptions = 0;
                         statistic.article = article;
                         statistic.createdAt = new Date();

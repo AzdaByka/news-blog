@@ -9,7 +9,7 @@ import {findAllByDisplayValue} from "@testing-library/react";
 import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
-import {Navbar} from "../../components/Navbar/Navbar";
+import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 
 // const ArticlePage: React.FC=({})=> {
 //

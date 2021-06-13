@@ -14,6 +14,7 @@ import {
 } from '../constants/routes';
 import { ArticlePage } from '../pages/article/articlePage'
 import { SignIn } from '../components/SignIn';
+import { SignUp } from '../components/SignUp/index';
 import {SignOutButton} from "../components/SignOutButton/SignOutButton";
 import {AccountPage} from "../pages/user/accountPage";
 import { ArticleCreatePage } from '../pages/article/articleCreatePage'
@@ -69,7 +70,7 @@ export const AppRoutes: AppRoute[] = [
     },
     {
         path: SIGN_UP,
-        component: SignIn,
+        component: SignUp,
         exact: true
     },
     {

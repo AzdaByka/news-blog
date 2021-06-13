@@ -8,7 +8,7 @@ import history from '../../constants/history';
 import { AppRoutes, AppRoute } from '../../routes/appRoutes';
 import logo from '../../stylesheets/imgs/logo.jpg'
 import vector from '../../stylesheets/imgs/vector.svg'
-import {Navbar} from "../Navbar/Navbar";
+import {Navbar} from "../Navbars/NavbarMain/Navbar";
 
 class AppComponent extends Component {
     constructor(props: any) {

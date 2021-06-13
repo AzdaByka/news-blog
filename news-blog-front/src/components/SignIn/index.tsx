@@ -1,10 +1,12 @@
 import * as React from "react";
 import { withRouter } from "react-router-dom";
 import { SignInForm } from "./SignInForm";
+import history from "../../constants/history";
+import {NavbarAuth} from "../Navbars/NavbarAuth/NavbarAuth";
 
 const SignInComponent = ({ history }: { [key: string]: any }) => (
     <div>
-        <h1>SignIn</h1>
+        <NavbarAuth history={history}/>
         <SignInForm history={history} />
     </div>
 );

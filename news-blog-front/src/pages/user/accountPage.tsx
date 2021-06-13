@@ -12,7 +12,7 @@ import history from '../../constants/history'
 import {BASE, ME} from "../../constants/routes";
 import Auth from "../../connection/auth";
 import {IUser} from "../../types/user";
-import {Navbar} from "../../components/Navbar/Navbar";
+import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 
 
 export interface IProps {

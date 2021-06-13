@@ -2,18 +2,18 @@ import './Navbar.css'
 
 
 import React, {Component} from "react";
-import { Rubrics, RubricRoute} from "../../routes/rubricsRoutes";
+import { Rubrics, RubricRoute} from "../../../routes/rubricsRoutes";
 import {Link, Route, Switch, withRouter} from "react-router-dom";
-import {SignOutButton} from "../SignOutButton/SignOutButton";
-import {IArticle} from "../../types/articles";
-import history from "../../constants/history";
-import {AppRoute, AppRoutes} from "../../routes/appRoutes";
-import logo from "../../stylesheets/imgs/logo.jpg";
-import magnifier from "../../stylesheets/imgs/magnifier.svg";
-import vector from "../../stylesheets/imgs/vector.svg";
-import {Navigation} from "../Navigation/Navigation";
-import {AuthRoutes} from "../../routes/authRoutes";
-import {HOME} from "../../constants/routes";
+import {SignOutButton} from "../../SignOutButton/SignOutButton";
+import {IArticle} from "../../../types/articles";
+import history from "../../../constants/history";
+import {AppRoute, AppRoutes} from "../../../routes/appRoutes";
+import logo from "../../../stylesheets/imgs/logo.jpg";
+import magnifier from "../../../stylesheets/imgs/magnifier.svg";
+import vector from "../../../stylesheets/imgs/vector.svg";
+import {Navigation} from "../../Navigation/Navigation";
+import {AuthRoutes} from "../../../routes/authRoutes";
+import {HOME} from "../../../constants/routes";
 
 
 

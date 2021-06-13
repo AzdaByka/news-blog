@@ -11,7 +11,7 @@ import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
 import {ARTICLE_CREATE, HOME} from "../../constants/routes";
-import {Navbar} from "../../components/Navbar/Navbar";
+import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 
 
 

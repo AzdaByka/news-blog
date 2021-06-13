@@ -32,6 +32,14 @@ var StatisticsArticles = /** @class */ (function () {
         __metadata("design:type", Number)
     ], StatisticsArticles.prototype, "subscriptions");
     __decorate([
+        typeorm_1.Column("integer", { name: "like" }),
+        __metadata("design:type", Number)
+    ], StatisticsArticles.prototype, "like");
+    __decorate([
+        typeorm_1.Column("integer", { name: "dislike" }),
+        __metadata("design:type", Number)
+    ], StatisticsArticles.prototype, "dislike");
+    __decorate([
         typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
         __metadata("design:type", Date)
     ], StatisticsArticles.prototype, "createdAt");

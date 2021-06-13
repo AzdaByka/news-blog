@@ -18,13 +18,16 @@ export default class ArticlesController{
         let {ids}= req.body
 
         const authHeader = <string>req.headers["authorization"].split(' ')[1];
-        if (authHeader!='' && authHeader!=null)
-            if (await auth.isAuth(authHeader)){
-                const article = await getRepository(Articles).find();
-                //console.log(article)
-                return res.json(article);
-            }
-        return res.status(403).json("Нет такого пользователя")
+       // if (authHeader!='' && authHeader!=null)
+      //  {
+            const article = await getRepository(Articles).find();
+            //console.log(article)
+            return res.json(article);
+      //  }
+      //      if (await auth.isAuth(authHeader)){
+
+     //       }
+    //    return res.status(403).json("Нет такого пользователя")
     }
 
     public async addArticle(req:Request, res:Response):Promise<Response>{

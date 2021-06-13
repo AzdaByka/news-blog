@@ -7,7 +7,7 @@ import history from '../../constants/history';
 import './articleItemPage.css';
 import {BASE} from "../../constants/routes";
 import Auth from "../../connection/auth";
-import {Navbar} from "../../components/Navbar/Navbar";
+import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 
 // export interface IAppProps {
 //     error?: any;
