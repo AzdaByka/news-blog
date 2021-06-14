@@ -58,7 +58,8 @@ export class ArticleCreatePage extends Component{
 
 
                 const response =await axios.get<IArticle>('http://localhost:3001/api/articleById',{params:{
-                        "id":localStorage.getItem('articleId')
+                        "id":localStorage.getItem('articleId'),
+                        "flag":false
                     }})
                 //console.log(response.data.categories)
                 this.setState({
@@ -234,6 +235,7 @@ function MyVerticallyCenteredModal (props:IProps) {
     },[props.preview, props.text])
 
     const isSelected=(rubric:string):boolean=>{
+        if (props.rubrics!=null)
         for (const rub of props.rubrics)
         {
             if (rub.name===rubric)

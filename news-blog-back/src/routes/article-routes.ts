@@ -1,6 +1,8 @@
 import {Router} from "express"
 import ArticlesController from "../controllers/article-controller";
 import RubricController from "../controllers/rubric-controller";
+import StatisticsArticleController from "../controllers/statisticsArticleController";
+
 
 const router = Router()
 const articlesController = new ArticlesController()
@@ -19,12 +21,14 @@ router.get('/car', rubricController.car)
 router.get('/editor',articlesController.getEditor)
 
 
+
 router.post('/articleAdd', articlesController.addArticle)
 router.put('/article/update', articlesController.putArticle)
-router.delete('/article', articlesController.deleteArticle)
+router.delete('/article/delete', articlesController.deleteArticle)
 
 
 router.get('/articleById', articlesController.getArticleById)
+router.get('/article/liked', articlesController.getArticlesLiked)
 
 
 

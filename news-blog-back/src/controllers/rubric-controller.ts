@@ -4,6 +4,9 @@ import { getRepository } from "typeorm";
 import { Users } from "../entity/Users";
 import { LinqRepository } from "typeorm-linq-repository";
 import {Articles} from "../entity/Articles";
+import StatisticsArticles from "./statisticsArticleController";
+const statisticsArticles = new StatisticsArticles()
+
 
 export default class RubricController {
     public async top(req: Request, res: Response): Promise<Response>{
@@ -51,11 +54,12 @@ export default class RubricController {
 
     private static async getArticles(name:string):Promise<any[]>
     {
-        const articles = await getRepository(Articles).find({relations:["categories"]})
+        const articles = await getRepository(Articles).find({relations:["categories","statisticsArticles"]})
         const result:any[]=[]
         for (const article of articles) {
             for (const rub of article.categories) {
                 if (rub.name==name){
+                    await statisticsArticles.updateStatisticsArticle(article)
                     result.push(article)
                 }
             }

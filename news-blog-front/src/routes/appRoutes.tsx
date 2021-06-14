@@ -10,7 +10,7 @@ import {
     ARTICLE_CREATE,
     MOVIE,
     TOP,
-    TRAVEL, SCIENCE, CORONA, CARS, ME
+    TRAVEL, SCIENCE, CORONA, CARS, ME, STATISTICS_AUDITORIUM, STATISTICS_PUBLICATION
 } from '../constants/routes';
 import { ArticlePage } from '../pages/article/articlePage'
 import { SignIn } from '../components/SignIn';
@@ -18,6 +18,7 @@ import { SignUp } from '../components/SignUp/index';
 import {SignOutButton} from "../components/SignOutButton/SignOutButton";
 import {AccountPage} from "../pages/user/accountPage";
 import { ArticleCreatePage } from '../pages/article/articleCreatePage'
+import  StatisticsPublicationPage  from '../pages/statistics/statisticsPublicationPage'
 import  ArticleItemPage  from '../pages/article/articleItemPage'
 import {EditorChannelPage} from "../pages/сhannel/editorChannelPage";
 
@@ -91,6 +92,16 @@ export const AppRoutes: AppRoute[] = [
     {
         path: ARTICLE_DETEiLED,
         component: ArticleItemPage,
+        exact: true
+    },
+    {
+        path: STATISTICS_AUDITORIUM,
+        component: StatisticsPublicationPage,
+        exact: true
+    },
+    {
+        path: STATISTICS_PUBLICATION,
+        component: StatisticsPublicationPage,
         exact: true
     },
 ];

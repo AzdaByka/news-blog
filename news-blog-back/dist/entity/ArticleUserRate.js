@@ -9,53 +9,58 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 exports.__esModule = true;
-exports.StatisticsChannels = void 0;
+exports.ArticlesUserRate = void 0;
 var typeorm_1 = require("typeorm");
-var Channels_1 = require("./Channels");
+var Articles_1 = require("./Articles");
 var Users_1 = require("./Users");
-var StatisticsChannels = /** @class */ (function () {
-    function StatisticsChannels() {
+var ArticlesUserRate = /** @class */ (function () {
+    function ArticlesUserRate() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn({ type: "integer", name: "id" }),
         __metadata("design:type", Number)
-    ], StatisticsChannels.prototype, "id");
+    ], ArticlesUserRate.prototype, "id");
     __decorate([
-        typeorm_1.Column("integer", { name: "channelId", nullable: true, unique: true }),
+        typeorm_1.Column("integer", { name: "like", nullable: true, unique: true }),
         __metadata("design:type", Number)
-    ], StatisticsChannels.prototype, "channelId");
+    ], ArticlesUserRate.prototype, "like");
+    __decorate([
+        typeorm_1.Column("integer", { name: "articleId", nullable: true, unique: true }),
+        __metadata("design:type", Number)
+    ], ArticlesUserRate.prototype, "articleId");
     __decorate([
         typeorm_1.Column("integer", { name: "userId", nullable: true, unique: true }),
         __metadata("design:type", Number)
-    ], StatisticsChannels.prototype, "userId");
+    ], ArticlesUserRate.prototype, "userId");
     __decorate([
         typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
         __metadata("design:type", Date)
-    ], StatisticsChannels.prototype, "createdAt");
+    ], ArticlesUserRate.prototype, "createdAt");
     __decorate([
         typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
         __metadata("design:type", Date)
-    ], StatisticsChannels.prototype, "updatedAt");
+    ], ArticlesUserRate.prototype, "updatedAt");
     __decorate([
-        typeorm_1.ManyToOne(function () { return Channels_1.Channels; }, function (channels) { return channels.statisticsChannels; }, {
-            onDelete: "SET NULL",
+        typeorm_1.ManyToOne(function () { return Articles_1.Articles; }, function (articles) { return articles.articlesUserRate; }, {
+            onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "channelId", referencedColumnName: "id" }]),
-        __metadata("design:type", Channels_1.Channels)
-    ], StatisticsChannels.prototype, "channel");
+        typeorm_1.JoinColumn([{ name: "articleId", referencedColumnName: "id" }]),
+        __metadata("design:type", Articles_1.Articles)
+    ], ArticlesUserRate.prototype, "article");
     __decorate([
-        typeorm_1.ManyToOne(function () { return Users_1.Users; }, function (users) { return users.statisticsChannels; }, {
-            onDelete: "SET NULL",
+        typeorm_1.ManyToOne(function () { return Users_1.Users; }, function (users) { return users.articlesUserRate; }, {
+            onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
         typeorm_1.JoinColumn([{ name: "userId", referencedColumnName: "id" }]),
         __metadata("design:type", Users_1.Users)
-    ], StatisticsChannels.prototype, "user");
-    StatisticsChannels = __decorate([
-        typeorm_1.Index("statistics_channels_pkey", ["id"], { unique: true }),
-        typeorm_1.Entity("statistics_channels", { schema: "public" })
-    ], StatisticsChannels);
-    return StatisticsChannels;
+    ], ArticlesUserRate.prototype, "user");
+    ArticlesUserRate = __decorate([
+        typeorm_1.Index("article_user_rate_articleId_userId_key", ["articleId", "userId"], { unique: true }),
+        typeorm_1.Index("article_user_rate_pkey", ["id"], { unique: true }),
+        typeorm_1.Entity("article_user_rate", { schema: "public" })
+    ], ArticlesUserRate);
+    return ArticlesUserRate;
 }());
-exports.StatisticsChannels = StatisticsChannels;
+exports.ArticlesUserRate = ArticlesUserRate;

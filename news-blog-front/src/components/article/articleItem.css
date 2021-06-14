@@ -16,6 +16,12 @@
     width: inherit;
 }
 
+.likes-img{
+
+    width: 18px;
+    height: 18px;
+}
+
 /*.Icons{*/
 /*    position: relative;*/
 /*    z-index: auto;*/

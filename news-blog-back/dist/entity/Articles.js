@@ -15,6 +15,7 @@ var ArticlesComments_1 = require("./ArticlesComments");
 var Categories_1 = require("./Categories");
 var ChannelArticles_1 = require("./ChannelArticles");
 var StatisticsArticles_1 = require("./StatisticsArticles");
+var ArticleUserRate_1 = require("./ArticleUserRate");
 var Articles = /** @class */ (function () {
     function Articles() {
     }
@@ -62,6 +63,10 @@ var Articles = /** @class */ (function () {
         typeorm_1.OneToMany(function () { return StatisticsArticles_1.StatisticsArticles; }, function (statisticsArticles) { return statisticsArticles.article; }),
         __metadata("design:type", Array)
     ], Articles.prototype, "statisticsArticles");
+    __decorate([
+        typeorm_1.OneToMany(function () { return ArticleUserRate_1.ArticlesUserRate; }, function (articlesUserRate) { return articlesUserRate.article; }),
+        __metadata("design:type", Array)
+    ], Articles.prototype, "articlesUserRate");
     Articles = __decorate([
         typeorm_1.Index("articles_pkey", ["id"], { unique: true }),
         typeorm_1.Entity("articles", { schema: "public" })

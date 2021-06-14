@@ -9,6 +9,7 @@ import { ArticlesComments } from "./ArticlesComments";
 import { Categories } from "./Categories";
 import { ChannelArticles } from "./ChannelArticles";
 import { StatisticsArticles } from "./StatisticsArticles";
+import {ArticlesUserRate} from "./ArticleUserRate";
 
 @Index("articles_pkey", ["id"], { unique: true })
 @Entity("articles", { schema: "public" })
@@ -55,4 +56,10 @@ export class Articles {
     (statisticsArticles) => statisticsArticles.article
   )
   statisticsArticles: StatisticsArticles[];
+
+  @OneToMany(
+      () => ArticlesUserRate,
+      (articlesUserRate) => articlesUserRate.article
+  )
+  articlesUserRate: ArticlesUserRate[];
 }

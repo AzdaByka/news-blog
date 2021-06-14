@@ -17,6 +17,8 @@ export interface IAppProps {
 
 
 
+
+
 export class ArticleList extends Component<IAppProps>{
 
     constructor(props: IAppProps) {
@@ -28,6 +30,35 @@ export class ArticleList extends Component<IAppProps>{
             editor: this.props?.editor||false,
         };
     }
+
+
+    // shouldComponentUpdate(nextProps: Readonly<IAppProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+    //     return nextProps.articles!==this.props.articles
+    // }
+    //
+    // async componentWillUpdate(prevProps: Readonly<IAppProps>, prevState: Readonly<{}>, snapshot?: any) {
+    //     try {
+    //         const response = await axios.get<IArticle[]>(
+    //             BASE+localStorage.getItem('path'),
+    //             {
+    //                 params:{
+    //                     "id":Auth.getUserId(),
+    //                 },
+    //                 headers:{
+    //                     authorization:"Bearer "+Auth.getUserJWT(),
+    //                 },
+    //             }
+    //         )
+    //         this.setState({
+    //             isLoaded: true,
+    //             articles: response.data
+    //         })
+    //     }
+    //     catch (e){
+    //         console.log(e)
+    //     }
+    //
+    // }
 
     async componentDidMount() {
         try {
@@ -62,6 +93,8 @@ export class ArticleList extends Component<IAppProps>{
     }
     public render() {
         const localState: any = this.state;
+        console.log(localState.article)
+
         if (localState.error) {
             return <div className={"my-5"}>Error: {localState.error}</div>;
         } else if (!localState.isLoaded) {

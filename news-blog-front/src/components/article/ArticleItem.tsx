@@ -5,20 +5,29 @@ import './articleItem.css';
 import {IAppProps} from "./ArticleList";
 import editor from '../../stylesheets/imgs/edit.png'
 import deleteIcon from '../../stylesheets/imgs/delete.png'
-import {ARTICLE_CREATE, EDITOR, HOME} from "../../constants/routes";
+import {ARTICLE_CREATE, BASE, EDITOR, HOME} from "../../constants/routes";
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import Auth from "../../connection/auth";
 
 
 interface ArticleProps {
     article:IArticle
     editor?:boolean;
+    id?:string
 }
+
+interface IState {
+
+}
+
 export default class NewsItem extends Component<ArticleProps> {
     constructor(props: ArticleProps) {
         super(props);
         this.state = {
-            articles: [],
+            articles:props.article,
             editor: this.props?.editor||false,
+            id:''
         };
     }
 
@@ -26,7 +35,24 @@ export default class NewsItem extends Component<ArticleProps> {
         localStorage.setItem('articleId', String(id))
     }
 
-    deleteArticle(id:number){
+    async deleteArticle(id:number){
+        await axios.delete<IArticle[]>(
+            BASE + '/article/delete',
+            {
+                params: {
+                    "id": id
+                },
+
+                headers: {
+                    authorization: "Bearer " + Auth.getUserJWT(),
+                },
+            }
+        )
+        this.setState({
+            id:id,
+        })
+        history.replace(EDITOR);
+        window.location.reload();
 
     }
 
@@ -45,7 +71,7 @@ export default class NewsItem extends Component<ArticleProps> {
                         <Link className={'Icons'} to={ARTICLE_CREATE} onClick={()=>this.distributeArticle(article.id)}>
                         <img className={'d-inline-block m-1 '} src={editor} alt=""/>
                         </Link>
-                        <Link className={'Icons'} to={'#'} onClick={()=>this.distributeArticle(article.id)}>
+                        <Link className={'Icons'} to={'#'} onClick={()=>this.deleteArticle(article.id)}>
                         <img className={'d-inline-block m-1 Icons'}  src={deleteIcon} alt=""/>
                         </Link>
                     </div>

@@ -8,6 +8,8 @@ import {
 import { Channels } from "./Channels";
 import { Subscriptions } from "./Subscriptions";
 import { UserComments } from "./UserComments";
+import {ArticlesUserRate} from "./ArticleUserRate";
+import {StatisticsChannels} from "./StatisticsChannels";
 
 @Index("users_pkey", ["id"], { unique: true })
 @Entity("users", { schema: "public" })
@@ -53,4 +55,11 @@ export class Users {
 
   @OneToMany(() => UserComments, (userComments) => userComments.user)
   userComments: UserComments[];
+
+  @OneToMany(() => ArticlesUserRate, (articlesUserRate) => articlesUserRate.user)
+  articlesUserRate: ArticlesUserRate[];
+
+
+  @OneToMany(() => StatisticsChannels, (statisticsChannels) => statisticsChannels.user)
+  statisticsChannels: StatisticsChannels[];
 }

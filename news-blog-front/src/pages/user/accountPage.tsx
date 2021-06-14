@@ -35,6 +35,7 @@ export class AccountPage extends Component<IAppProps>{
 
     async componentDidMount() {
         try {
+
             const response = await axios.get<IUser>(
                 BASE+ME,
                 {
@@ -62,6 +63,7 @@ export class AccountPage extends Component<IAppProps>{
 
     public render() {
         const localState: any = this.state;
+        localStorage.setItem('path','/article/liked')
         if (localState.error) {
             return <div>Error: {localState.error!.message}</div>;
         }  else {

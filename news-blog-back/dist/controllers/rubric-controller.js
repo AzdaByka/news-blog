@@ -35,9 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var typeorm_1 = require("typeorm");
 var Articles_1 = require("../entity/Articles");
+var statisticsArticleController_1 = __importDefault(require("./statisticsArticleController"));
+var statisticsArticles = new statisticsArticleController_1["default"]();
 var RubricController = /** @class */ (function () {
     function RubricController() {
     }
@@ -136,20 +141,33 @@ var RubricController = /** @class */ (function () {
             var articles, result, _i, articles_1, article, _a, _b, rub;
             return __generator(this, function (_c) {
                 switch (_c.label) {
-                    case 0: return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find({ relations: ["categories"] })];
+                    case 0: return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find({ relations: ["categories", "statisticsArticles"] })];
                     case 1:
                         articles = _c.sent();
                         result = [];
-                        for (_i = 0, articles_1 = articles; _i < articles_1.length; _i++) {
-                            article = articles_1[_i];
-                            for (_a = 0, _b = article.categories; _a < _b.length; _a++) {
-                                rub = _b[_a];
-                                if (rub.name == name) {
-                                    result.push(article);
-                                }
-                            }
-                        }
-                        return [2 /*return*/, result];
+                        _i = 0, articles_1 = articles;
+                        _c.label = 2;
+                    case 2:
+                        if (!(_i < articles_1.length)) return [3 /*break*/, 7];
+                        article = articles_1[_i];
+                        _a = 0, _b = article.categories;
+                        _c.label = 3;
+                    case 3:
+                        if (!(_a < _b.length)) return [3 /*break*/, 6];
+                        rub = _b[_a];
+                        if (!(rub.name == name)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, statisticsArticles.updateStatisticsArticle(article)];
+                    case 4:
+                        _c.sent();
+                        result.push(article);
+                        _c.label = 5;
+                    case 5:
+                        _a++;
+                        return [3 /*break*/, 3];
+                    case 6:
+                        _i++;
+                        return [3 /*break*/, 2];
+                    case 7: return [2 /*return*/, result];
                 }
             });
         });

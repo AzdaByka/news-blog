@@ -15,6 +15,8 @@ export const SignOutButton = () => (
 
 async function doSignOut(){
     await Auth.logout();
+    localStorage.setItem('rubrics','Ваша лента')
+    localStorage.setItem('path','/')
     history.push(HOME);
     window.location.reload();
 }
