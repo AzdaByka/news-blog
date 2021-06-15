@@ -21,7 +21,9 @@ const port = process.env.PORT;
 
 /** Parse the body of the request */
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    limit:'10MB'
+}));
 app.use(errorHandler());
 app.use(cors());
 app.use(morgan('dev'));

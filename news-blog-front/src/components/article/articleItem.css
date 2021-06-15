@@ -8,6 +8,10 @@
     box-shadow: 0 0 10px rgba(56, 56, 56, 0.5);
 }
 
+.ArticleTitle{
+    width: 100%;
+}
+
 .DetailedNewsContainer{
     width: 100%;
 }

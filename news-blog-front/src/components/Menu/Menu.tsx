@@ -10,6 +10,7 @@ import {AppRoute, AppRoutes} from "../../routes/appRoutes";
 
 
 
+
 export interface IProps {
     history: any;
 }
@@ -45,6 +46,7 @@ export class Menu extends Component<IProps, IState> {
                 <li className="MenuLi" key={route.id} onClick={() => this.handleClick(route.id, route.description, route.path)}>
                     <Link to={route.path}
                           className={(route.id === this.state.activeLink ? "active_item" : "")}>
+                        <img className={'mr-1'} src={route.img} alt=""/>
                         {route.description}
                     </Link>
                 </li>

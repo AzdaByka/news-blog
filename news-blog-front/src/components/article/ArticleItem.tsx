@@ -68,11 +68,11 @@ export default class NewsItem extends Component<ArticleProps> {
                         <h2 onClick={()=> this.handleClick(article)}>{article?.title}</h2>
                     </div>
                     <div className={'col-md-3'}>
-                        <Link className={'Icons'} to={ARTICLE_CREATE} onClick={()=>this.distributeArticle(article.id)}>
+                        <Link  to={ARTICLE_CREATE} onClick={()=>this.distributeArticle(article.id)}>
                         <img className={'d-inline-block m-1 '} src={editor} alt=""/>
                         </Link>
-                        <Link className={'Icons'} to={'#'} onClick={()=>this.deleteArticle(article.id)}>
-                        <img className={'d-inline-block m-1 Icons'}  src={deleteIcon} alt=""/>
+                        <Link  to={'#'} onClick={()=>this.deleteArticle(article.id)}>
+                        <img className={'d-inline-block m-1'}  src={deleteIcon} alt=""/>
                         </Link>
                     </div>
                 </div>

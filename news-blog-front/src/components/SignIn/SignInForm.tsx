@@ -5,6 +5,7 @@ import {BASE, SIGN_IN,HOME, SIGN_UP} from "../../constants/routes"
 import {Button, Form, Modal} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {MouseEventHandler} from "react";
+import history from '../../constants/history';
 
 
 interface InterfaceProps {
@@ -27,7 +28,7 @@ export class SignInForm extends React.Component<
     private static INITIAL_STATE = {
         login: "",
         error: null,
-        password: ""
+        password: "",
     };
 
     private static propKey(propertyName: string, value: any): object {
@@ -46,8 +47,7 @@ export class SignInForm extends React.Component<
         await Auth.login(this.state.login, this.state.password);
         localStorage.setItem('path','/')
         localStorage.setItem('rubrics','Ваша лента')
-        this.props.history.replace(HOME);
-        window.location.reload();
+        history.push(HOME)
     }
 
     public onSubmit = (event: any) => {

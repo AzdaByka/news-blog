@@ -18,9 +18,10 @@ import { SignUp } from '../components/SignUp/index';
 import {SignOutButton} from "../components/SignOutButton/SignOutButton";
 import {AccountPage} from "../pages/user/accountPage";
 import { ArticleCreatePage } from '../pages/article/articleCreatePage'
-import  StatisticsPublicationPage  from '../pages/statistics/statisticsPublicationPage'
+import  StatisticsPublicationPage  from '../pages/statistics/publication/statisticsPublicationPage'
 import  ArticleItemPage  from '../pages/article/articleItemPage'
 import {EditorChannelPage} from "../pages/сhannel/editorChannelPage";
+import StatisticsAuditoriumPage from "../pages/statistics/auditorium/statisticsAuditoriumPage";
 
 
 export interface AppRoute {
@@ -96,7 +97,7 @@ export const AppRoutes: AppRoute[] = [
     },
     {
         path: STATISTICS_AUDITORIUM,
-        component: StatisticsPublicationPage,
+        component: StatisticsAuditoriumPage,
         exact: true
     },
     {

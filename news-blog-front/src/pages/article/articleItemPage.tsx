@@ -5,7 +5,7 @@ import axios from "axios";
 
 import history from '../../constants/history';
 import './articleItemPage.css';
-import {BASE} from "../../constants/routes";
+import {BASE, SIGN_IN, SIGN_UP} from "../../constants/routes";
 import Auth from "../../connection/auth";
 import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 import likeImg from '../../stylesheets/imgs/like.svg'
@@ -109,6 +109,8 @@ const ArticleItemPage: React.FC=({})=> {
     }
 
     async function sendSetLike(){
+        if (!Auth.isAuth())
+            history.push(SIGN_IN)
         setLike(1)
         setDislike(0.5)
         if (article!=null)
@@ -125,6 +127,8 @@ const ArticleItemPage: React.FC=({})=> {
     }
 
     async function sendSetDislike(){
+        if (!Auth.isAuth())
+            history.push(SIGN_IN)
         setLike(0.5)
         setDislike(1)
         if (article!=null)

@@ -15,6 +15,7 @@ import {useForm} from "react-hook-form";
 import {BASE, EDITOR, HOME} from "../../constants/routes";
 import Auth from "../../connection/auth";
 import {ICategory} from "../../types/category";
+import BackImg from '../../stylesheets/imgs/back.png'
 
 
 
@@ -92,6 +93,10 @@ export class ArticleCreatePage extends Component{
         });
     }
 
+    backOnEditor(){
+        history.push(EDITOR);
+    }
+
     public render() {
         const localState: any = this.state;
         if (localState.error) {
@@ -119,7 +124,7 @@ export class ArticleCreatePage extends Component{
 
                     <div className={"row"}>
                         <div className={"col-md-1"}>
-                        Стрелочка назад
+                            <img onClick={this.backOnEditor} src={BackImg} alt=""/>
                     </div>
                         <div className={"col-md-11"}>
 
@@ -191,8 +196,7 @@ function MyVerticallyCenteredModal (props:IProps) {
                 }
             )
         }
-        history.replace(EDITOR);
-        window.location.reload();
+        history.push(EDITOR);
         // const response =await axios.get<IArticle[]>('http://localhost:3001/api/article',{params:{
         //         ids:'1'
         //     }})

@@ -18,5 +18,4 @@ async function doSignOut(){
     localStorage.setItem('rubrics','Ваша лента')
     localStorage.setItem('path','/')
     history.push(HOME);
-    window.location.reload();
 }

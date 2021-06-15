@@ -20,7 +20,9 @@ var app = express_1["default"]();
 var port = process.env.PORT;
 /** Parse the body of the request */
 app.use(body_parser_1["default"].urlencoded({ extended: true }));
-app.use(body_parser_1["default"].json());
+app.use(body_parser_1["default"].json({
+    limit: '10MB'
+}));
 app.use(errorhandler_1["default"]());
 app.use(cors_1["default"]());
 app.use(morgan_1["default"]('dev'));

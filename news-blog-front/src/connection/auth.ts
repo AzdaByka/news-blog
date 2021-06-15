@@ -55,7 +55,8 @@ class Auth {
     }
 
     isAuth() : boolean{
-        return cookie.get('user');
+     return !(cookie.get('user') === '' || cookie.get('user') == null);
+
     }
 
     getUserJWT():string{
