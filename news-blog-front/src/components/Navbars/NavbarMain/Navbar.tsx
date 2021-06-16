@@ -13,17 +13,20 @@ import magnifier from "../../../stylesheets/imgs/magnifier.svg";
 import vector from "../../../stylesheets/imgs/vector.svg";
 import {Navigation} from "../../Navigation/Navigation";
 import {AuthRoutes} from "../../../routes/authRoutes";
-import {HOME} from "../../../constants/routes";
+import {BASE, HOME, SEARCH} from "../../../constants/routes";
+import axios from "axios";
+import Auth from "../../../connection/auth";
 
 
 
 
 export interface IProps {
     history: any;
+
 }
 
 export interface IState {
-
+    body:string
 }
 
 export class Navbar extends Component<IProps, IState> {
@@ -31,20 +34,52 @@ export class Navbar extends Component<IProps, IState> {
     constructor(props: IProps, state: IState) {
         super(props, state);
         this.state = {
-
+            body:''
         }
     }
 
-        rubricChange(rub:string){
-        localStorage.setItem("rubrics",rub)
-            localStorage.setItem("path","/")
-        }
+
+
+    private setStateWithEvent(event: any): void {
+        this.setState({body:(event.target as any).value});
+        console.log(this.state.body)
+    }
+
+    async searchArticleOrChannel(event:any){
+        event.preventDefault();
+        const localState=this.state
+        // const response = await axios.get<IArticle[]>(
+        //     BASE+'/article/search',
+        //     {
+        //         params:{
+        //             "id":Auth.getUserId(),
+        //             "query":localState.body
+        //         },
+        //         headers:{
+        //             authorization:"Bearer "+Auth.getUserJWT(),
+        //         },
+        //     }
+        // )
+        localStorage.setItem('path','/article/search')
+        localStorage.setItem('search',localState.body)
+        localStorage.setItem('rubrics','Результаты поиска')
+        history.replace(SEARCH)
+    }
+
+    handleSearchText(){
+
+    }
+
+    rubricChange(rub:string){
+    localStorage.setItem("rubrics",rub)
+        localStorage.setItem("path","/")
+    }
 
     render(){
         return( <div className='row'>
             <div className='col-md-3 pl-5 py-4 '>
 
-                <Link to={HOME} onClick={()=>this.rubricChange("Ваша лента")}>
+                <Link to={HOME} onClick={()=>this.rubricChange("Все статьи")}>
                     <img className={'logo-img d-inline-block'}  src={logo} />
 
                     <div className={'logo d-inline-block'}>
@@ -59,9 +94,9 @@ export class Navbar extends Component<IProps, IState> {
             <div className='col-md-6  py-4'>
 
                 <img className={'magnifier'} src={magnifier}/>
-                <input className={'search-box form-control d-inline-block'} type="text" placeholder={'   Статья, канал.'} aria-describedby="button-addon2"/>
+                <input onChange={event =>  this.setStateWithEvent(event)} value={this.state.body} className={'search-box form-control d-inline-block'} type="text" placeholder={'   Статья, канал.'} aria-describedby="button-addon2"/>
 
-                <button className="btn btn-outline-secondary d-inline-block search-box-btn" type="button" id="button-addon2">найти
+                <button onClick={event => this.searchArticleOrChannel(event)} className="btn btn-outline-secondary d-inline-block search-box-btn" type="button" id="button-addon2">найти
                 </button>
 
             </div>

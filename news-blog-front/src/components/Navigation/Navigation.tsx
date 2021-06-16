@@ -38,6 +38,8 @@ export class Navigation extends Component<IProps, IState> {
 
 
     handleClick = (id: number): void => {
+        if (id===1 && Auth.isAuth())
+            localStorage.setItem('path','/article/subscribe')
         this.setState({ activeLink: id });
     }
 

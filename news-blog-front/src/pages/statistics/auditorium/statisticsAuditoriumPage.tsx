@@ -15,6 +15,7 @@ import {NavbarEditor} from "../../../components/Navbars/NavbarEditor/NavbarEdito
 import {IUser} from "../../../types/user";
 import Auth from "../../../connection/auth";
 import Chart from '../../../components/chart/chart';
+import {BigFooter} from "../../../components/Footer/BigFooter/BigFooter";
 
 
 
@@ -126,8 +127,9 @@ export default class StatisticsAuditoriumPage extends Component{
                         </div>
 
                     <Chart/>
-                    </div>
 
+                    </div>
+                    <BigFooter/>
                 </>
             );
         }

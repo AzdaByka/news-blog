@@ -6,6 +6,7 @@ import {Button, Form, Modal} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {MouseEventHandler} from "react";
 import history from '../../constants/history';
+import {BigFooter} from "../Footer/BigFooter/BigFooter";
 
 
 interface InterfaceProps {
@@ -45,7 +46,7 @@ export class SignInForm extends React.Component<
     async HandleFormSubmit(event: any){
         event.preventDefault();
         await Auth.login(this.state.login, this.state.password);
-        localStorage.setItem('path','/')
+        localStorage.setItem('path','/article/subscribe')
         localStorage.setItem('rubrics','Ваша лента')
         history.push(HOME)
     }
@@ -66,6 +67,7 @@ export class SignInForm extends React.Component<
         const isInvalid = password === "" || login === "";
 
         return (
+            <>
             <div className={'container my-5'}>
                 <div className={'row justify-content-md-center'}>
                     <div className={'col-md-3'}>
@@ -95,6 +97,8 @@ export class SignInForm extends React.Component<
                     </div>
                 </div>
             </div>
+                <BigFooter/>
+                </>
         );
     }
 

@@ -5,6 +5,7 @@ import { validate } from "class-validator";
 import { LinqRepository } from "typeorm-linq-repository";
 import {Channels} from "../entity/Channels";
 import bcrypt from 'bcrypt';
+import {Articles} from "../entity/Articles";
 
 
 export default class UserController{
@@ -47,8 +48,8 @@ export default class UserController{
         await getRepository(Users).save(user)
 
         const channel=new Channels()
-        channel.name=""
-        channel.descriptions=''
+        channel.name='безымянный'
+        channel.descriptions='без описания'
         channel.imgAvatar=''
         channel.user=user
         channel.createdAt= new Date()
@@ -64,5 +65,35 @@ export default class UserController{
         return  await bcrypt.hash(password, salt);
     }
 
+    public async updateInformation(req: Request, res: Response): Promise<Response>{
+        let { id, login, name, surname, patronymic, tel, img_avatar } = req.body;
+        const user= await getRepository(Users).findOne(id)
+        user.name=name
+        user.surname=surname
+        user.login=login
+        user.patronymic=patronymic
+        user.tel=tel
+        user.imgAvatar=img_avatar
+        user.updatedAt=new Date()
+        await getRepository(Users).save(user)
+        return res.status(200).json("Пользователь обновлен")
+    }
+
+    public async getInformation(req: Request, res: Response): Promise<Response>{
+        let id= Number(req.query.id)
+        if (!id){
+            id=req.body.id
+        }
+        const user= await getRepository(Users).findOne(id)
+        const result=[
+        user.name,
+        user.surname,
+        user.login,
+        user.patronymic,
+        user.tel,
+        user.imgAvatar,
+            ]
+        return  res.status(200).json(result)
+    }
 
 }

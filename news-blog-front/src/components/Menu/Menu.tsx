@@ -6,7 +6,8 @@ import {SignOutButton} from "../SignOutButton/SignOutButton";
 import {IArticle} from "../../types/articles";
 import history from "../../constants/history";
 import {AppRoute, AppRoutes} from "../../routes/appRoutes";
-
+import {LittleFooter} from "../Footer/LittleFooter/LittleFooter";
+import Auth from '../../connection/auth'
 
 
 
@@ -30,11 +31,23 @@ export class Menu extends Component<IProps, IState> {
 
     handleClick = (id: number, description:string,path:string): void => {
         this.setState({activeLink: id,});
-        localStorage.setItem('path', path);
+
         if (id != 1)
+        {
+            localStorage.setItem('path', path);
             localStorage.setItem('rubrics', description);
-        else
+        }
+        else{
+            localStorage.setItem('path', '/article/subscribe');
             localStorage.setItem('rubrics', 'Ваша лента');
+            if (Auth.isAuth())
+            {
+                // window.location.replace('/')
+                // window.location.reload()
+            }
+
+
+        }
     }
 
 
@@ -52,6 +65,7 @@ export class Menu extends Component<IProps, IState> {
                 </li>
             ))}
         </ul>
+                <LittleFooter/>
             </div>);
     }
 }

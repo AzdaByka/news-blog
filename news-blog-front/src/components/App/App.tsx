@@ -14,6 +14,8 @@ class AppComponent extends Component {
     constructor(props: any) {
         super(props);
         localStorage.setItem('user','')
+        localStorage.setItem('path','/')
+        localStorage.setItem('rubrics','Все статьи')
         this.state = {
 
         };

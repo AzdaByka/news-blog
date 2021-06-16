@@ -40,14 +40,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var typeorm_1 = require("typeorm");
+var typeorm_2 = require("typeorm");
 var Articles_1 = require("../entity/Articles");
 var auth_controller_1 = __importDefault(require("./auth-controller"));
+var typeorm_linq_repository_1 = require("typeorm-linq-repository");
 var StatisticsArticles_1 = require("../entity/StatisticsArticles");
 var Categories_1 = require("../entity/Categories");
 var ChannelArticles_1 = require("../entity/ChannelArticles");
 var Channels_1 = require("../entity/Channels");
 var statisticsArticleController_1 = __importDefault(require("./statisticsArticleController"));
 var ArticleUserRate_1 = require("../entity/ArticleUserRate");
+var Subscriptions_1 = require("../entity/Subscriptions");
 var auth = new auth_controller_1["default"]();
 var statisticsArticles = new statisticsArticleController_1["default"]();
 var ArticlesController = /** @class */ (function () {
@@ -370,6 +373,87 @@ var ArticlesController = /** @class */ (function () {
                             }
                         }
                         return [2 /*return*/, res.json(result).status(200)];
+                }
+            });
+        });
+    };
+    ArticlesController.prototype.getSubscribeArticle = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, result, subscriptionsRepository, subscriptions, channelArticles, _i, channelArticles_2, channel, _a, subscriptions_1, sub;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        id = Number(req.query.id);
+                        if (!id) {
+                            id = req.body.id;
+                        }
+                        if (!id)
+                            return [2 /*return*/, res.status(404).json("У вас нет подписок")];
+                        result = [];
+                        subscriptionsRepository = new typeorm_linq_repository_1.LinqRepository(Subscriptions_1.Subscriptions);
+                        return [4 /*yield*/, subscriptionsRepository.getAll()
+                                .where(function (u) { return u.userId; })
+                                .equal(id)
+                            // const subscriptions= await getRepository(Subscriptions).find()
+                        ];
+                    case 1:
+                        subscriptions = _b.sent();
+                        return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).find({ relations: ['article'] })];
+                    case 2:
+                        channelArticles = _b.sent();
+                        for (_i = 0, channelArticles_2 = channelArticles; _i < channelArticles_2.length; _i++) {
+                            channel = channelArticles_2[_i];
+                            for (_a = 0, subscriptions_1 = subscriptions; _a < subscriptions_1.length; _a++) {
+                                sub = subscriptions_1[_a];
+                                if (channel.channelId == sub.channelId)
+                                    result.push(channel.article);
+                            }
+                        }
+                        //   console.log(result.length)
+                        return [2 /*return*/, res.status(200).json(result)];
+                }
+            });
+        });
+    };
+    ArticlesController.prototype.searchArticle = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result, articles, _i, articles_3, article, channels, channelArticles, _a, channels_3, channel, _b, channelArticles_3, channelArticle;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        query = req.query.query;
+                        if (!query) {
+                            query = req.body.query;
+                        }
+                        result = [];
+                        return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find({ title: typeorm_2.Like("%" + query + "%") })];
+                    case 1:
+                        articles = _c.sent();
+                        if (articles.length > 0)
+                            for (_i = 0, articles_3 = articles; _i < articles_3.length; _i++) {
+                                article = articles_3[_i];
+                                result.push(article);
+                            }
+                        return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).find({ name: typeorm_2.Like("%" + query + "%") })];
+                    case 2:
+                        channels = _c.sent();
+                        if (!(channels.length > 0)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, typeorm_1.getRepository(ChannelArticles_1.ChannelArticles).find({ relations: ['article'] })];
+                    case 3:
+                        channelArticles = _c.sent();
+                        for (_a = 0, channels_3 = channels; _a < channels_3.length; _a++) {
+                            channel = channels_3[_a];
+                            for (_b = 0, channelArticles_3 = channelArticles; _b < channelArticles_3.length; _b++) {
+                                channelArticle = channelArticles_3[_b];
+                                if (channel.id === channelArticle.channelId)
+                                    result.push(channelArticle.article);
+                            }
+                        }
+                        _c.label = 4;
+                    case 4:
+                        if (result.length > 0)
+                            return [2 /*return*/, res.status(200).json(result)];
+                        return [2 /*return*/, res.status(404).json("По вашему запросу ничего не найдено")];
                 }
             });
         });

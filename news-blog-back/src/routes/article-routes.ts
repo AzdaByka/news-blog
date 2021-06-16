@@ -19,6 +19,8 @@ router.get('/car', rubricController.car)
 
 
 router.get('/editor',articlesController.getEditor)
+router.get('/article/subscribe',articlesController.getSubscribeArticle)
+router.get('/article/liked', articlesController.getArticlesLiked)
 
 
 
@@ -28,8 +30,7 @@ router.delete('/article/delete', articlesController.deleteArticle)
 
 
 router.get('/articleById', articlesController.getArticleById)
-router.get('/article/liked', articlesController.getArticlesLiked)
-
+router.get('/article/search', articlesController.searchArticle)
 
 
 //router.post('/users', controller.createUser)

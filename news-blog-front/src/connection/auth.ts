@@ -25,6 +25,7 @@ class Auth {
 
     async logout() {
         cookie.set('user', '')
+        cookie.set('userId', '')
     }
 
     async register(login : string, email : string, password : string,avatar:string,

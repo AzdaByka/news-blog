@@ -91,8 +91,8 @@ var UserController = /** @class */ (function () {
                     case 4:
                         _b.sent();
                         channel = new Channels_1.Channels();
-                        channel.name = "";
-                        channel.descriptions = '';
+                        channel.name = 'безымянный';
+                        channel.descriptions = 'без описания';
                         channel.imgAvatar = '';
                         channel.user = user;
                         channel.createdAt = new Date();
@@ -115,6 +115,57 @@ var UserController = /** @class */ (function () {
                         salt = _a.sent();
                         return [4 /*yield*/, bcrypt_1["default"].hash(password, salt)];
                     case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    UserController.prototype.updateInformation = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, id, login, name, surname, patronymic, tel, img_avatar, user;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, id = _a.id, login = _a.login, name = _a.name, surname = _a.surname, patronymic = _a.patronymic, tel = _a.tel, img_avatar = _a.img_avatar;
+                        return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(id)];
+                    case 1:
+                        user = _b.sent();
+                        user.name = name;
+                        user.surname = surname;
+                        user.login = login;
+                        user.patronymic = patronymic;
+                        user.tel = tel;
+                        user.imgAvatar = img_avatar;
+                        user.updatedAt = new Date();
+                        return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).save(user)];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/, res.status(200).json("Пользователь обновлен")];
+                }
+            });
+        });
+    };
+    UserController.prototype.getInformation = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, user, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = Number(req.query.id);
+                        if (!id) {
+                            id = req.body.id;
+                        }
+                        return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(id)];
+                    case 1:
+                        user = _a.sent();
+                        result = [
+                            user.name,
+                            user.surname,
+                            user.login,
+                            user.patronymic,
+                            user.tel,
+                            user.imgAvatar,
+                        ];
+                        return [2 /*return*/, res.status(200).json(result)];
                 }
             });
         });

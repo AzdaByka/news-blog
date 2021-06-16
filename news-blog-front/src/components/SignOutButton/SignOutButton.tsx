@@ -1,11 +1,11 @@
 import * as React from "react";
 import "./SO.css";
-import {HOME,ARTICLE} from "../../constants/routes";
+import {HOME, ARTICLE, SIGN_IN, EDITOR} from "../../constants/routes";
 import history from "../../constants/history";
 import Auth from '../../connection/auth'
 
 export const SignOutButton = () => (
-    <button type="button" onClick={doSignOut} className="NavigaionButton">
+    <button type="button" onClick={doSignOut} className=" btn btn-danger ">
         Sign Out
     </button>
 
@@ -15,7 +15,9 @@ export const SignOutButton = () => (
 
 async function doSignOut(){
     await Auth.logout();
-    localStorage.setItem('rubrics','Ваша лента')
+    localStorage.setItem('rubrics','Все статьи')
     localStorage.setItem('path','/')
     history.push(HOME);
+    window.location.reload();
+
 }

@@ -5,6 +5,7 @@ import {BASE, SIGN_IN,HOME, SIGN_UP} from "../../constants/routes"
 import {Button, Form, Modal} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {MouseEventHandler} from "react";
+import {BigFooter} from "../Footer/BigFooter/BigFooter";
 
 
 interface InterfaceProps {
@@ -61,7 +62,7 @@ export class SignUpForm extends React.Component<
         event.preventDefault();
         await Auth.register(localState.login,localState.email, localState.password1,localState.avatar,
             localState.tel, localState.name,localState.surname,localState.patronymic);
-        localStorage.setItem('path','/')
+        localStorage.setItem('path','/article/subscribe')
         localStorage.setItem('rubrics','Ваша лента')
         this.props.history.replace(HOME);
         window.location.reload();
@@ -83,6 +84,7 @@ export class SignUpForm extends React.Component<
         const isInvalid = password1 === "" || password2 === "" ||login === "" || email === "" || password1!==password2;
 
         return (
+            <>
             <div className={'container my-5'}>
                 <div className={'row justify-content-md-center'}>
                     <div className={'col-md-3'}>
@@ -136,6 +138,8 @@ export class SignUpForm extends React.Component<
                     </div>
                 </div>
             </div>
+                <BigFooter/>
+            </>
         );
     }
 

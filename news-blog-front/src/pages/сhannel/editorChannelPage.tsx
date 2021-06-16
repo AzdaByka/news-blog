@@ -10,9 +10,13 @@ import {findAllByDisplayValue} from "@testing-library/react";
 import { ArticleList } from '../../components/article/ArticleList';
 import  {Menu}  from '../../components/Menu/Menu';
 import history from '../../constants/history'
-import {ARTICLE_CREATE, HOME} from "../../constants/routes";
+import {ARTICLE_CREATE, BASE, HOME} from "../../constants/routes";
 import {NavbarEditor} from "../../components/Navbars/NavbarEditor/NavbarEditor";
-
+import {LittleFooter} from "../../components/Footer/LittleFooter/LittleFooter";
+import plusImg from '../../stylesheets/imgs/plus.png'
+import Auth from "../../connection/auth";
+import {useForm} from "react-hook-form";
+import {Button, Form, Modal} from "react-bootstrap";
 
 
 
@@ -33,6 +37,11 @@ export class EditorChannelPage extends Component{
     }
 
 
+    setModalShow(show:boolean){
+        this.setState({
+            show:show,
+        });
+    }
 
     public render() {
 
@@ -66,8 +75,14 @@ export class EditorChannelPage extends Component{
                                 <div className={"col-6 sign"}>Аудитория</div>
                                         </div>
                                 <div className={"row ml-3 py-1 "}>
-                                    <button type="button" className={"btn btn-primary btnCustom"}>
-                                        Настроить канал</button>
+                                    <Button className={"btnCustom"} onClick={() => this.setModalShow(true)} variant="primary">Настроить канал</Button>
+
+                                    {/*<button type="button" className={"btn btn-primary btnCustom"}>*/}
+                                    {/*    Настроить канал</button>*/}
+                                    <MyVerticallyCenteredModal
+                                        show={localState.show}
+                                        onHide={() => this.setModalShow(false)}
+                                    />
 
                                 </div>
                                 </div>
@@ -78,11 +93,14 @@ export class EditorChannelPage extends Component{
 
 
                     </div>
+                            <LittleFooter/>
                         </div>
                         <div className={"col-md-9 pl-5"}>
                             <div className={"row"}>
                                 <h2 className={"ml-5 d-inline"}>Публикации</h2>
                                 <Link to={ARTICLE_CREATE} className="btn btn-primary d-inline ml-5" >
+                                    <img src={plusImg}  aria-hidden="true" alt=""/>
+
                                     Создать
                                 </Link>
                             </div>
@@ -96,4 +114,120 @@ export class EditorChannelPage extends Component{
             );
         }
     }
+}
+
+
+interface IPropsUser{
+    onHide:()=>void,
+    show:boolean
+}
+
+function MyVerticallyCenteredModal (props:IPropsUser) {
+
+    const addNews= async ({name,description}:{name:string,description:string})=>{
+        // console.log(article)
+
+        await axios.put(
+            BASE + '/channel/update',
+            {
+                id: channelId,
+                name: name,
+                description: description,
+                img_avatar: preview,
+                headers: {
+                    authorization: "Bearer " + Auth.getUserJWT(),
+                },
+            }
+        )
+        props.onHide()
+        window.location.reload()
+
+
+    }
+
+
+    const uploadImage = async (e:any)=>{
+        const file = e.target.files[0]
+        const base64 = await convertBase64(file);
+        setPreview(base64);
+        console.log(preview)
+    }
+
+    const convertBase64 = (file:any):Promise<string|null|ArrayBuffer> => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+        });
+    };
+
+    const [channelId,setChannelId]= useState('')
+    const [description, setDescription] = useState('')
+    const [name,setName]=useState('')
+    const [preview, setPreview] = useState<string|null|ArrayBuffer>('')
+    const {register, handleSubmit, formState: { errors }, setValue} = useForm();
+
+    useEffect(()=>{
+        async function  fetchStates(){
+            const response =await axios.get('http://localhost:3001/api/channel/information',{params:{
+                    "id":Auth.getUserId(),
+                }})
+            console.log(response.data)
+            setName(response.data[0])
+            setDescription(response.data[1])
+            setPreview(response.data[2])
+            setChannelId(response.data[4])
+
+        }
+        fetchStates()
+    },[])
+
+
+
+
+    return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Заполните дополнительную информацию про канал
+                </Modal.Title>
+            </Modal.Header>
+            <Form onSubmit={handleSubmit(addNews)}>
+                <Modal.Body>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Название</Form.Label>
+                        <Form.Control type="text"  defaultValue={name} placeholder=""  { ...register("name", {required: 'Обязательное поле для заполнения'})}/>
+                    </Form.Group>
+                    <Form.Group controlId="description">
+                        <Form.Label>Описание</Form.Label>
+                        <Form.Control type="text"  defaultValue={description} placeholder=""  { ...register("description", {required: 'Обязательное поле для заполнения'})}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <label htmlFor="exampleControlsFile1">Выбирите аватар</label>
+                        <Form.File  id="exampleControlsFile1"  onChange={(e:any)=>{
+                            uploadImage(e)
+                        }}/>
+
+                    </Form.Group>
+                    <img className={"preview"} src={"" + preview}  alt=""/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={props.onHide}>Закрыть</Button>
+                    <Button variant="primary" onClick={function(event){
+                        props.onHide(); }} type="submit">
+                        Применить
+                    </Button>
+                </Modal.Footer>
+            </Form>
+        </Modal>
+    );
 }

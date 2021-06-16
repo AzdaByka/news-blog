@@ -46,7 +46,7 @@ export class NavbarAuth extends Component<IProps, IState> {
                 </div>
                 <div className='col-md-2 center-block'>
 
-                    <Link to={HOME} className={"center-block"} onClick={()=>this.rubricChange("Ваша лента")}>
+                    <Link to={HOME} className={"center-block"} onClick={()=>this.rubricChange("Все статьи")}>
                         <img className={'logo-img d-inline-block '}  src={logo} />
 
                         <div className={'logo d-inline-block'}>

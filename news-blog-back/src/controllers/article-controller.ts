@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import {getRepository} from "typeorm";
+import {Like} from "typeorm";
 import * as jwt from "jsonwebtoken";
 import {Articles} from "../entity/Articles";
 import AuthController from "./auth-controller";
@@ -13,6 +14,7 @@ import {Users} from "../entity/Users";
 import {Delete} from "routing-controllers";
 import StatisticsArticleController from "./statisticsArticleController";
 import {ArticlesUserRate} from "../entity/ArticleUserRate";
+import {Subscriptions} from "../entity/Subscriptions";
 const auth = new AuthController()
 const statisticsArticles = new StatisticsArticleController()
 
@@ -229,6 +231,64 @@ export default class ArticlesController{
             }
         }
         return res.json(result).status(200);
+    }
+
+    public async getSubscribeArticle(req: Request, res: Response): Promise<Response>{
+        let id= Number(req.query.id)
+        if (!id){
+            id=req.body.id
+        }
+        if (!id)
+            return res.status(404).json("У вас нет подписок")
+        const result = []
+
+        const subscriptionsRepository: LinqRepository<Subscriptions> = new LinqRepository(Subscriptions);
+
+        const subscriptions = await subscriptionsRepository.getAll()
+            .where(u => u.userId)
+            .equal(id)
+       // const subscriptions= await getRepository(Subscriptions).find()
+
+        const channelArticles = await getRepository(ChannelArticles).find({relations:['article']})
+        for (const channel of channelArticles)
+            for (const sub of subscriptions)
+                if (channel.channelId==sub.channelId)
+                    result.push(channel.article)
+     //   console.log(result.length)
+        return res.status(200).json(result)
+
+    }
+
+    public async searchArticle(req: Request, res: Response): Promise<Response>{
+        let query= req.query.query
+        if (!query){
+            query=req.body.query
+        }
+        const result=[]
+        const articles=await getRepository(Articles).find({title:Like("%"+query+"%")})
+        if (articles.length>0)
+            for (const article of articles)
+                result.push(article)
+
+        const channels=await getRepository(Channels).find({ name:Like("%"+query+"%")})
+        if (channels.length>0)
+        {
+            const channelArticles=await getRepository(ChannelArticles).find({relations:['article']})
+            for (const channel of channels){
+                for (const channelArticle of channelArticles){
+                    if (channel.id===channelArticle.channelId)
+                        result.push(channelArticle.article)
+                }
+
+            }
+
+        }
+
+
+
+        if (result.length>0)
+            return res.status(200).json(result)
+        return res.status(404).json("По вашему запросу ничего не найдено")
     }
 
 

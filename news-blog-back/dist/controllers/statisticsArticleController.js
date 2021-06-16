@@ -288,7 +288,9 @@ var StatisticsArticleController = /** @class */ (function () {
                         return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(id)];
                     case 1:
                         user = _e.sent();
-                        return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne({ where: { user: user } })];
+                        return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne({ where: { user: user } })
+                            // console.log(channel)
+                        ];
                     case 2:
                         channel = _e.sent();
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).find({ relations: ['statisticsArticles', 'channelArticles'] })];
@@ -304,7 +306,7 @@ var StatisticsArticleController = /** @class */ (function () {
                             article = articles_1[_i];
                             for (_a = 0, _b = article.channelArticles; _a < _b.length; _a++) {
                                 art = _b[_a];
-                                if (art.channelId != channel.id) {
+                                if (art.channelId == channel.id) {
                                     ctr = void 0;
                                     shows = void 0;
                                     subscriptions = void 0;
@@ -347,9 +349,9 @@ var StatisticsArticleController = /** @class */ (function () {
     };
     StatisticsArticleController.prototype.getStatisticsAuditorium = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, result, nowDate, user, channel, i, nextDate, lastDate, statisticsChannels, existUser, _i, statisticsChannels_1, stat, arr, nextDate, lastDate, statisticsChannels;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var id, result, nowDate, user, channel, i, nextDate, lastDate, statisticsChannels, existUser, _i, statisticsChannels_1, stat, arr, nextDate, lastDate, statisticsChannels, existUser, _a, statisticsChannels_2, stat, arr;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         id = Number(req.query.id);
                         if (!id) {
@@ -360,12 +362,12 @@ var StatisticsArticleController = /** @class */ (function () {
                         nowDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), 28);
                         return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(id)];
                     case 1:
-                        user = _a.sent();
+                        user = _b.sent();
                         return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne({ where: { user: user } })];
                     case 2:
-                        channel = _a.sent();
+                        channel = _b.sent();
                         i = 0;
-                        _a.label = 3;
+                        _b.label = 3;
                     case 3:
                         if (!(i < 12)) return [3 /*break*/, 8];
                         if (!(nowDate.getMonth() - i > 0)) return [3 /*break*/, 5];
@@ -380,7 +382,7 @@ var StatisticsArticleController = /** @class */ (function () {
                                 }
                             })];
                     case 4:
-                        statisticsChannels = _a.sent();
+                        statisticsChannels = _b.sent();
                         existUser = [];
                         for (_i = 0, statisticsChannels_1 = statisticsChannels; _i < statisticsChannels_1.length; _i++) {
                             stat = statisticsChannels_1[_i];
@@ -388,6 +390,7 @@ var StatisticsArticleController = /** @class */ (function () {
                         }
                         console.log(existUser);
                         arr = Array.from(new Set(existUser));
+                        console.log(arr);
                         result.push(arr.length);
                         return [3 /*break*/, 7];
                     case 5:
@@ -398,9 +401,17 @@ var StatisticsArticleController = /** @class */ (function () {
                                     updatedAt: typeorm_2.Between(lastDate, nextDate)
                                 } })];
                     case 6:
-                        statisticsChannels = _a.sent();
-                        result.push(statisticsChannels.length);
-                        _a.label = 7;
+                        statisticsChannels = _b.sent();
+                        existUser = [];
+                        for (_a = 0, statisticsChannels_2 = statisticsChannels; _a < statisticsChannels_2.length; _a++) {
+                            stat = statisticsChannels_2[_a];
+                            existUser.push(stat.userId);
+                        }
+                        console.log(existUser);
+                        arr = Array.from(new Set(existUser));
+                        console.log(arr);
+                        result.push(arr.length);
+                        _b.label = 7;
                     case 7:
                         i++;
                         return [3 /*break*/, 3];

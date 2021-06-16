@@ -26,6 +26,10 @@ import {
 import {NavbarEditor} from "../../../components/Navbars/NavbarEditor/NavbarEditor";
 import {IUser} from "../../../types/user";
 import Auth from "../../../connection/auth";
+import {BigFooter} from "../../../components/Footer/BigFooter/BigFooter";
+import { ExportCSV } from '../../../components/ExportExcel/ExportExcel';
+import * as XLSX from "xlsx";
+import * as FileSaver from "file-saver";
 
 const FileDownload = require('js-file-download');
 
@@ -35,6 +39,7 @@ export interface IAppProps {
     isLoaded: false;
     statistics:[]
     total:[]
+    statisticsExport:[]
 }
 
 export default class StatisticPublicationPage extends Component{
@@ -44,7 +49,8 @@ export default class StatisticPublicationPage extends Component{
         this.state = {
             error: '',
             statistics:[],
-            total:[]
+            total:[],
+            statisticsExport:[]
         };
     }
 
@@ -63,14 +69,19 @@ export default class StatisticPublicationPage extends Component{
                 }
             )
             const totalRes=response.data[response.data.length-1]
+            let totalResExport=totalRes.slice()
             response.data.pop()
+            let statisticExport=response.data.slice()
+            totalResExport.unshift("Итого")
             const statistic=response.data
-            console.log(statistic.length)
+            statisticExport.unshift(totalResExport)
+            console.log(statistic)
             console.log(totalRes)
             this.setState({
                 isLoaded: true,
                 statistics: statistic,
-                total:totalRes
+                total:totalRes,
+                statisticsExport:statisticExport
             })
         } catch (e) {
             alert(e)
@@ -83,6 +94,34 @@ export default class StatisticPublicationPage extends Component{
         }
     }
 
+
+
+    exportToCSV = (csvData: any[], fileName: string) => {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const arrayForExport: any[] = []
+        csvData.forEach((ad) => {
+            var object = {
+                "Дата": ad[0],
+                "Заголовок": ad[1],
+                "CTR": ad[2],
+                "Показы": ad[3],
+                "Комментарии": ad[4],
+                "Подписки": ad[5],
+            }
+            arrayForExport.push(object)
+        });
+
+
+        console.log(arrayForExport);
+        const ws = XLSX.utils.json_to_sheet(arrayForExport);
+        const wb = {Sheets: {'data': ws}, SheetNames: ['data']};
+        const excelBuffer = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});
+
+
+        const data = new Blob([excelBuffer], {type: fileType});
+        FileSaver.saveAs(data, fileName + fileExtension);
+    }
 
     public render() {
 
@@ -121,7 +160,7 @@ export default class StatisticPublicationPage extends Component{
                         </div>
                             <div className="col-6">
                             </div>
-                            <div  onClick={()=>this.exportTableToExcel('tblData')} className="col-2">
+                            <div  onClick={()=>this.exportToCSV(localState.statisticsExport,'Статистика')} className="col-2">
                                 <img src={ExcelImg} alt=""/>
                                 Скачать отчет
                             </div>
@@ -252,7 +291,9 @@ export default class StatisticPublicationPage extends Component{
                             </>
                             )}
 
+
                     </div>
+                    <BigFooter/>
 
                 </>
             );

@@ -9,8 +9,11 @@ import {BASE, SIGN_IN, SIGN_UP} from "../../constants/routes";
 import Auth from "../../connection/auth";
 import {Navbar} from "../../components/Navbars/NavbarMain/Navbar";
 import likeImg from '../../stylesheets/imgs/like.svg'
+import unsubscribeImg from '../../stylesheets/imgs/unsubscribe.png'
 import dislikeImg from '../../stylesheets/imgs/dislike.png'
-import logo from "../../stylesheets/imgs/logo.jpg";
+import subscribeImg from "../../stylesheets/imgs/subscribe.png";
+import {IChannel} from "../../types/Channel";
+import ChannelDescription from '../../components/Channel/ChannelDescription';
 
 // export interface IAppProps {
 //     error?: any;
@@ -84,6 +87,10 @@ import logo from "../../stylesheets/imgs/logo.jpg";
 const ArticleItemPage: React.FC=({})=> {
 
     const [article, setArticles]= useState<IArticle>()
+    const [channel,setChannel]=useState([])
+
+    const [subscribedText,setSubscribedText]=useState('подписаться')
+    const [subscribedImg,setSubscribedImg]=useState(subscribeImg)
 
     const [like,setLike]= useState(1)
     const [dislike,setDislike]= useState(1)
@@ -91,7 +98,32 @@ const ArticleItemPage: React.FC=({})=> {
     //FF0000 красный
     useEffect(()=>{
         fetchArticles()
+        fetchChannel()
     },[])
+
+
+
+    async function fetchChannel(){
+        try{
+
+            const response =await axios.get('http://localhost:3001/api/channel/information',{params:{
+                                "id":Auth.getUserId(),
+                            }})
+           // console.log(response.data)
+            setChannel(response.data)
+            if (response.data[5]==='подписан'){
+                setSubscribedText('отписаться')
+                setSubscribedImg(unsubscribeImg)
+            }
+            else {
+                setSubscribedText('подписаться')
+                setSubscribedImg(subscribeImg)
+            }
+        }
+        catch (e){
+            alert(e)
+        }
+    }
 
     async function fetchArticles(){
         try{
@@ -144,8 +176,43 @@ const ArticleItemPage: React.FC=({})=> {
         )
     }
 
+    async function subscribe(){
+        if (!Auth.isAuth())
+            history.push(SIGN_IN)
 
-if (article)
+        if (subscribedText==='отписаться')
+        {
+            if (channel != null)
+                await axios.post(
+                    BASE + '/channel/unsubscribe',
+                    {
+                        id: Auth.getUserId(),
+                        channelId:channel[4],
+                        headers: {
+                            authorization: "Bearer " + Auth.getUserJWT(),
+                        },
+                    }
+                )
+        }
+        else{
+            if (channel!=null)
+                await axios.post(
+                    BASE + '/channel/subscribe',
+                    {
+                        id: Auth.getUserId(),
+                        channelId:channel[4],
+                        headers: {
+                            authorization: "Bearer " + Auth.getUserJWT(),
+                        },
+                    }
+                )
+        }
+        history.replace('/article/'+localStorage.getItem('id'))
+        window.location.reload()
+    }
+
+
+if (article&&channel)
     return (
         <>
             <Navbar history={history}/>
@@ -156,10 +223,19 @@ if (article)
                     <img className={'likes-img d-block m-3'} onClick={sendSetDislike} style={{opacity:dislike}} src={dislikeImg} />
                 </div>
                 <div className={"col-md-11"}>
-                    <div className={"row"}>
+                    <div className="row">
+                        <ChannelDescription channel={channel}/>
+                        <div className="col-md-6">
+                        <div className={'mt-3'} onClick={subscribe} >
+                            <img height={'24px'} width={'24px'} src={subscribedImg} alt=""/>
+                             <span className={'ml-1'}> {subscribedText}</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div className={"row mt-5"}>
                         <h3 className={"rowRed"}>{article.title}</h3>
                     </div>
-                    <div className={"row"} >
+                    <div className={"row "} >
                             <div className={"articleImgs"} dangerouslySetInnerHTML={{ __html: article.text }}></div>
                     </div>
                 </div>

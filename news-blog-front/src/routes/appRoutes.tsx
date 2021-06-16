@@ -10,7 +10,7 @@ import {
     ARTICLE_CREATE,
     MOVIE,
     TOP,
-    TRAVEL, SCIENCE, CORONA, CARS, ME, STATISTICS_AUDITORIUM, STATISTICS_PUBLICATION
+    TRAVEL, SCIENCE, CORONA, CARS, ME, STATISTICS_AUDITORIUM, STATISTICS_PUBLICATION, SEARCH
 } from '../constants/routes';
 import { ArticlePage } from '../pages/article/articlePage'
 import { SignIn } from '../components/SignIn';
@@ -103,6 +103,11 @@ export const AppRoutes: AppRoute[] = [
     {
         path: STATISTICS_PUBLICATION,
         component: StatisticsPublicationPage,
+        exact: true
+    },
+    {
+        path: SEARCH,
+        component: ArticlePage,
         exact: true
     },
 ];

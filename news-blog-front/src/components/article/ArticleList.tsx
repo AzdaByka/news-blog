@@ -68,6 +68,7 @@ export class ArticleList extends Component<IAppProps>{
                 {
                     params:{
                         "id":Auth.getUserId(),
+                        "query":localStorage.getItem('search'),
                     },
                     headers:{
                         authorization:"Bearer "+Auth.getUserJWT(),

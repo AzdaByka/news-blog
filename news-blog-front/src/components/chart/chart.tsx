@@ -58,7 +58,7 @@ export default class Chart extends Component {
 
         let data: any[];
         data = [];
-        for (let num = 12; num >= 0; num--) {
+        for (let num = 11; num >= 0; num--) {
             data.push({
                 date: subMonths(new Date(), num).toISOString().substr(0, 10),
                 value: localState.date[num],

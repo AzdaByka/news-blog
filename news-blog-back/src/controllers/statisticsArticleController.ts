@@ -166,7 +166,7 @@ export default class StatisticsArticleController{
         }
         const user=await getRepository(Users).findOne(id)
         const channel=await getRepository(Channels).findOne({where:{user:user}})
-
+            // console.log(channel)
         const articles=await getRepository(Articles).find({relations:['statisticsArticles','channelArticles']})
         const result=[]
         let ctrMax=0
@@ -177,7 +177,7 @@ export default class StatisticsArticleController{
         for (const article of articles)
         {
             for (const art of article.channelArticles)
-                 if (art.channelId!=channel.id ){
+                 if (art.channelId==channel.id ){
 
                      let ctr
                      let shows
@@ -245,7 +245,7 @@ export default class StatisticsArticleController{
                     existUser.push(stat.userId)
                 console.log(existUser)
                 const arr=Array.from(new Set(existUser))
-
+                console.log(arr)
                 result.push(arr.length)
 
 
@@ -263,7 +263,14 @@ export default class StatisticsArticleController{
                      //   userId:Not(In(existUser))
 
                     }})
-                result.push(statisticsChannels.length)
+
+                const existUser=[]
+                for (const stat of statisticsChannels)
+                    existUser.push(stat.userId)
+                console.log(existUser)
+                const arr=Array.from(new Set(existUser))
+                console.log(arr)
+                result.push(arr.length)
 
                 // for (const stat of statisticsChannels)
                 //     existUser.push(stat.userId)
@@ -384,35 +391,6 @@ export default class StatisticsArticleController{
 
 
 }
-function exportTableToExcel(tableID, filename = ''){
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
 
-    // Specify file name
-    filename = filename?filename+'.xls':'excel_data.xls';
-
-    // Create download link element
-    downloadLink = document.createElement("a");
-
-    document.body.appendChild(downloadLink);
-
-    if(navigator.msSaveOrOpenBlob){
-        var blob = new Blob(['\ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob( blob, filename);
-    }else{
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-        // Setting the file name
-        downloadLink.download = filename;
-
-        //triggering the function
-        downloadLink.click();
-    }
-}
 
 
