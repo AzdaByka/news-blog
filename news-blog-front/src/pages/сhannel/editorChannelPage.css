@@ -1,4 +1,5 @@
 .Article {
+    font-family: Ubuntu;
     min-width: 200px;
     max-width: 350px;
     width: 100%;
@@ -9,13 +10,16 @@
 }
 
 .DetailedNewsContainer{
+    font-family: Ubuntu;
     width: 100%;
 }
 
 .btnCustom{
+    font-family: Ubuntu;
     width: 230px;
 }
 
 .sign{
+    font-family: Ubuntu;
     color: #666666 ;
 }

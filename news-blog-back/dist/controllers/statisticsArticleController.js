@@ -372,9 +372,7 @@ var StatisticsArticleController = /** @class */ (function () {
                         if (!(i < 12)) return [3 /*break*/, 8];
                         if (!(nowDate.getMonth() - i > 0)) return [3 /*break*/, 5];
                         nextDate = new Date(nowDate.getFullYear(), nowDate.getMonth() - i + 1, 1);
-                        console.log("nowDate/ " + nextDate.toISOString());
                         lastDate = new Date(nowDate.getFullYear(), nowDate.getMonth() - i, 1);
-                        console.log("lastDate/ " + lastDate.toISOString());
                         return [4 /*yield*/, typeorm_1.getRepository(StatisticsChannels_1.StatisticsChannels).find({
                                 where: {
                                     channelId: channel.id,
@@ -388,9 +386,8 @@ var StatisticsArticleController = /** @class */ (function () {
                             stat = statisticsChannels_1[_i];
                             existUser.push(stat.userId);
                         }
-                        console.log(existUser);
                         arr = Array.from(new Set(existUser));
-                        console.log(arr);
+                        // console.log(arr)
                         result.push(arr.length);
                         return [3 /*break*/, 7];
                     case 5:
@@ -407,9 +404,8 @@ var StatisticsArticleController = /** @class */ (function () {
                             stat = statisticsChannels_2[_a];
                             existUser.push(stat.userId);
                         }
-                        console.log(existUser);
                         arr = Array.from(new Set(existUser));
-                        console.log(arr);
+                        //     console.log(arr)
                         result.push(arr.length);
                         _b.label = 7;
                     case 7:

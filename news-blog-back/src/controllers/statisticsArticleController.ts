@@ -229,9 +229,9 @@ export default class StatisticsArticleController{
         for (let i=0;i<12;i++){
             if (nowDate.getMonth()-i>0) {
                 const nextDate=new Date(nowDate.getFullYear(), nowDate.getMonth() - i+1, 1)
-                console.log("nowDate/ "+nextDate.toISOString())
+              //  console.log("nowDate/ "+nextDate.toISOString())
                 const lastDate=new Date(nowDate.getFullYear(), nowDate.getMonth() - i, 1)
-                console.log("lastDate/ "+lastDate.toISOString())
+            //    console.log("lastDate/ "+lastDate.toISOString())
 
                 const statisticsChannels = await getRepository(StatisticsChannels).find({
                     where: {
@@ -243,9 +243,9 @@ export default class StatisticsArticleController{
                 const existUser=[]
                 for (const stat of statisticsChannels)
                     existUser.push(stat.userId)
-                console.log(existUser)
+               // console.log(existUser)
                 const arr=Array.from(new Set(existUser))
-                console.log(arr)
+               // console.log(arr)
                 result.push(arr.length)
 
 
@@ -267,9 +267,9 @@ export default class StatisticsArticleController{
                 const existUser=[]
                 for (const stat of statisticsChannels)
                     existUser.push(stat.userId)
-                console.log(existUser)
+             //   console.log(existUser)
                 const arr=Array.from(new Set(existUser))
-                console.log(arr)
+           //     console.log(arr)
                 result.push(arr.length)
 
                 // for (const stat of statisticsChannels)

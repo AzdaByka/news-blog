@@ -14,7 +14,7 @@ export const ExportCSV = ({csvData, fileName}:{csvData:any,fileName:any}) => {
                 "Заголовок": ad[1],
                 "CTR": ad[2],
                 "Показы": ad[3],
-                "Комментарии": ad[4],
+                // "Комментарии": ad[4],
                 "Подписки": ad[5],
             }
             arrayForExport.push(object)

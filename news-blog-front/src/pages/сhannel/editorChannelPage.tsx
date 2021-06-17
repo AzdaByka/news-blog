@@ -24,6 +24,9 @@ export interface IAppProps {
     error: any;
     isLoaded: false;
     body:string
+    auditorium:string
+    name:string,
+    subscribers:string
 }
 
 export class EditorChannelPage extends Component{
@@ -32,8 +35,22 @@ export class EditorChannelPage extends Component{
         super(props);
         this.state = {
             error: '',
-            body:''
+            body:'',
+            auditorium:'',
+            subscribers:'',
+            name:''
         };
+    }
+
+    async componentDidMount() {
+        const response =await axios.get('http://localhost:3001/api/channel/information',{params:{
+                "id":Auth.getUserId(),
+            }})
+        this.setState({
+            name:response.data[0],
+            subscribers:response.data[3],
+            auditorium:response.data[6]
+        })
     }
 
 
@@ -62,13 +79,13 @@ export class EditorChannelPage extends Component{
                             <div className={"row"}>
                             <div className="Article col-md-12" >
                                 <div className={"row  p-3 py-1"}>
-                                <div className="ArticleTitle ml-3">
-                                    <h3>Название канала</h3>
+                                <div className=" ml-3">
+                                    <h3 className={'text-center'}>{localState.name}</h3>
                                 </div>
                                 </div>
                                     <div className={"row pl-2 py-1"}>
-                                <div className={"col-6 text-center sign"}>0</div>
-                                <div className={"col-6 text-center sign"}>0</div>
+                                <div className={"col-6 text-center sign"}>{localState.subscribers}</div>
+                                <div className={"col-6 text-center sign"}>{localState.auditorium!=0?localState.auditorium:0}</div>
                                     </div>
                                         <div className={"row pl-3 py-1"}>
                                 <div className={"col-6 sign"}>Подписчики</div>

@@ -1,18 +1,35 @@
 import {Request, response, Response} from "express";
 import * as jwt from "jsonwebtoken";
-import { getRepository } from "typeorm";
+import {Between, getRepository} from "typeorm";
 import { Users } from "../entity/Users";
 import { LinqRepository } from "typeorm-linq-repository";
 import {Articles} from "../entity/Articles";
-import StatisticsArticles from "./statisticsArticleController";
-const statisticsArticles = new StatisticsArticles()
+import { StatisticsArticles } from "../entity/StatisticsArticles";
+import StatisticsArticleController from '../controllers/statisticsArticleController'
+const statisticsArticlesController=new StatisticsArticleController()
 
 
 export default class RubricController {
     public async top(req: Request, res: Response): Promise<Response>{
-        const result=await RubricController.getArticles("top")
-        if (result.length==0)
-            return res.status(404).json("Нет статей в рубрике")
+        let nowDate= new Date()
+        const lastDate=new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()-2)
+        nowDate= new Date(nowDate.getFullYear(),nowDate.getMonth(),28)
+        const statistics= await getRepository(StatisticsArticles).find({
+            relations:['article'],
+            order:{
+            ctr:'DESC',
+            },
+            where:{
+                updatedAt:Between(lastDate, nowDate)
+            },
+            take:4
+        })
+        const result=[]
+        for (const stat of statistics){
+            const art=stat.article
+            result.push(art)
+        }
+
         return res.status(200).json(result)
     }
 
@@ -59,7 +76,7 @@ export default class RubricController {
         for (const article of articles) {
             for (const rub of article.categories) {
                 if (rub.name==name){
-                    await statisticsArticles.updateStatisticsArticle(article)
+                    await statisticsArticlesController.updateStatisticsArticle(article)
                     result.push(article)
                 }
             }

@@ -190,10 +190,10 @@ export default class StatisticPublicationPage extends Component{
                             <div className="col-md-1">
                                Показы
                             </div>
-                            <div className="col-md-2">
-                                Комментарии
+                            {/*<div className="col-md-2">*/}
+                            {/*    Комментарии*/}
 
-                            </div>
+                            {/*</div>*/}
                             <div className="col-md-1">
                                 Подписки
 
@@ -217,9 +217,9 @@ export default class StatisticPublicationPage extends Component{
                             <div className="col-md-1">
                                 {localState.total[1]}
                             </div>
-                            <div className="col-md-2">
-                                {localState.total[2]}
-                            </div>
+                            {/*<div className="col-md-2">*/}
+                            {/*    {localState.total[2]}*/}
+                            {/*</div>*/}
                             <div className="col-md-1">
                                 {localState.total[3]}
                             </div>
@@ -273,10 +273,10 @@ export default class StatisticPublicationPage extends Component{
                             <div className="col-md-1">
                                 {article[3]}
                             </div>
-                            <div className="col-md-2">
-                                0
+                            {/*<div className="col-md-2">*/}
+                            {/*    0*/}
 
-                            </div>
+                            {/*</div>*/}
                             <div className="col-md-1">
                                 {article[4]}
 

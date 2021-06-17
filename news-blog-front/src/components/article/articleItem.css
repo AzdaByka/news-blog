@@ -6,22 +6,26 @@
     margin: 0.5rem;
     padding: 0.5rem;
     box-shadow: 0 0 10px rgba(56, 56, 56, 0.5);
+    font-family: Ubuntu;
 }
 
 .ArticleTitle{
     width: 100%;
+    font-family: Ubuntu;
 }
 
 .DetailedNewsContainer{
     width: 100%;
+    font-family: Ubuntu;
 }
 
 .imgPreview {
     width: inherit;
+    font-family: Ubuntu;
 }
 
 .likes-img{
-
+    font-family: Ubuntu;
     width: 18px;
     height: 18px;
 }

@@ -259,13 +259,13 @@ function MyVerticallyCenteredModal (props:IProps) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header className={'fontStyle'} closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Заполните дополнительную информацию про статью
                 </Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleSubmit(addNews)}>
-            <Modal.Body>
+            <Modal.Body className={'fontStyle'}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Заголовок статьи</Form.Label>
                     <Form.Control type="text"  defaultValue={props.title} placeholder=""  { ...register("title", {required: 'Обязательное поле для заполнения'})}/>
@@ -296,11 +296,11 @@ function MyVerticallyCenteredModal (props:IProps) {
                 </Form.Group>
                 <img className={"preview"} src={"" + preview}  alt=""/>
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+            <Modal.Footer className={'fontStyle'}>
+                <Button onClick={props.onHide}>Закрыть</Button>
                 <Button variant="primary" onClick={function(event){
                     props.onHide(); }} type="submit">
-                    Submit
+                   Опубликовать
                 </Button>
             </Modal.Footer>
             </Form>

@@ -1,6 +1,6 @@
 .NewsItemContainer {
     display: flex;
     flex-wrap: wrap;
-
+    font-family: Ubuntu;
 
 }

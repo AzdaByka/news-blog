@@ -20,11 +20,12 @@ export const Rubrics: RubricRoute[] = [
         description: 'Лента',
         img:HomeImg
     },
-    // {
-    //     id: 2,
-    //     path: TOP,
-    //     description: 'TOP',
-    // },
+    {
+        id: 2,
+        path: TOP,
+        description: 'TOP',
+        img:CircleImg,
+    },
     {
         id: 3,
         path: MOVIE,

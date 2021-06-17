@@ -41,21 +41,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var typeorm_1 = require("typeorm");
 var Articles_1 = require("../entity/Articles");
-var statisticsArticleController_1 = __importDefault(require("./statisticsArticleController"));
-var statisticsArticles = new statisticsArticleController_1["default"]();
+var StatisticsArticles_1 = require("../entity/StatisticsArticles");
+var statisticsArticleController_1 = __importDefault(require("../controllers/statisticsArticleController"));
+var statisticsArticlesController = new statisticsArticleController_1["default"]();
 var RubricController = /** @class */ (function () {
     function RubricController() {
     }
     RubricController.prototype.top = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
+            var nowDate, lastDate, statistics, result, _i, statistics_1, stat, art;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, RubricController.getArticles("top")];
+                    case 0:
+                        nowDate = new Date();
+                        lastDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate() - 2);
+                        nowDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), 28);
+                        return [4 /*yield*/, typeorm_1.getRepository(StatisticsArticles_1.StatisticsArticles).find({
+                                relations: ['article'],
+                                order: {
+                                    ctr: 'DESC'
+                                },
+                                where: {
+                                    updatedAt: typeorm_1.Between(lastDate, nowDate)
+                                },
+                                take: 4
+                            })];
                     case 1:
-                        result = _a.sent();
-                        if (result.length == 0)
-                            return [2 /*return*/, res.status(404).json("Нет статей в рубрике")];
+                        statistics = _a.sent();
+                        result = [];
+                        for (_i = 0, statistics_1 = statistics; _i < statistics_1.length; _i++) {
+                            stat = statistics_1[_i];
+                            art = stat.article;
+                            result.push(art);
+                        }
                         return [2 /*return*/, res.status(200).json(result)];
                 }
             });
@@ -156,7 +174,7 @@ var RubricController = /** @class */ (function () {
                         if (!(_a < _b.length)) return [3 /*break*/, 6];
                         rub = _b[_a];
                         if (!(rub.name == name)) return [3 /*break*/, 5];
-                        return [4 /*yield*/, statisticsArticles.updateStatisticsArticle(article)];
+                        return [4 /*yield*/, statisticsArticlesController.updateStatisticsArticle(article)];
                     case 4:
                         _c.sent();
                         result.push(article);

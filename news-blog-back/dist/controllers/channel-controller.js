@@ -41,6 +41,7 @@ var Users_1 = require("../entity/Users");
 var typeorm_linq_repository_1 = require("typeorm-linq-repository");
 var Channels_1 = require("../entity/Channels");
 var Subscriptions_1 = require("../entity/Subscriptions");
+var StatisticsChannels_1 = require("../entity/StatisticsChannels");
 var ChannelController = /** @class */ (function () {
     function ChannelController() {
     }
@@ -68,7 +69,7 @@ var ChannelController = /** @class */ (function () {
     };
     ChannelController.prototype.getInformation = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, channelRepository, channel, subscriptionsRepository, subscriptions, check, subscription, _i, subscription_1, sub, result;
+            var id, channelRepository, channel, subscriptionsRepository, subscriptions, check, subscription, _i, subscription_1, sub, aud, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -98,13 +99,17 @@ var ChannelController = /** @class */ (function () {
                             if (sub.userId == id && sub.channelId == channel.id)
                                 check = 'подписан';
                         }
+                        return [4 /*yield*/, ChannelController.getAuditorium(id)];
+                    case 4:
+                        aud = _a.sent();
                         result = [
                             channel.name,
                             channel.descriptions,
                             channel.imgAvatar,
                             subscriptions,
                             channel.id,
-                            check
+                            check,
+                            aud
                         ];
                         return [2 /*return*/, res.status(200).json(result)];
                 }
@@ -202,6 +207,77 @@ var ChannelController = /** @class */ (function () {
                                 return [2 /*return*/, res.status(200).json('подписан')];
                         }
                         return [2 /*return*/, res.status(200).json('неподписан')];
+                }
+            });
+        });
+    };
+    ChannelController.getAuditorium = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result, nowDate, user, channel, i, nextDate, lastDate, statisticsChannels, existUser, _i, statisticsChannels_1, stat, arr, nextDate, lastDate, statisticsChannels, existUser, _a, statisticsChannels_2, stat, arr, count, _b, result_1, i;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        result = [];
+                        nowDate = new Date();
+                        nowDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), 28);
+                        return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(id)];
+                    case 1:
+                        user = _c.sent();
+                        return [4 /*yield*/, typeorm_1.getRepository(Channels_1.Channels).findOne({ where: { user: user } })];
+                    case 2:
+                        channel = _c.sent();
+                        i = 0;
+                        _c.label = 3;
+                    case 3:
+                        if (!(i < 12)) return [3 /*break*/, 8];
+                        if (!(nowDate.getMonth() - i > 0)) return [3 /*break*/, 5];
+                        nextDate = new Date(nowDate.getFullYear(), nowDate.getMonth() - i + 1, 1);
+                        lastDate = new Date(nowDate.getFullYear(), nowDate.getMonth() - i, 1);
+                        return [4 /*yield*/, typeorm_1.getRepository(StatisticsChannels_1.StatisticsChannels).find({
+                                where: {
+                                    channelId: channel.id,
+                                    updatedAt: typeorm_1.Between(lastDate, nextDate)
+                                }
+                            })];
+                    case 4:
+                        statisticsChannels = _c.sent();
+                        existUser = [];
+                        for (_i = 0, statisticsChannels_1 = statisticsChannels; _i < statisticsChannels_1.length; _i++) {
+                            stat = statisticsChannels_1[_i];
+                            existUser.push(stat.userId);
+                        }
+                        arr = Array.from(new Set(existUser));
+                        // console.log(arr)
+                        result.push(arr.length);
+                        return [3 /*break*/, 7];
+                    case 5:
+                        nextDate = new Date(nowDate.getFullYear() - 1, nowDate.getMonth() + (12 - i + 1), 1);
+                        lastDate = new Date(nowDate.getFullYear() - 1, nowDate.getMonth() + (12 - i), 1);
+                        return [4 /*yield*/, typeorm_1.getRepository(StatisticsChannels_1.StatisticsChannels).find({ where: {
+                                    channelId: channel.id,
+                                    updatedAt: typeorm_1.Between(lastDate, nextDate)
+                                } })];
+                    case 6:
+                        statisticsChannels = _c.sent();
+                        existUser = [];
+                        for (_a = 0, statisticsChannels_2 = statisticsChannels; _a < statisticsChannels_2.length; _a++) {
+                            stat = statisticsChannels_2[_a];
+                            existUser.push(stat.userId);
+                        }
+                        arr = Array.from(new Set(existUser));
+                        //     console.log(arr)
+                        result.push(arr.length);
+                        _c.label = 7;
+                    case 7:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 8:
+                        count = 0;
+                        for (_b = 0, result_1 = result; _b < result_1.length; _b++) {
+                            i = result_1[_b];
+                            count += i;
+                        }
+                        return [2 /*return*/, count];
                 }
             });
         });

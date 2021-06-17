@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
+import {Between, getRepository} from "typeorm";
 import { Users } from "../entity/Users";
 import { validate } from "class-validator";
 import { LinqRepository } from "typeorm-linq-repository";
@@ -7,6 +7,7 @@ import {Channels} from "../entity/Channels";
 import bcrypt from 'bcrypt';
 import {Articles} from "../entity/Articles";
 import {Subscriptions} from "../entity/Subscriptions";
+import {StatisticsChannels} from "../entity/StatisticsChannels";
 
 
 export default class ChannelController{
@@ -49,13 +50,16 @@ export default class ChannelController{
             if (sub.userId==id && sub.channelId==channel.id)
                 check='подписан'
 
+        const aud= await ChannelController.getAuditorium(id)
+
         const result=[
             channel.name,
             channel.descriptions,
             channel.imgAvatar,
             subscriptions,
             channel.id,
-            check
+            check,
+            aud
         ]
         return  res.status(200).json(result)
     }
@@ -118,6 +122,74 @@ export default class ChannelController{
                 return res.status(200).json('подписан')
         return res.status(200).json('неподписан')
 
+    }
+
+
+    private static async getAuditorium(id:number):Promise<number>{
+
+        const result=[]
+        let nowDate= new Date()
+        nowDate= new Date(nowDate.getFullYear(),nowDate.getMonth(),28)
+        const user=await getRepository(Users).findOne(id)
+        const channel=await getRepository(Channels).findOne({where:{user:user}})
+        for (let i=0;i<12;i++){
+            if (nowDate.getMonth()-i>0) {
+                const nextDate=new Date(nowDate.getFullYear(), nowDate.getMonth() - i+1, 1)
+                //  console.log("nowDate/ "+nextDate.toISOString())
+                const lastDate=new Date(nowDate.getFullYear(), nowDate.getMonth() - i, 1)
+                //    console.log("lastDate/ "+lastDate.toISOString())
+
+                const statisticsChannels = await getRepository(StatisticsChannels).find({
+                    where: {
+                        channelId: channel.id,
+                        updatedAt: Between(lastDate, nextDate),
+                        // userId:Not(In(existUser))
+                    }
+                })
+                const existUser=[]
+                for (const stat of statisticsChannels)
+                    existUser.push(stat.userId)
+                // console.log(existUser)
+                const arr=Array.from(new Set(existUser))
+                // console.log(arr)
+                result.push(arr.length)
+
+
+            }
+            else {
+                const nextDate=new Date(nowDate.getFullYear()-1,nowDate.getMonth()+(12-i+1),1)
+                //  console.log("nowDate/ "+nextDate.toISOString())
+                const lastDate=new Date(nowDate.getFullYear()-1,nowDate.getMonth()+(12-i),1)
+                // console.log("lastDate/ "+lastDate.toISOString())
+
+
+                const statisticsChannels =await getRepository(StatisticsChannels).find({where:{
+                        channelId:channel.id,
+                        updatedAt:Between(lastDate, nextDate),
+                        //   userId:Not(In(existUser))
+
+                    }})
+
+                const existUser=[]
+                for (const stat of statisticsChannels)
+                    existUser.push(stat.userId)
+                //   console.log(existUser)
+                const arr=Array.from(new Set(existUser))
+                //     console.log(arr)
+                result.push(arr.length)
+
+                // for (const stat of statisticsChannels)
+                //     existUser.push(stat.userId)
+
+            }
+        }
+        let count=0
+        for (const i of result){
+            count+=i
+        }
+
+
+        return count
     }
 
 
