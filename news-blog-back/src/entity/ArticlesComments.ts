@@ -9,40 +9,35 @@ import {
 import { Articles } from "./Articles";
 import { Comments } from "./Comments";
 
-@Index(
-  "articles_comments_articleId_commentId_key",
-  ["articleId", "commentId"],
-  { unique: true }
-)
-@Index("articles_comments_pkey", ["id"], { unique: true })
-@Entity("articles_comments", { schema: "public" })
+@Index("articlescomments_pk", ["id"], { unique: true })
+@Entity("articlesComments", { schema: "public" })
 export class ArticlesComments {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
-  @Column("timestamp with time zone", { name: "createdAt" })
+  @Column("timestamp without time zone", {
+    name: "created_at",
+    default: () => "now()",
+  })
   createdAt: Date;
 
-  @Column("timestamp with time zone", { name: "updatedAt" })
+  @Column("timestamp without time zone", {
+    name: "updated_at",
+    default: () => "now()",
+  })
   updatedAt: Date;
-
-  @Column("integer", { name: "articleId", nullable: true, unique: true })
-  articleId: number | null;
-
-  @Column("integer", { name: "commentId", nullable: true, unique: true })
-  commentId: number | null;
 
   @ManyToOne(() => Articles, (articles) => articles.articlesComments, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "articleId", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
   article: Articles;
 
   @ManyToOne(() => Comments, (comments) => comments.articlesComments, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "commentId", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "comment_id", referencedColumnName: "id" }])
   comment: Comments;
 }

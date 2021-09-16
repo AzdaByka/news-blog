@@ -41,7 +41,7 @@ export class NavbarAuth extends Component<IProps, IState> {
     }
 
     render(){
-        return( <div className='row justify-content-md-center'>
+        return( <div className='row justify-content-md-center mt-3'>
             <div className='col-md-5 center-block'>
                 </div>
                 <div className='col-md-2 center-block'>

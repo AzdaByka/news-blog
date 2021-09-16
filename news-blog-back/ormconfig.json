@@ -6,9 +6,8 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgres",
-    "database": "news_blog",
+    "database": "",
     "synchronize": false,
-    "entities": ["dist/entity/**/*.js"]
-
+    "entities": ["entities/*.js"]
   }
 ]

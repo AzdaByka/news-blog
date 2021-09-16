@@ -40,14 +40,14 @@ export default class ChannelController{
 
         const subscriptionsRepository: LinqRepository<Subscriptions> = new LinqRepository(Subscriptions);
         const subscriptions = await subscriptionsRepository.getAll()
-            .where(u => u.channelId)
+            .where(u => u.channel.id)
             .equal(channel.id).count();
 
         console.log(subscriptions)
         let check='нет'
         const subscription = await getRepository(Subscriptions).find()
         for (const sub of subscription)
-            if (sub.userId==id && sub.channelId==channel.id)
+            if (sub.user.id==id && sub.channel.id==channel.id)
                 check='подписан'
 
         const aud= await ChannelController.getAuditorium(id)
@@ -98,7 +98,7 @@ export default class ChannelController{
 
         const subscriptions = await getRepository(Subscriptions).find()
         for (const sub of subscriptions)
-            if (sub.userId==id && sub.channelId==channelId)
+            if (sub.user.id==id && sub.channel.id==channelId)
             {
                 await getRepository(Subscriptions).remove(sub)
                 return res.status(200).json('отписан')
@@ -118,7 +118,7 @@ export default class ChannelController{
 
         const subscriptions = await getRepository(Subscriptions).find()
         for (const sub of subscriptions)
-            if (sub.userId==id && sub.channelId==channelId)
+            if (sub.user.id==id && sub.channel.id==channelId)
                 return res.status(200).json('подписан')
         return res.status(200).json('неподписан')
 
@@ -148,7 +148,7 @@ export default class ChannelController{
                 })
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.userId)
+                    existUser.push(stat.user.id)
                 // console.log(existUser)
                 const arr=Array.from(new Set(existUser))
                 // console.log(arr)
@@ -172,7 +172,7 @@ export default class ChannelController{
 
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.userId)
+                    existUser.push(stat.user.id)
                 //   console.log(existUser)
                 const arr=Array.from(new Set(existUser))
                 //     console.log(arr)

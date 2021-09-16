@@ -12,7 +12,7 @@ exports.__esModule = true;
 exports.Comments = void 0;
 var typeorm_1 = require("typeorm");
 var ArticlesComments_1 = require("./ArticlesComments");
-var UserComments_1 = require("./UserComments");
+var UserComment_1 = require("./UserComment");
 var Comments = /** @class */ (function () {
     function Comments() {
     }
@@ -21,7 +21,7 @@ var Comments = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Comments.prototype, "id");
     __decorate([
-        typeorm_1.Column("character varying", { name: "text", length: 255 }),
+        typeorm_1.Column("text", { name: "text" }),
         __metadata("design:type", String)
     ], Comments.prototype, "text");
     __decorate([
@@ -33,11 +33,17 @@ var Comments = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Comments.prototype, "dislike");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], Comments.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], Comments.prototype, "updatedAt");
     __decorate([
@@ -45,11 +51,11 @@ var Comments = /** @class */ (function () {
         __metadata("design:type", Array)
     ], Comments.prototype, "articlesComments");
     __decorate([
-        typeorm_1.OneToMany(function () { return UserComments_1.UserComments; }, function (userComments) { return userComments.comment; }),
+        typeorm_1.OneToMany(function () { return UserComment_1.UserComment; }, function (userComment) { return userComment.comment; }),
         __metadata("design:type", Array)
     ], Comments.prototype, "userComments");
     Comments = __decorate([
-        typeorm_1.Index("comments_pkey", ["id"], { unique: true }),
+        typeorm_1.Index("comments_pk", ["id"], { unique: true }),
         typeorm_1.Entity("comments", { schema: "public" })
     ], Comments);
     return Comments;

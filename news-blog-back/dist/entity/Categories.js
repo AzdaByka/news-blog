@@ -20,28 +20,33 @@ var Categories = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Categories.prototype, "id");
     __decorate([
-        typeorm_1.Column("character varying", { name: "name", unique: true, length: 255 }),
+        typeorm_1.Column("character varying", { name: "name" }),
         __metadata("design:type", String)
     ], Categories.prototype, "name");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], Categories.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], Categories.prototype, "updatedAt");
     __decorate([
         typeorm_1.ManyToOne(function () { return Articles_1.Articles; }, function (articles) { return articles.categories; }, {
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "articleId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "article_id", referencedColumnName: "id" }]),
         __metadata("design:type", Articles_1.Articles)
     ], Categories.prototype, "article");
     Categories = __decorate([
-        typeorm_1.Index("categories_pkey", ["id"], { unique: true }),
-        typeorm_1.Index("categories_name_key", ["name"], { unique: true }),
+        typeorm_1.Index("categories_pk", ["id"], { unique: true }),
         typeorm_1.Entity("categories", { schema: "public" })
     ], Categories);
     return Categories;

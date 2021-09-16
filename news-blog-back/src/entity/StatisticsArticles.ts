@@ -8,8 +8,8 @@ import {
 } from "typeorm";
 import { Articles } from "./Articles";
 
-@Index("statistics_articles_pkey", ["id"], { unique: true })
-@Entity("statistics_articles", { schema: "public" })
+@Index("statisticarticle_pk", ["id"], { unique: true })
+@Entity("statisticsArticles", { schema: "public" })
 export class StatisticsArticles {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
@@ -29,17 +29,22 @@ export class StatisticsArticles {
   @Column("integer", { name: "dislike" })
   dislike: number;
 
-
-  @Column("timestamp with time zone", { name: "createdAt" })
+  @Column("timestamp without time zone", {
+    name: "created_at",
+    default: () => "now()",
+  })
   createdAt: Date;
 
-  @Column("timestamp with time zone", { name: "updatedAt" })
+  @Column("timestamp without time zone", {
+    name: "updated_at",
+    default: () => "now()",
+  })
   updatedAt: Date;
 
   @ManyToOne(() => Articles, (articles) => articles.statisticsArticles, {
-    onDelete: "SET NULL",
+    onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "articleId", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
   article: Articles;
 }

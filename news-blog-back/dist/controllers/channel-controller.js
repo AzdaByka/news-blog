@@ -85,7 +85,7 @@ var ChannelController = /** @class */ (function () {
                         channel = _a.sent();
                         subscriptionsRepository = new typeorm_linq_repository_1.LinqRepository(Subscriptions_1.Subscriptions);
                         return [4 /*yield*/, subscriptionsRepository.getAll()
-                                .where(function (u) { return u.channelId; })
+                                .where(function (u) { return u.channel.id; })
                                 .equal(channel.id).count()];
                     case 2:
                         subscriptions = _a.sent();
@@ -96,7 +96,7 @@ var ChannelController = /** @class */ (function () {
                         subscription = _a.sent();
                         for (_i = 0, subscription_1 = subscription; _i < subscription_1.length; _i++) {
                             sub = subscription_1[_i];
-                            if (sub.userId == id && sub.channelId == channel.id)
+                            if (sub.user.id == id && sub.channel.id == channel.id)
                                 check = 'подписан';
                         }
                         return [4 /*yield*/, ChannelController.getAuditorium(id)];
@@ -171,7 +171,7 @@ var ChannelController = /** @class */ (function () {
                     case 2:
                         if (!(_i < subscriptions_1.length)) return [3 /*break*/, 5];
                         sub = subscriptions_1[_i];
-                        if (!(sub.userId == id && sub.channelId == channelId)) return [3 /*break*/, 4];
+                        if (!(sub.user.id == id && sub.channel.id == channelId)) return [3 /*break*/, 4];
                         return [4 /*yield*/, typeorm_1.getRepository(Subscriptions_1.Subscriptions).remove(sub)];
                     case 3:
                         _a.sent();
@@ -203,7 +203,7 @@ var ChannelController = /** @class */ (function () {
                         subscriptions = _a.sent();
                         for (_i = 0, subscriptions_2 = subscriptions; _i < subscriptions_2.length; _i++) {
                             sub = subscriptions_2[_i];
-                            if (sub.userId == id && sub.channelId == channelId)
+                            if (sub.user.id == id && sub.channel.id == channelId)
                                 return [2 /*return*/, res.status(200).json('подписан')];
                         }
                         return [2 /*return*/, res.status(200).json('неподписан')];
@@ -244,7 +244,7 @@ var ChannelController = /** @class */ (function () {
                         existUser = [];
                         for (_i = 0, statisticsChannels_1 = statisticsChannels; _i < statisticsChannels_1.length; _i++) {
                             stat = statisticsChannels_1[_i];
-                            existUser.push(stat.userId);
+                            existUser.push(stat.user.id);
                         }
                         arr = Array.from(new Set(existUser));
                         // console.log(arr)
@@ -262,7 +262,7 @@ var ChannelController = /** @class */ (function () {
                         existUser = [];
                         for (_a = 0, statisticsChannels_2 = statisticsChannels; _a < statisticsChannels_2.length; _a++) {
                             stat = statisticsChannels_2[_a];
-                            existUser.push(stat.userId);
+                            existUser.push(stat.user.id);
                         }
                         arr = Array.from(new Set(existUser));
                         //     console.log(arr)

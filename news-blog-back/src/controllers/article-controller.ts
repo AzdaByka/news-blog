@@ -13,7 +13,7 @@ import {Channels} from "../entity/Channels";
 import {Users} from "../entity/Users";
 import {Delete} from "routing-controllers";
 import StatisticsArticleController from "./statisticsArticleController";
-import {ArticlesUserRate} from "../entity/ArticleUserRate";
+import {ArticlesUserRate} from "../entity/ArticlesUserRate";
 import {Subscriptions} from "../entity/Subscriptions";
 const auth = new AuthController()
 const statisticsArticles = new StatisticsArticleController()
@@ -174,7 +174,7 @@ export default class ArticlesController{
         console.log(channel)
         const result:any[]=[]
         for (const channelArticle of channelArticles) {
-            if (channelArticle.channelId==channel.id){
+            if (channelArticle.id==channel.id){
                 result.push(channelArticle.article)
             }
         }
@@ -226,7 +226,7 @@ export default class ArticlesController{
         const articlesUserRates=await getRepository(ArticlesUserRate).find({relations:['article']})
 
         for (const articlesUserRate of articlesUserRates){
-            if (articlesUserRate.userId==id && articlesUserRate.like==1){
+            if (articlesUserRate.user.id==id && articlesUserRate.like==1){
                 result.push(articlesUserRate.article)
             }
         }
@@ -245,14 +245,14 @@ export default class ArticlesController{
         const subscriptionsRepository: LinqRepository<Subscriptions> = new LinqRepository(Subscriptions);
 
         const subscriptions = await subscriptionsRepository.getAll()
-            .where(u => u.userId)
+            .where(u => u.user.id)
             .equal(id)
        // const subscriptions= await getRepository(Subscriptions).find()
 
         const channelArticles = await getRepository(ChannelArticles).find({relations:['article']})
         for (const channel of channelArticles)
             for (const sub of subscriptions)
-                if (channel.channelId==sub.channelId)
+                if (channel.channel.id==sub.id)
                     result.push(channel.article)
      //   console.log(result.length)
         return res.status(200).json(result)
@@ -276,7 +276,7 @@ export default class ArticlesController{
             const channelArticles=await getRepository(ChannelArticles).find({relations:['article']})
             for (const channel of channels){
                 for (const channelArticle of channelArticles){
-                    if (channel.id===channelArticle.channelId)
+                    if (channel.id===channelArticle.channel.id)
                         result.push(channelArticle.article)
                 }
 

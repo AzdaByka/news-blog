@@ -12,7 +12,7 @@ import {ChannelArticles} from "../entity/ChannelArticles";
 import {Channels} from "../entity/Channels";
 import {Users} from "../entity/Users";
 import {Delete} from "routing-controllers";
-import {ArticlesUserRate} from "../entity/ArticleUserRate";
+import {ArticlesUserRate} from "../entity/ArticlesUserRate";
 import {StatisticsChannels} from "../entity/StatisticsChannels";
 const excel = require('node-excel-export');
 const auth = new AuthController()
@@ -29,9 +29,9 @@ export default class StatisticsArticleController{
         let channel
         const channelArticles=await getRepository(ChannelArticles).find({relations:["channel"]})
         for (const channelArticle of channelArticles){
-            console.log(channelArticle.articleId)
+            console.log(channelArticle.article.id)
 
-            if (channelArticle.articleId==article.id)
+            if (channelArticle.article.id==article.id)
             {
                 channel=channelArticle.channel
                 break
@@ -63,10 +63,10 @@ export default class StatisticsArticleController{
         const article=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRate']})
 
 
-        for (const rate of user.articlesUserRate)
-            if (rate.articleId==articleId){
+        for (const rate of user.articlesUserRates)
+            if (rate.article.id==articleId){
 
-                if (rate.userId==id)
+                if (rate.user.id==id)
                     await getRepository(ArticlesUserRate).remove(rate)
             }
 
@@ -84,7 +84,7 @@ export default class StatisticsArticleController{
 
         let likes=0
         let dislikes=0
-        for (const rate of newArticle.articlesUserRate) {
+        for (const rate of newArticle.articlesUserRates) {
 
             if (rate.like == 1)
                 likes += 1
@@ -114,8 +114,8 @@ export default class StatisticsArticleController{
         const user=await getRepository(Users).findOne(id,{relations:['articlesUserRate']})
         const article=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRate','statisticsArticles']})
 
-        for (const rate of user.articlesUserRate)
-            if (rate.articleId==articleId&& rate.userId==id){
+        for (const rate of user.articlesUserRates)
+            if (rate.article.id==articleId&& rate.user.id==id){
                 await getRepository(ArticlesUserRate).remove(rate)
             }
 
@@ -134,7 +134,7 @@ export default class StatisticsArticleController{
 
         let likes=0
         let dislikes=0
-        for (const rate of newArticle.articlesUserRate) {
+        for (const rate of newArticle.articlesUserRates) {
             if (rate.like == 1)
                 likes += 1
             if (rate.like == 0)
@@ -177,7 +177,7 @@ export default class StatisticsArticleController{
         for (const article of articles)
         {
             for (const art of article.channelArticles)
-                 if (art.channelId==channel.id ){
+                 if (art.channel.id==channel.id ){
 
                      let ctr
                      let shows
@@ -242,7 +242,7 @@ export default class StatisticsArticleController{
                 })
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.userId)
+                    existUser.push(stat.user.id)
                // console.log(existUser)
                 const arr=Array.from(new Set(existUser))
                // console.log(arr)
@@ -266,7 +266,7 @@ export default class StatisticsArticleController{
 
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.userId)
+                    existUser.push(stat.user.id)
              //   console.log(existUser)
                 const arr=Array.from(new Set(existUser))
            //     console.log(arr)

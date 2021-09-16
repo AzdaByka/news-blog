@@ -8,26 +8,31 @@ import {
 } from "typeorm";
 import { Articles } from "./Articles";
 
-@Index("categories_pkey", ["id"], { unique: true })
-@Index("categories_name_key", ["name"], { unique: true })
+@Index("categories_pk", ["id"], { unique: true })
 @Entity("categories", { schema: "public" })
 export class Categories {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "name", unique: true, length: 255 })
+  @Column("character varying", { name: "name" })
   name: string;
 
-  @Column("timestamp with time zone", { name: "createdAt" })
+  @Column("timestamp without time zone", {
+    name: "created_at",
+    default: () => "now()",
+  })
   createdAt: Date;
 
-  @Column("timestamp with time zone", { name: "updatedAt" })
+  @Column("timestamp without time zone", {
+    name: "updated_at",
+    default: () => "now()",
+  })
   updatedAt: Date;
 
   @ManyToOne(() => Articles, (articles) => articles.categories, {
-    onDelete: "SET NULL",
+    onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "articleId", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
   article: Articles;
 }

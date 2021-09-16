@@ -149,7 +149,7 @@ interface IProps{
     onHide:()=>void,
     show:boolean
     id?:string
-    text:string
+    text:any
     title:string;
     rubrics:ICategory[];
     preview:string;

@@ -47,7 +47,7 @@ var StatisticsArticles_1 = require("../entity/StatisticsArticles");
 var ChannelArticles_1 = require("../entity/ChannelArticles");
 var Channels_1 = require("../entity/Channels");
 var Users_1 = require("../entity/Users");
-var ArticleUserRate_1 = require("../entity/ArticleUserRate");
+var ArticlesUserRate_1 = require("../entity/ArticlesUserRate");
 var StatisticsChannels_1 = require("../entity/StatisticsChannels");
 var excel = require('node-excel-export');
 var auth = new auth_controller_1["default"]();
@@ -78,8 +78,8 @@ var StatisticsArticleController = /** @class */ (function () {
                         channelArticles = _c.sent();
                         for (_b = 0, channelArticles_1 = channelArticles; _b < channelArticles_1.length; _b++) {
                             channelArticle = channelArticles_1[_b];
-                            console.log(channelArticle.articleId);
-                            if (channelArticle.articleId == article.id) {
+                            console.log(channelArticle.article.id);
+                            if (channelArticle.article.id == article.id) {
                                 channel = channelArticle.channel;
                                 break;
                             }
@@ -122,14 +122,14 @@ var StatisticsArticleController = /** @class */ (function () {
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(articleId, { relations: ['articlesUserRate'] })];
                     case 2:
                         article = _f.sent();
-                        _i = 0, _a = user.articlesUserRate;
+                        _i = 0, _a = user.articlesUserRates;
                         _f.label = 3;
                     case 3:
                         if (!(_i < _a.length)) return [3 /*break*/, 6];
                         rate = _a[_i];
-                        if (!(rate.articleId == articleId)) return [3 /*break*/, 5];
-                        if (!(rate.userId == id)) return [3 /*break*/, 5];
-                        return [4 /*yield*/, typeorm_1.getRepository(ArticleUserRate_1.ArticlesUserRate).remove(rate)];
+                        if (!(rate.article.id == articleId)) return [3 /*break*/, 5];
+                        if (!(rate.user.id == id)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, typeorm_1.getRepository(ArticlesUserRate_1.ArticlesUserRate).remove(rate)];
                     case 4:
                         _f.sent();
                         _f.label = 5;
@@ -137,13 +137,13 @@ var StatisticsArticleController = /** @class */ (function () {
                         _i++;
                         return [3 /*break*/, 3];
                     case 6:
-                        statistic = new ArticleUserRate_1.ArticlesUserRate();
+                        statistic = new ArticlesUserRate_1.ArticlesUserRate();
                         statistic.user = user;
                         statistic.article = article;
                         statistic.like = 1;
                         statistic.createdAt = new Date();
                         statistic.updatedAt = new Date();
-                        return [4 /*yield*/, typeorm_1.getRepository(ArticleUserRate_1.ArticlesUserRate).save(statistic)];
+                        return [4 /*yield*/, typeorm_1.getRepository(ArticlesUserRate_1.ArticlesUserRate).save(statistic)];
                     case 7:
                         _f.sent();
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(articleId, { relations: ['articlesUserRate', 'statisticsArticles'] })];
@@ -151,7 +151,7 @@ var StatisticsArticleController = /** @class */ (function () {
                         newArticle = _f.sent();
                         likes = 0;
                         dislikes = 0;
-                        for (_b = 0, _c = newArticle.articlesUserRate; _b < _c.length; _b++) {
+                        for (_b = 0, _c = newArticle.articlesUserRates; _b < _c.length; _b++) {
                             rate = _c[_b];
                             if (rate.like == 1)
                                 likes += 1;
@@ -197,13 +197,13 @@ var StatisticsArticleController = /** @class */ (function () {
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(articleId, { relations: ['articlesUserRate', 'statisticsArticles'] })];
                     case 2:
                         article = _f.sent();
-                        _i = 0, _a = user.articlesUserRate;
+                        _i = 0, _a = user.articlesUserRates;
                         _f.label = 3;
                     case 3:
                         if (!(_i < _a.length)) return [3 /*break*/, 6];
                         rate = _a[_i];
-                        if (!(rate.articleId == articleId && rate.userId == id)) return [3 /*break*/, 5];
-                        return [4 /*yield*/, typeorm_1.getRepository(ArticleUserRate_1.ArticlesUserRate).remove(rate)];
+                        if (!(rate.article.id == articleId && rate.user.id == id)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, typeorm_1.getRepository(ArticlesUserRate_1.ArticlesUserRate).remove(rate)];
                     case 4:
                         _f.sent();
                         _f.label = 5;
@@ -211,13 +211,13 @@ var StatisticsArticleController = /** @class */ (function () {
                         _i++;
                         return [3 /*break*/, 3];
                     case 6:
-                        statistic = new ArticleUserRate_1.ArticlesUserRate();
+                        statistic = new ArticlesUserRate_1.ArticlesUserRate();
                         statistic.user = user;
                         statistic.article = article;
                         statistic.like = 0;
                         statistic.createdAt = new Date();
                         statistic.updatedAt = new Date();
-                        return [4 /*yield*/, typeorm_1.getRepository(ArticleUserRate_1.ArticlesUserRate).save(statistic)];
+                        return [4 /*yield*/, typeorm_1.getRepository(ArticlesUserRate_1.ArticlesUserRate).save(statistic)];
                     case 7:
                         _f.sent();
                         return [4 /*yield*/, typeorm_1.getRepository(Articles_1.Articles).findOne(articleId, { relations: ['articlesUserRate', 'statisticsArticles'] })];
@@ -225,7 +225,7 @@ var StatisticsArticleController = /** @class */ (function () {
                         newArticle = _f.sent();
                         likes = 0;
                         dislikes = 0;
-                        for (_b = 0, _c = newArticle.articlesUserRate; _b < _c.length; _b++) {
+                        for (_b = 0, _c = newArticle.articlesUserRates; _b < _c.length; _b++) {
                             rate = _c[_b];
                             if (rate.like == 1)
                                 likes += 1;
@@ -306,7 +306,7 @@ var StatisticsArticleController = /** @class */ (function () {
                             article = articles_1[_i];
                             for (_a = 0, _b = article.channelArticles; _a < _b.length; _a++) {
                                 art = _b[_a];
-                                if (art.channelId == channel.id) {
+                                if (art.channel.id == channel.id) {
                                     ctr = void 0;
                                     shows = void 0;
                                     subscriptions = void 0;
@@ -384,7 +384,7 @@ var StatisticsArticleController = /** @class */ (function () {
                         existUser = [];
                         for (_i = 0, statisticsChannels_1 = statisticsChannels; _i < statisticsChannels_1.length; _i++) {
                             stat = statisticsChannels_1[_i];
-                            existUser.push(stat.userId);
+                            existUser.push(stat.user.id);
                         }
                         arr = Array.from(new Set(existUser));
                         // console.log(arr)
@@ -402,7 +402,7 @@ var StatisticsArticleController = /** @class */ (function () {
                         existUser = [];
                         for (_a = 0, statisticsChannels_2 = statisticsChannels; _a < statisticsChannels_2.length; _a++) {
                             stat = statisticsChannels_2[_a];
-                            existUser.push(stat.userId);
+                            existUser.push(stat.user.id);
                         }
                         arr = Array.from(new Set(existUser));
                         //     console.log(arr)

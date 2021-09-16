@@ -21,27 +21,25 @@ var Subscriptions = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Subscriptions.prototype, "id");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], Subscriptions.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], Subscriptions.prototype, "updatedAt");
-    __decorate([
-        typeorm_1.Column("integer", { name: "userId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], Subscriptions.prototype, "userId");
-    __decorate([
-        typeorm_1.Column("integer", { name: "channelId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], Subscriptions.prototype, "channelId");
     __decorate([
         typeorm_1.ManyToOne(function () { return Channels_1.Channels; }, function (channels) { return channels.subscriptions; }, {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "channelId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "channel_id", referencedColumnName: "id" }]),
         __metadata("design:type", Channels_1.Channels)
     ], Subscriptions.prototype, "channel");
     __decorate([
@@ -49,14 +47,11 @@ var Subscriptions = /** @class */ (function () {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "userId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "user_id", referencedColumnName: "id" }]),
         __metadata("design:type", Users_1.Users)
     ], Subscriptions.prototype, "user");
     Subscriptions = __decorate([
-        typeorm_1.Index("subscriptions_userId_channelId_key", ["channelId", "userId"], {
-            unique: true
-        }),
-        typeorm_1.Index("subscriptions_pkey", ["id"], { unique: true }),
+        typeorm_1.Index("subscriptions_pk", ["id"], { unique: true }),
         typeorm_1.Entity("subscriptions", { schema: "public" })
     ], Subscriptions);
     return Subscriptions;

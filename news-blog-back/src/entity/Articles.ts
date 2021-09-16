@@ -6,34 +6,39 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ArticlesComments } from "./ArticlesComments";
+import { ArticlesUserRate } from "./ArticlesUserRate";
 import { Categories } from "./Categories";
 import { ChannelArticles } from "./ChannelArticles";
 import { StatisticsArticles } from "./StatisticsArticles";
-import {ArticlesUserRate} from "./ArticleUserRate";
 
-@Index("articles_pkey", ["id"], { unique: true })
+@Index("articles_pk", ["id"], { unique: true })
 @Entity("articles", { schema: "public" })
 export class Articles {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "title", length: 255 })
+  @Column("character varying", { name: "title" })
   title: string;
 
-  @Column("character varying", { name: "shortDescription" })
-  shortDescription: string;
-
-  @Column("character varying", { name: "text"})
+  @Column("text", { name: "text" })
   text: string;
 
-  @Column("character varying", { name: "imgs" })
-  imgs: string;
+  @Column("text", { name: "imgs", nullable: true })
+  imgs: string | null;
 
+  @Column("text", { name: "shortDescription" })
+  shortDescription: string;
 
-  @Column("timestamp with time zone", { name: "createdAt" })
+  @Column("timestamp without time zone", {
+    name: "created_at",
+    default: () => "now()",
+  })
   createdAt: Date;
 
-  @Column("timestamp with time zone", { name: "updatedAt" })
+  @Column("timestamp without time zone", {
+    name: "updated_at",
+    default: () => "now()",
+  })
   updatedAt: Date;
 
   @OneToMany(
@@ -41,6 +46,12 @@ export class Articles {
     (articlesComments) => articlesComments.article
   )
   articlesComments: ArticlesComments[];
+
+  @OneToMany(
+    () => ArticlesUserRate,
+    (articlesUserRate) => articlesUserRate.article
+  )
+  articlesUserRates: ArticlesUserRate[];
 
   @OneToMany(() => Categories, (categories) => categories.article)
   categories: Categories[];
@@ -56,10 +67,4 @@ export class Articles {
     (statisticsArticles) => statisticsArticles.article
   )
   statisticsArticles: StatisticsArticles[];
-
-  @OneToMany(
-      () => ArticlesUserRate,
-      (articlesUserRate) => articlesUserRate.article
-  )
-  articlesUserRate: ArticlesUserRate[];
 }

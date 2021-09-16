@@ -6,12 +6,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Channels } from "./Channels";
+import { Comments } from "./Comments";
 import { Users } from "./Users";
 
-@Index("statisticschannels_pk", ["id"], { unique: true })
-@Entity("statisticsChannels", { schema: "public" })
-export class StatisticsChannels {
+@Index("usercomment_pk", ["id"], { unique: true })
+@Entity("userComment", { schema: "public" })
+export class UserComment {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
@@ -27,14 +27,14 @@ export class StatisticsChannels {
   })
   updatedAt: Date;
 
-  @ManyToOne(() => Channels, (channels) => channels.statisticsChannels, {
+  @ManyToOne(() => Comments, (comments) => comments.userComments, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "channel_id", referencedColumnName: "id" }])
-  channel: Channels;
+  @JoinColumn([{ name: "comment_id", referencedColumnName: "id" }])
+  comment: Comments;
 
-  @ManyToOne(() => Users, (users) => users.statisticsChannels, {
+  @ManyToOne(() => Users, (users) => users.userComments, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })

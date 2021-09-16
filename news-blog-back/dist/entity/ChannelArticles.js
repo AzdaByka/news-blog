@@ -21,27 +21,25 @@ var ChannelArticles = /** @class */ (function () {
         __metadata("design:type", Number)
     ], ChannelArticles.prototype, "id");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], ChannelArticles.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], ChannelArticles.prototype, "updatedAt");
-    __decorate([
-        typeorm_1.Column("integer", { name: "channelId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], ChannelArticles.prototype, "channelId");
-    __decorate([
-        typeorm_1.Column("integer", { name: "articleId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], ChannelArticles.prototype, "articleId");
     __decorate([
         typeorm_1.ManyToOne(function () { return Articles_1.Articles; }, function (articles) { return articles.channelArticles; }, {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "articleId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "Article_id", referencedColumnName: "id" }]),
         __metadata("design:type", Articles_1.Articles)
     ], ChannelArticles.prototype, "article");
     __decorate([
@@ -49,15 +47,12 @@ var ChannelArticles = /** @class */ (function () {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "channelId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "channel_id", referencedColumnName: "id" }]),
         __metadata("design:type", Channels_1.Channels)
     ], ChannelArticles.prototype, "channel");
     ChannelArticles = __decorate([
-        typeorm_1.Index("channel_articles_channelId_articleId_key", ["articleId", "channelId"], {
-            unique: true
-        }),
-        typeorm_1.Index("channel_articles_pkey", ["id"], { unique: true }),
-        typeorm_1.Entity("channel_articles", { schema: "public" })
+        typeorm_1.Index("channelarticles_pk", ["id"], { unique: true }),
+        typeorm_1.Entity("channelArticles", { schema: "public" })
     ], ChannelArticles);
     return ChannelArticles;
 }());

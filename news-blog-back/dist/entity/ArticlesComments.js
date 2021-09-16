@@ -21,27 +21,25 @@ var ArticlesComments = /** @class */ (function () {
         __metadata("design:type", Number)
     ], ArticlesComments.prototype, "id");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], ArticlesComments.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], ArticlesComments.prototype, "updatedAt");
-    __decorate([
-        typeorm_1.Column("integer", { name: "articleId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], ArticlesComments.prototype, "articleId");
-    __decorate([
-        typeorm_1.Column("integer", { name: "commentId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], ArticlesComments.prototype, "commentId");
     __decorate([
         typeorm_1.ManyToOne(function () { return Articles_1.Articles; }, function (articles) { return articles.articlesComments; }, {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "articleId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "article_id", referencedColumnName: "id" }]),
         __metadata("design:type", Articles_1.Articles)
     ], ArticlesComments.prototype, "article");
     __decorate([
@@ -49,13 +47,12 @@ var ArticlesComments = /** @class */ (function () {
             onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "commentId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "comment_id", referencedColumnName: "id" }]),
         __metadata("design:type", Comments_1.Comments)
     ], ArticlesComments.prototype, "comment");
     ArticlesComments = __decorate([
-        typeorm_1.Index("articles_comments_articleId_commentId_key", ["articleId", "commentId"], { unique: true }),
-        typeorm_1.Index("articles_comments_pkey", ["id"], { unique: true }),
-        typeorm_1.Entity("articles_comments", { schema: "public" })
+        typeorm_1.Index("articlescomments_pk", ["id"], { unique: true }),
+        typeorm_1.Entity("articlesComments", { schema: "public" })
     ], ArticlesComments);
     return ArticlesComments;
 }());

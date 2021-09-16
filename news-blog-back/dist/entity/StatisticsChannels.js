@@ -21,40 +21,38 @@ var StatisticsChannels = /** @class */ (function () {
         __metadata("design:type", Number)
     ], StatisticsChannels.prototype, "id");
     __decorate([
-        typeorm_1.Column("integer", { name: "channelId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], StatisticsChannels.prototype, "channelId");
-    __decorate([
-        typeorm_1.Column("integer", { name: "userId", nullable: true, unique: true }),
-        __metadata("design:type", Number)
-    ], StatisticsChannels.prototype, "userId");
-    __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], StatisticsChannels.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], StatisticsChannels.prototype, "updatedAt");
     __decorate([
         typeorm_1.ManyToOne(function () { return Channels_1.Channels; }, function (channels) { return channels.statisticsChannels; }, {
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "channelId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "channel_id", referencedColumnName: "id" }]),
         __metadata("design:type", Channels_1.Channels)
     ], StatisticsChannels.prototype, "channel");
     __decorate([
         typeorm_1.ManyToOne(function () { return Users_1.Users; }, function (users) { return users.statisticsChannels; }, {
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "userId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "user_id", referencedColumnName: "id" }]),
         __metadata("design:type", Users_1.Users)
     ], StatisticsChannels.prototype, "user");
     StatisticsChannels = __decorate([
-        typeorm_1.Index("statistics_channels_pkey", ["id"], { unique: true }),
-        typeorm_1.Entity("statistics_channels", { schema: "public" })
+        typeorm_1.Index("statisticschannels_pk", ["id"], { unique: true }),
+        typeorm_1.Entity("statisticsChannels", { schema: "public" })
     ], StatisticsChannels);
     return StatisticsChannels;
 }());

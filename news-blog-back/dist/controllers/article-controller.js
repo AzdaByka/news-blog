@@ -49,7 +49,7 @@ var Categories_1 = require("../entity/Categories");
 var ChannelArticles_1 = require("../entity/ChannelArticles");
 var Channels_1 = require("../entity/Channels");
 var statisticsArticleController_1 = __importDefault(require("./statisticsArticleController"));
-var ArticleUserRate_1 = require("../entity/ArticleUserRate");
+var ArticlesUserRate_1 = require("../entity/ArticlesUserRate");
 var Subscriptions_1 = require("../entity/Subscriptions");
 var auth = new auth_controller_1["default"]();
 var statisticsArticles = new statisticsArticleController_1["default"]();
@@ -301,7 +301,7 @@ var ArticlesController = /** @class */ (function () {
                         result = [];
                         for (_a = 0, channelArticles_1 = channelArticles; _a < channelArticles_1.length; _a++) {
                             channelArticle = channelArticles_1[_a];
-                            if (channelArticle.channelId == channel.id) {
+                            if (channelArticle.id == channel.id) {
                                 result.push(channelArticle.article);
                             }
                         }
@@ -363,12 +363,12 @@ var ArticlesController = /** @class */ (function () {
                             id = req.body.id;
                         }
                         result = [];
-                        return [4 /*yield*/, typeorm_1.getRepository(ArticleUserRate_1.ArticlesUserRate).find({ relations: ['article'] })];
+                        return [4 /*yield*/, typeorm_1.getRepository(ArticlesUserRate_1.ArticlesUserRate).find({ relations: ['article'] })];
                     case 1:
                         articlesUserRates = _a.sent();
                         for (_i = 0, articlesUserRates_1 = articlesUserRates; _i < articlesUserRates_1.length; _i++) {
                             articlesUserRate = articlesUserRates_1[_i];
-                            if (articlesUserRate.userId == id && articlesUserRate.like == 1) {
+                            if (articlesUserRate.user.id == id && articlesUserRate.like == 1) {
                                 result.push(articlesUserRate.article);
                             }
                         }
@@ -392,7 +392,7 @@ var ArticlesController = /** @class */ (function () {
                         result = [];
                         subscriptionsRepository = new typeorm_linq_repository_1.LinqRepository(Subscriptions_1.Subscriptions);
                         return [4 /*yield*/, subscriptionsRepository.getAll()
-                                .where(function (u) { return u.userId; })
+                                .where(function (u) { return u.user.id; })
                                 .equal(id)
                             // const subscriptions= await getRepository(Subscriptions).find()
                         ];
@@ -405,7 +405,7 @@ var ArticlesController = /** @class */ (function () {
                             channel = channelArticles_2[_i];
                             for (_a = 0, subscriptions_1 = subscriptions; _a < subscriptions_1.length; _a++) {
                                 sub = subscriptions_1[_a];
-                                if (channel.channelId == sub.channelId)
+                                if (channel.channel.id == sub.id)
                                     result.push(channel.article);
                             }
                         }
@@ -445,7 +445,7 @@ var ArticlesController = /** @class */ (function () {
                             channel = channels_3[_a];
                             for (_b = 0, channelArticles_3 = channelArticles; _b < channelArticles_3.length; _b++) {
                                 channelArticle = channelArticles_3[_b];
-                                if (channel.id === channelArticle.channelId)
+                                if (channel.id === channelArticle.channel.id)
                                     result.push(channelArticle.article);
                             }
                         }

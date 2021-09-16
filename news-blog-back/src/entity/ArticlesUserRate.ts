@@ -6,14 +6,17 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Channels } from "./Channels";
+import { Articles } from "./Articles";
 import { Users } from "./Users";
 
-@Index("statisticschannels_pk", ["id"], { unique: true })
-@Entity("statisticsChannels", { schema: "public" })
-export class StatisticsChannels {
+@Index("articlesuserrate_pk", ["id"], { unique: true })
+@Entity("articlesUserRate", { schema: "public" })
+export class ArticlesUserRate {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
+
+  @Column("integer", { name: "like", nullable: true })
+  like: number | null;
 
   @Column("timestamp without time zone", {
     name: "created_at",
@@ -27,14 +30,14 @@ export class StatisticsChannels {
   })
   updatedAt: Date;
 
-  @ManyToOne(() => Channels, (channels) => channels.statisticsChannels, {
+  @ManyToOne(() => Articles, (articles) => articles.articlesUserRates, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "channel_id", referencedColumnName: "id" }])
-  channel: Channels;
+  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
+  article: Articles;
 
-  @ManyToOne(() => Users, (users) => users.statisticsChannels, {
+  @ManyToOne(() => Users, (users) => users.articlesUserRates, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })

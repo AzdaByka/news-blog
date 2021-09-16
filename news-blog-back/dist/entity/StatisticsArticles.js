@@ -40,24 +40,30 @@ var StatisticsArticles = /** @class */ (function () {
         __metadata("design:type", Number)
     ], StatisticsArticles.prototype, "dislike");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "createdAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "created_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], StatisticsArticles.prototype, "createdAt");
     __decorate([
-        typeorm_1.Column("timestamp with time zone", { name: "updatedAt" }),
+        typeorm_1.Column("timestamp without time zone", {
+            name: "updated_at",
+            "default": function () { return "now()"; }
+        }),
         __metadata("design:type", Date)
     ], StatisticsArticles.prototype, "updatedAt");
     __decorate([
         typeorm_1.ManyToOne(function () { return Articles_1.Articles; }, function (articles) { return articles.statisticsArticles; }, {
-            onDelete: "SET NULL",
+            onDelete: "CASCADE",
             onUpdate: "CASCADE"
         }),
-        typeorm_1.JoinColumn([{ name: "articleId", referencedColumnName: "id" }]),
+        typeorm_1.JoinColumn([{ name: "article_id", referencedColumnName: "id" }]),
         __metadata("design:type", Articles_1.Articles)
     ], StatisticsArticles.prototype, "article");
     StatisticsArticles = __decorate([
-        typeorm_1.Index("statistics_articles_pkey", ["id"], { unique: true }),
-        typeorm_1.Entity("statistics_articles", { schema: "public" })
+        typeorm_1.Index("statisticarticle_pk", ["id"], { unique: true }),
+        typeorm_1.Entity("statisticsArticles", { schema: "public" })
     ], StatisticsArticles);
     return StatisticsArticles;
 }());

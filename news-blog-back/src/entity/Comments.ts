@@ -6,15 +6,15 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ArticlesComments } from "./ArticlesComments";
-import { UserComments } from "./UserComments";
+import { UserComment } from "./UserComment";
 
-@Index("comments_pkey", ["id"], { unique: true })
+@Index("comments_pk", ["id"], { unique: true })
 @Entity("comments", { schema: "public" })
 export class Comments {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "text", length: 255 })
+  @Column("text", { name: "text" })
   text: string;
 
   @Column("integer", { name: "like" })
@@ -23,10 +23,16 @@ export class Comments {
   @Column("integer", { name: "dislike" })
   dislike: number;
 
-  @Column("timestamp with time zone", { name: "createdAt" })
+  @Column("timestamp without time zone", {
+    name: "created_at",
+    default: () => "now()",
+  })
   createdAt: Date;
 
-  @Column("timestamp with time zone", { name: "updatedAt" })
+  @Column("timestamp without time zone", {
+    name: "updated_at",
+    default: () => "now()",
+  })
   updatedAt: Date;
 
   @OneToMany(
@@ -35,6 +41,6 @@ export class Comments {
   )
   articlesComments: ArticlesComments[];
 
-  @OneToMany(() => UserComments, (userComments) => userComments.comment)
-  userComments: UserComments[];
+  @OneToMany(() => UserComment, (userComment) => userComment.comment)
+  userComments: UserComment[];
 }
