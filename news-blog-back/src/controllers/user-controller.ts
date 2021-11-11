@@ -68,6 +68,7 @@ export default class UserController{
     public async updateInformation(req: Request, res: Response): Promise<Response>{
         let { id, login, name, surname, patronymic, tel, img_avatar } = req.body;
         const user= await getRepository(Users).findOne(id)
+       // console.log(user)
         user.name=name
         user.surname=surname
         user.login=login

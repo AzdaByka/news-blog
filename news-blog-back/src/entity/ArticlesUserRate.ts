@@ -18,6 +18,12 @@ export class ArticlesUserRate {
   @Column("integer", { name: "like", nullable: true })
   like: number | null;
 
+  @Column("integer", { name: "articleId", nullable: true, unique: true })
+  articleId: number | null;
+
+  @Column("integer", { name: "userId", nullable: true, unique: true })
+  userId: number | null;
+
   @Column("timestamp without time zone", {
     name: "created_at",
     default: () => "now()",
@@ -34,13 +40,13 @@ export class ArticlesUserRate {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "articleId", referencedColumnName: "id" }])
   article: Articles;
 
   @ManyToOne(() => Users, (users) => users.articlesUserRates, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
   user: Users;
 }

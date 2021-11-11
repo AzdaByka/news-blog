@@ -31,13 +31,13 @@ export class UserComment {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "comment_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "commentId", referencedColumnName: "id" }])
   comment: Comments;
 
   @ManyToOne(() => Users, (users) => users.userComments, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
   user: Users;
 }

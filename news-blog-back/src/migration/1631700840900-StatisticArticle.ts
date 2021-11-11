@@ -12,7 +12,7 @@ export class StatisticArticle1631700840900 implements MigrationInterface {
         "subscriptions"  int NOT NULL,
         "like"  int NOT NULL,
         "dislike"  int NOT NULL,
-        "article_id" int
+        "articleId" int
             constraint statisticArticle_fk
                 references articles
                 on update cascade on delete cascade,      

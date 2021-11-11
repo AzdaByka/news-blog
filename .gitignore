@@ -74,3 +74,10 @@ typings/
 
 # FuseBox cache
 .fusebox/
+
+/news-blog-back/node_modules
+/news-blog-back/dist
+/news-blog-back/build
+/news-blog-back/entities
+/news-blog-back/.env
+/news-blog-back/.idea

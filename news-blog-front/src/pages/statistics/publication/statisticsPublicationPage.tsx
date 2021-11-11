@@ -75,8 +75,7 @@ export default class StatisticPublicationPage extends Component{
             totalResExport.unshift("Итого")
             const statistic=response.data
             statisticExport.unshift(totalResExport)
-            console.log(statistic)
-            console.log(totalRes)
+            console.log(response.data)
             this.setState({
                 isLoaded: true,
                 statistics: statistic,
@@ -113,7 +112,7 @@ export default class StatisticPublicationPage extends Component{
         });
 
 
-        console.log(arrayForExport);
+        // console.log(arrayForExport);
         const ws = XLSX.utils.json_to_sheet(arrayForExport);
         const wb = {Sheets: {'data': ws}, SheetNames: ['data']};
         const excelBuffer = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});

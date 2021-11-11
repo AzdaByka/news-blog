@@ -27,6 +27,9 @@ export class Channels {
   @Column("text", { name: "img_avatar" })
   imgAvatar: string;
 
+  @Column("integer", { name: "userId", nullable: true, unique: true })
+  userId: number | null;
+
   @Column("timestamp without time zone", {
     name: "created_at",
     default: () => "now()",
@@ -49,7 +52,7 @@ export class Channels {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
   user: Users;
 
   @OneToMany(

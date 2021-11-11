@@ -7,11 +7,11 @@ export class StatisticChannel1631701543407 implements MigrationInterface {
         CREATE TABLE "statisticsChannels" (
         "id"serial not null  constraint statisticsChannels_pk
             primary key,
-        "channel_id" int
+        "channelId" int
             constraint statisticsChannels_channel_fk
                 references channels
                 on update cascade on delete cascade,
-        "user_id" int
+        "userId" int
             constraint statisticsChannels_user_fk
                 references users
                 on update cascade on delete cascade,

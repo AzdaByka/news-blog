@@ -50,7 +50,7 @@ class AuthController {
 
     public async me(req: Request, res: Response): Promise<Response>{
         const token = <string>req.headers["authorization"].split(' ')[1];
-        console.log(token)
+       // console.log(token)
         const jwtPayload = <any>jwt.verify(token,  process.env.JWT_SECRET);
         if (jwtPayload==null)
             return res.status(401).send('jwt где?');

@@ -15,6 +15,10 @@ export class ChannelArticles {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
+  @Column("integer", { name: "channelId", nullable: true, unique: true })
+  channelId: number | null;
+
+
   @Column("timestamp without time zone", {
     name: "created_at",
     default: () => "now()",
@@ -31,13 +35,13 @@ export class ChannelArticles {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "Article_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "ArticleId", referencedColumnName: "id" }])
   article: Articles;
 
   @ManyToOne(() => Channels, (channels) => channels.channelArticles, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "channel_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "channelId", referencedColumnName: "id" }])
   channel: Channels;
 }

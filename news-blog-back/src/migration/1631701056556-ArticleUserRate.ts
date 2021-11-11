@@ -7,11 +7,11 @@ export class ArticleUserRate1631701056556 implements MigrationInterface {
         CREATE TABLE "articlesUserRate" (
         "id"serial not null  constraint articlesUserRate_pk
             primary key,
-        "article_id" int
+        "articleId" int
             constraint articlesUserRate_article_fk
                 references articles
                 on update cascade on delete cascade,
-        "user_id" int
+        "userId" int
             constraint articlesUserRate_user_fk 
                 references users
                 on update cascade on delete cascade,

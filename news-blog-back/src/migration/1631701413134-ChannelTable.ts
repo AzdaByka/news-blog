@@ -10,7 +10,7 @@ export class ChannelTable1631701413134 implements MigrationInterface {
         "name" character varying(40) NOT NULL,
         "descriptions" character varying NOT NULL,
         "img_avatar" text NOT NULL,
-        "user_id" int
+        "userId" int
             constraint userComment_user_fk
                 references users
                 on update cascade on delete cascade,

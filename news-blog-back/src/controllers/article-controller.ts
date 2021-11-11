@@ -161,23 +161,24 @@ export default class ArticlesController{
             id = Number(req.query.id);
 
         const channels= await getRepository(Channels).find({relations:["user"]})
-        console.log(channels)
+        //console.log(channels)
         let channel:Channels=null
         for (const channelItem of channels)
             if (channelItem.user!==null)
-                if (channelItem.user.id == id)
+                if (channelItem.userId == id)
                 {
                     channel  =  channelItem
                     break
                 }
         const channelArticles = await getRepository(ChannelArticles).find({relations:["article"]});
-        console.log(channel)
+        //console.log(channel)
         const result:any[]=[]
         for (const channelArticle of channelArticles) {
-            if (channelArticle.id==channel.id){
+            if (channelArticle.channelId==channel.id){
                 result.push(channelArticle.article)
             }
         }
+       // console.log(result)
        if (result.length==0)
               return res.status(404).send('У вас нет статей')
         return res.status(200).json(result)
@@ -196,7 +197,7 @@ export default class ArticlesController{
 
 
 
-        console.log(flag)
+       // console.log(flag)
         // let {id}= req.body
         const article= await getRepository(Articles).findOne(id,{relations:['categories','statisticsArticles']})
         if (flag==null) {
@@ -204,7 +205,7 @@ export default class ArticlesController{
             if (!userId){
                 userId=req.body?.userId
             }
-            console.log(userId)
+          //  console.log(userId)
             await statisticsArticles.updateStatisticsCTR(article,userId)
         }
         // const articleLinqRepository: LinqRepository<Articles> = new LinqRepository(Articles);
@@ -226,7 +227,7 @@ export default class ArticlesController{
         const articlesUserRates=await getRepository(ArticlesUserRate).find({relations:['article']})
 
         for (const articlesUserRate of articlesUserRates){
-            if (articlesUserRate.user.id==id && articlesUserRate.like==1){
+            if (articlesUserRate.userId==id && articlesUserRate.like==1){
                 result.push(articlesUserRate.article)
             }
         }
@@ -252,7 +253,7 @@ export default class ArticlesController{
         const channelArticles = await getRepository(ChannelArticles).find({relations:['article']})
         for (const channel of channelArticles)
             for (const sub of subscriptions)
-                if (channel.channel.id==sub.id)
+                if (channel.channelId==sub.id)
                     result.push(channel.article)
      //   console.log(result.length)
         return res.status(200).json(result)
@@ -276,7 +277,7 @@ export default class ArticlesController{
             const channelArticles=await getRepository(ChannelArticles).find({relations:['article']})
             for (const channel of channels){
                 for (const channelArticle of channelArticles){
-                    if (channel.id===channelArticle.channel.id)
+                    if (channel.id===channelArticle.channelId)
                         result.push(channelArticle.article)
                 }
 

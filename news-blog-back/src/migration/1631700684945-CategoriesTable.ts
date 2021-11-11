@@ -8,7 +8,7 @@ export class CategoriesTable1631700684945 implements MigrationInterface {
         "id" integer generated always as identity  constraint categories_pk
             primary key,
         "name"  character varying NOT NULL,
-        "article_id" int
+        "articleId" int
             constraint categories_article_fk
                 references articles
                 on update cascade on delete cascade,      

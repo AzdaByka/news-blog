@@ -6,11 +6,11 @@ export class ArticleComments1631695249044 implements MigrationInterface {
         await queryRunner.query(`
         CREATE TABLE "articlesComments" (
         "id" serial not null constraint articlesComments_pk primary key,
-        "article_id" int
+        "articleId" int
             constraint articlesComments_article_fk
                 references articles
                 on update cascade on delete cascade,
-        "comment_id" int
+        "commentId" int
             constraint articlesComments_comment_fk
                 references comments
                 on update cascade on delete cascade,

@@ -7,11 +7,11 @@ export class subcription1631701591705 implements MigrationInterface {
         CREATE TABLE "subscriptions" (
         "id"serial not null  constraint subscriptions_pk 
             primary key,
-        "channel_id" int
+        "channelId" int
             constraint subscriptions_channel_fk
                 references channels
                 on update cascade on delete cascade,
-        "user_id" int
+        "userId" int
             constraint subscriptions_user_fk
                 references users
                 on update cascade on delete cascade,

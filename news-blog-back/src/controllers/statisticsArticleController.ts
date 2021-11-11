@@ -27,9 +27,9 @@ export default class StatisticsArticleController{
         }
 
         let channel
-        const channelArticles=await getRepository(ChannelArticles).find({relations:["channel"]})
+        const channelArticles=await getRepository(ChannelArticles).find({relations:["channel","article"]})
         for (const channelArticle of channelArticles){
-            console.log(channelArticle.article.id)
+           // console.log(channelArticle)
 
             if (channelArticle.article.id==article.id)
             {
@@ -59,14 +59,14 @@ export default class StatisticsArticleController{
             articleId=req.body.articleId
         }
 
-        const user=await getRepository(Users).findOne(id,{relations:['articlesUserRate']})
-        const article=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRate']})
+        const user=await getRepository(Users).findOne(id,{relations:['articlesUserRates']})
+        const article=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRates']})
 
 
         for (const rate of user.articlesUserRates)
-            if (rate.article.id==articleId){
+            if (rate.articleId==articleId){
 
-                if (rate.user.id==id)
+                if (rate.userId==id)
                     await getRepository(ArticlesUserRate).remove(rate)
             }
 
@@ -80,7 +80,7 @@ export default class StatisticsArticleController{
         await getRepository(ArticlesUserRate).save(statistic)
 
 
-        const newArticle=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRate','statisticsArticles']})
+        const newArticle=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRates','statisticsArticles']})
 
         let likes=0
         let dislikes=0
@@ -111,11 +111,11 @@ export default class StatisticsArticleController{
             articleId=req.body.articleId
         }
 
-        const user=await getRepository(Users).findOne(id,{relations:['articlesUserRate']})
-        const article=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRate','statisticsArticles']})
+        const user=await getRepository(Users).findOne(id,{relations:['articlesUserRates']})
+        const article=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRates','statisticsArticles']})
 
         for (const rate of user.articlesUserRates)
-            if (rate.article.id==articleId&& rate.user.id==id){
+            if (rate.articleId==articleId&& rate.userId==id){
                 await getRepository(ArticlesUserRate).remove(rate)
             }
 
@@ -129,7 +129,7 @@ export default class StatisticsArticleController{
         await getRepository(ArticlesUserRate).save(statistic)
 
 
-        const newArticle=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRate','statisticsArticles']})
+        const newArticle=await getRepository(Articles).findOne(articleId,{relations:['articlesUserRates','statisticsArticles']})
 
 
         let likes=0
@@ -176,35 +176,35 @@ export default class StatisticsArticleController{
         let likesSum=0
         for (const article of articles)
         {
-            for (const art of article.channelArticles)
-                 if (art.channel.id==channel.id ){
-
-                     let ctr
-                     let shows
-                     let subscriptions
-                     let likes
-                     for (const statistic of article.statisticsArticles){
-                         shows= statistic.shows
-                         ctr= statistic.ctr/shows*100
-                         subscriptions= statistic.subscriptions
-                         likes=statistic.like
-                     }
-                     showsSum+=shows
-                     likesSum+=likes
-                     subscriptionsSum+=subscriptions
-                     if (ctr>ctrMax)
-                         ctrMax=ctr
-                     const responseArticle=[
-                         article.updatedAt,
-                         article.title,
-                         ctr,
-                         shows,
-                         subscriptions,
-                         likes,
-                     ]
-                     result.push(responseArticle)
+            for (const art of article.channelArticles) {
+               // console.log(article)
+               // if (art.channelId == channel.id) {
+                    let ctr
+                    let shows
+                    let subscriptions
+                    let likes
+                    for (const statistic of article.statisticsArticles) {
+                        shows = statistic.shows
+                        ctr = statistic.ctr / shows * 100
+                        subscriptions = statistic.subscriptions
+                        likes = statistic.like
+                    }
+                    showsSum += shows
+                    likesSum += likes
+                    subscriptionsSum += subscriptions
+                    if (ctr > ctrMax)
+                        ctrMax = ctr
+                    const responseArticle = [
+                        article.updatedAt,
+                        article.title,
+                        ctr,
+                        shows,
+                        subscriptions,
+                        likes,
+                    ]
+                    result.push(responseArticle)
+               // }
             }
-
         }
         result.push([
              ctrMax,
@@ -213,6 +213,7 @@ export default class StatisticsArticleController{
              subscriptionsSum,
              likesSum,
         ])
+       // console.log(result)
         return res.status(200).json(result)
     }
 
@@ -235,14 +236,15 @@ export default class StatisticsArticleController{
 
                 const statisticsChannels = await getRepository(StatisticsChannels).find({
                     where: {
-                        channelId: channel.id,
+                        channel: channel,
                         updatedAt: Between(lastDate, nextDate),
                        // userId:Not(In(existUser))
                     }
                 })
+
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.user.id)
+                    existUser.push(stat.user)
                // console.log(existUser)
                 const arr=Array.from(new Set(existUser))
                // console.log(arr)
@@ -258,16 +260,19 @@ export default class StatisticsArticleController{
 
 
                 const statisticsChannels =await getRepository(StatisticsChannels).find({where:{
-                        channelId:channel.id,
+                        channel:channel,
                         updatedAt:Between(lastDate, nextDate),
                      //   userId:Not(In(existUser))
 
                     }})
 
                 const existUser=[]
+                console.log(statisticsChannels)
                 for (const stat of statisticsChannels)
+                {
+
                     existUser.push(stat.user.id)
-             //   console.log(existUser)
+                }
                 const arr=Array.from(new Set(existUser))
            //     console.log(arr)
                 result.push(arr.length)
@@ -278,7 +283,14 @@ export default class StatisticsArticleController{
             }
         }
         // let newDate= nowDate.
-
+        const loh = await getRepository(StatisticsChannels).find({
+            where: {
+                channelId: 1,
+            //    updatedAt: Between(new Date(nowDate.getFullYear(),1,1), new Date(2021,12,31))
+                // userId:Not(In(existUser))
+            }
+        })
+        console.log(loh)
         return res.json(result).status(200)
     }
 

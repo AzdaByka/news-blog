@@ -42,12 +42,11 @@ export default class ChannelController{
         const subscriptions = await subscriptionsRepository.getAll()
             .where(u => u.channel.id)
             .equal(channel.id).count();
-
-        console.log(subscriptions)
+       // console.log(subscriptions)
         let check='нет'
         const subscription = await getRepository(Subscriptions).find()
         for (const sub of subscription)
-            if (sub.user.id==id && sub.channel.id==channel.id)
+            if (sub.userId==id && sub.channelId==channel.id)
                 check='подписан'
 
         const aud= await ChannelController.getAuditorium(id)
@@ -132,6 +131,7 @@ export default class ChannelController{
         nowDate= new Date(nowDate.getFullYear(),nowDate.getMonth(),28)
         const user=await getRepository(Users).findOne(id)
         const channel=await getRepository(Channels).findOne({where:{user:user}})
+
         for (let i=0;i<12;i++){
             if (nowDate.getMonth()-i>0) {
                 const nextDate=new Date(nowDate.getFullYear(), nowDate.getMonth() - i+1, 1)
@@ -141,14 +141,17 @@ export default class ChannelController{
 
                 const statisticsChannels = await getRepository(StatisticsChannels).find({
                     where: {
-                        channelId: channel.id,
+                        channel: channel,
                         updatedAt: Between(lastDate, nextDate),
                         // userId:Not(In(existUser))
                     }
                 })
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.user.id)
+                {
+                   // console.log(stat)
+                    existUser.push(stat.userId)
+                }
                 // console.log(existUser)
                 const arr=Array.from(new Set(existUser))
                 // console.log(arr)
@@ -164,7 +167,7 @@ export default class ChannelController{
 
 
                 const statisticsChannels =await getRepository(StatisticsChannels).find({where:{
-                        channelId:channel.id,
+                        channel:channel,
                         updatedAt:Between(lastDate, nextDate),
                         //   userId:Not(In(existUser))
 
@@ -172,7 +175,11 @@ export default class ChannelController{
 
                 const existUser=[]
                 for (const stat of statisticsChannels)
-                    existUser.push(stat.user.id)
+                {
+                   // console.log(stat)
+                    existUser.push(stat.userId)
+
+                }
                 //   console.log(existUser)
                 const arr=Array.from(new Set(existUser))
                 //     console.log(arr)

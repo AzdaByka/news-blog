@@ -7,11 +7,11 @@ export class UserComment1631701276727 implements MigrationInterface {
         CREATE TABLE "userComment" (
         "id"serial not null  constraint userComment_pk
             primary key,
-        "comment_id" int
+        "commentId" int
             constraint userComment_comment_fk
                 references comments
                 on update cascade on delete cascade,
-        "user_id" int
+        "userId" int
             constraint userComment_user_fk
                 references users
                 on update cascade on delete cascade,

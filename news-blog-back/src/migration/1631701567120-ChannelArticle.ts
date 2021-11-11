@@ -7,11 +7,11 @@ export class ChannelArticle1631701567120 implements MigrationInterface {
         CREATE TABLE "channelArticles" (
         "id"serial not null  constraint channelArticles_pk
             primary key,
-        "channel_id" int
+        "channelId" int
             constraint channelArticles_channel_fk
                 references channels
                 on update cascade on delete cascade,
-        "Article_id" int
+        "ArticleId" int
             constraint channelArticles_article_fk
                 references articles
                 on update cascade on delete cascade,

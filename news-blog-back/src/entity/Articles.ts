@@ -49,8 +49,7 @@ export class Articles {
 
   @OneToMany(
     () => ArticlesUserRate,
-    (articlesUserRate) => articlesUserRate.article
-  )
+    (articlesUserRate) => articlesUserRate.article)
   articlesUserRates: ArticlesUserRate[];
 
   @OneToMany(() => Categories, (categories) => categories.article)

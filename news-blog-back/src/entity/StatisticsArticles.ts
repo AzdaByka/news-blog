@@ -45,6 +45,6 @@ export class StatisticsArticles {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
+  @JoinColumn([{ name: "articleId", referencedColumnName: "id" }])
   article: Articles;
 }
