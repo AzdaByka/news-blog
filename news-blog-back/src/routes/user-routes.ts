@@ -1,7 +1,4 @@
 import {Router} from "express"
-import ArticlesController from "../controllers/article-controller";
-
-import StatisticsArticleController from "../controllers/statisticsArticleController";
 import UserController from "../controllers/user-controller";
 const userController = new UserController()
 

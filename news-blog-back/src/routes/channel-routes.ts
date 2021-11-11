@@ -1,8 +1,6 @@
 import {Router} from "express"
-import ArticlesController from "../controllers/article-controller";
-
-import StatisticsArticleController from "../controllers/statisticsArticleController";
 import ChannelController from "../controllers/channel-controller";
+
 const channelController = new ChannelController()
 
 

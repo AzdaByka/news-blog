@@ -1,7 +1,6 @@
 import {Router} from "express"
 import ArticlesController from "../controllers/article-controller";
 import RubricController from "../controllers/rubric-controller";
-import StatisticsArticleController from "../controllers/statisticsArticleController";
 
 
 const router = Router()

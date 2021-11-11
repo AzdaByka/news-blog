@@ -1,8 +1,6 @@
 import {Request, response, Response} from "express";
-import * as jwt from "jsonwebtoken";
+
 import {Between, getRepository} from "typeorm";
-import { Users } from "../entity/Users";
-import { LinqRepository } from "typeorm-linq-repository";
 import {Articles} from "../entity/Articles";
 import { StatisticsArticles } from "../entity/StatisticsArticles";
 import StatisticsArticleController from '../controllers/statisticsArticleController'

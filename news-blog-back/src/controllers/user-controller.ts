@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { Users } from "../entity/Users";
-import { validate } from "class-validator";
 import { LinqRepository } from "typeorm-linq-repository";
 import {Channels} from "../entity/Channels";
 import bcrypt from 'bcrypt';
-import {Articles} from "../entity/Articles";
 
 
 export default class UserController{

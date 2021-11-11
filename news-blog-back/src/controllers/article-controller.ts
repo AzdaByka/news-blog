@@ -1,17 +1,13 @@
 import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import {Like} from "typeorm";
-import * as jwt from "jsonwebtoken";
 import {Articles} from "../entity/Articles";
 import AuthController from "./auth-controller";
 import { LinqRepository } from "typeorm-linq-repository";
-import {isNumber} from "class-validator";
 import {StatisticsArticles} from "../entity/StatisticsArticles";
 import {Categories} from "../entity/Categories";
 import {ChannelArticles} from "../entity/ChannelArticles";
 import {Channels} from "../entity/Channels";
-import {Users} from "../entity/Users";
-import {Delete} from "routing-controllers";
 import StatisticsArticleController from "./statisticsArticleController";
 import {ArticlesUserRate} from "../entity/ArticlesUserRate";
 import {Subscriptions} from "../entity/Subscriptions";
