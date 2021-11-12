@@ -44,8 +44,8 @@ class AuthController {
         });
     }
 
-    public async isAuth(token):Promise<boolean>{
-        return <boolean>jwt.verify(token,  process.env.JWT_SECRET);
+    public async isAuth(token){
+        return jwt.verify(token,  process.env.JWT_SECRET);
     }
 
     public async me(req: Request, res: Response): Promise<Response>{
