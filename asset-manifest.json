@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/news-blog/static/css/main.67996830.chunk.css",
-    "main.js": "/news-blog/static/js/main.cd49119b.chunk.js",
-    "main.js.map": "/news-blog/static/js/main.cd49119b.chunk.js.map",
+    "main.js": "/news-blog/static/js/main.cd18d74a.chunk.js",
+    "main.js.map": "/news-blog/static/js/main.cd18d74a.chunk.js.map",
     "runtime-main.js": "/news-blog/static/js/runtime-main.96e24828.js",
     "runtime-main.js.map": "/news-blog/static/js/runtime-main.96e24828.js.map",
     "static/css/2.a9e66664.chunk.css": "/news-blog/static/css/2.a9e66664.chunk.css",
@@ -12,8 +12,8 @@
     "static/css/2.a9e66664.chunk.css.map": "/news-blog/static/css/2.a9e66664.chunk.css.map",
     "static/css/main.67996830.chunk.css.map": "/news-blog/static/css/main.67996830.chunk.css.map",
     "static/js/2.7d8f262b.chunk.js.LICENSE.txt": "/news-blog/static/js/2.7d8f262b.chunk.js.LICENSE.txt",
-    "static/media/like.0c1c8fc2.svg": "/news-blog/static/media/like.0c1c8fc2.svg",
-    "static/media/magnifier.ba5071bb.svg": "/news-blog/static/media/magnifier.ba5071bb.svg",
+    "static/media/like.3b5d66ab.svg": "/news-blog/static/media/like.3b5d66ab.svg",
+    "static/media/magnifier.64e43310.svg": "/news-blog/static/media/magnifier.64e43310.svg",
     "static/media/index.css": "/news-blog/static/media/ubuntu-latin-700italic.7759495a.woff"
   },
   "entrypoints": [
@@ -21,6 +21,6 @@
     "static/css/2.a9e66664.chunk.css",
     "static/js/2.7d8f262b.chunk.js",
     "static/css/main.67996830.chunk.css",
-    "static/js/main.cd49119b.chunk.js"
+    "static/js/main.cd18d74a.chunk.js"
   ]
 }
