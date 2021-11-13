@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Router } from "react-router-dom";
+import {Route, Switch, Router, BrowserRouter} from "react-router-dom";
 import './App.css'
 import magnifier from '../../stylesheets/imgs/magnifier.svg'
 import "typeface-ubuntu";
