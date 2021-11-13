@@ -36,6 +36,11 @@ export const AppRoutes: AppRoute[] = [
         exact: true
     },
     {
+        path: '/news-blog',
+        component: ArticlePage,
+        exact: true
+    },
+    {
         path: TOP,
         component: ArticlePage,
         exact: true
