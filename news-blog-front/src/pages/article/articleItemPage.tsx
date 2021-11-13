@@ -106,7 +106,7 @@ const ArticleItemPage: React.FC=({})=> {
     async function fetchChannel(){
         try{
 
-            const response =await axios.get('http://localhost:3001/api/channel/information',{params:{
+            const response =await axios.get(BASE+'/channel/information',{params:{
                                 "id":Auth.getUserId(),
                             }})
            // console.log(response.data)
@@ -128,7 +128,7 @@ const ArticleItemPage: React.FC=({})=> {
     async function fetchArticles(){
         try{
 
-            const response =await axios.get<IArticle>('http://localhost:3001/api/articleById',{params:{
+            const response =await axios.get<IArticle>(BASE+'/articleById',{params:{
                     "id":localStorage.getItem('id'),
                     "userId":Auth.getUserId()
                 }})

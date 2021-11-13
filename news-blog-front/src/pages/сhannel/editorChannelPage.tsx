@@ -43,7 +43,7 @@ export class EditorChannelPage extends Component{
     }
 
     async componentDidMount() {
-        const response =await axios.get('http://localhost:3001/api/channel/information',{params:{
+        const response =await axios.get(BASE+'/channel/information',{params:{
                 "id":Auth.getUserId(),
             }})
         this.setState({
@@ -190,7 +190,7 @@ function MyVerticallyCenteredModal (props:IPropsUser) {
 
     useEffect(()=>{
         async function  fetchStates(){
-            const response =await axios.get('http://localhost:3001/api/channel/information',{params:{
+            const response =await axios.get(BASE+'/channel/information',{params:{
                     "id":Auth.getUserId(),
                 }})
             console.log(response.data)

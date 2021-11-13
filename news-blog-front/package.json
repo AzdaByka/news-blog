@@ -2,7 +2,7 @@
   "name": "news_blog_front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://azdabyka.github.io/news-blog",
+  "homepage": "https://azdabyka.github.io/news-blog/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",

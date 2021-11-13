@@ -58,7 +58,7 @@ export class ArticleCreatePage extends Component{
             try{
 
 
-                const response =await axios.get<IArticle>('http://localhost:3001/api/articleById',{params:{
+                const response =await axios.get<IArticle>(BASE+'/articleById',{params:{
                         "id":localStorage.getItem('articleId'),
                         "flag":false
                     }})

@@ -179,7 +179,7 @@ function MyVerticallyCenteredModal (props:IPropsUser) {
 
     useEffect(()=>{
         async function  fetchStates(){
-            const response =await axios.get('http://localhost:3001/api/user/information',{params:{
+            const response =await axios.get(BASE+'/user/information',{params:{
                     "id":Auth.getUserId(),
                 }})
             console.log(response.data)
