@@ -219,8 +219,8 @@ if (article&&channel)
         <div className={'container'}>
             <div className={"row"}>
                 <div className={"col-md-1"}>
-                    <img className={'likes-img d-block m-3'} onClick={sendSetLike} style={{opacity:like}} src={likeImg}  />
-                    <img className={'likes-img d-block m-3'} onClick={sendSetDislike} style={{opacity:dislike}} src={dislikeImg} />
+                    <img className={'likes-img d-block m-3'} id="likeTest" onClick={sendSetLike} style={{opacity:like}} src={likeImg}  />
+                    <img className={'likes-img d-block m-3'}  onClick={sendSetDislike} style={{opacity:dislike}} src={dislikeImg} />
                 </div>
                 <div className={"col-md-11"}>
                     <div className="row">

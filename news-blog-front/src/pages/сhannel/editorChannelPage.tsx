@@ -84,7 +84,7 @@ export class EditorChannelPage extends Component{
                                 </div>
                                 </div>
                                     <div className={"row pl-2 py-1"}>
-                                <div className={"col-6 text-center sign"}>{localState.subscribers}</div>
+                                <div className={"col-6 text-center sign"}>{localState.subscribers!=0?localState.subscribers:0}</div>
                                 <div className={"col-6 text-center sign"}>{localState.auditorium!=0?localState.auditorium:0}</div>
                                     </div>
                                         <div className={"row pl-3 py-1"}>
@@ -116,7 +116,7 @@ export class EditorChannelPage extends Component{
                             <div className={"row"}>
                                 <h2 className={"ml-5 d-inline"}>Публикации</h2>
                                 <Link to={ARTICLE_CREATE} className="btn btn-primary d-inline ml-5" >
-                                    <img src={plusImg}  aria-hidden="true" alt=""/>
+                                    <img src={plusImg} id="createTest"  aria-hidden="true" alt=""/>
 
                                     Создать
                                 </Link>

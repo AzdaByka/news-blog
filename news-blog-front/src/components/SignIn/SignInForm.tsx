@@ -77,14 +77,14 @@ export class SignInForm extends React.Component<
                         <Form onSubmit={event => this.HandleFormSubmit(event)}>
 
                                 <Form.Group controlId="formBasicEmail">
-                                    <Form.Control type="text" placeholder="Логин"  onChange={event => this.setStateWithEvent(event, "login")}/>
+                                    <Form.Control type="text" placeholder="Логин"  id="loginTest" onChange={event => this.setStateWithEvent(event, "login")}/>
                                 </Form.Group>
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control type="password" placeholder="пароль"  onChange={event => this.setStateWithEvent(event, "password")}/>
+                                    <Form.Control type="password" placeholder="пароль" id="passwordTest" onChange={event => this.setStateWithEvent(event, "password")}/>
                                 </Form.Group>
 
 
-                                <Button  variant="primary" disabled={isInvalid} type="submit" block>
+                                <Button  variant="primary" id="buttonLogin" disabled={isInvalid} type="submit" block>
                                     Войти
                                 </Button>
                             <Button href="/signup" variant="outline-dark"  block>Зарегистрироваться</Button>

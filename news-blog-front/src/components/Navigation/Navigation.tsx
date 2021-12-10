@@ -53,7 +53,7 @@ export class Navigation extends Component<IProps, IState> {
                 {AuthRoutes.map((route: Route) => (
                     <li className="NavigationLi" key={route.id} onClick={() => this.handleClick(route.id)}>
                         <Link to={route.path}
-                              className={(route.id === this.state.activeLink ? "active_item" : "")}>
+                              className={(route.id === this.state.activeLink ? "active_item" : "")} id={route.idTest}>
                             {route.description}
                         </Link>
                     </li>
@@ -72,7 +72,7 @@ export class Navigation extends Component<IProps, IState> {
                     {NonAuthRoutes.map((route: Route) => (
                         <li className="NavigationLi" key={route.id} onClick={() => this.handleClick(route.id)}>
                             <Link to={route.path}
-                                  className={(route.id === this.state.activeLink ? "active_item" : "")}>
+                                  className={(route.id === this.state.activeLink ? "active_item" : "")} id="login">
                                 {route.description}
                             </Link>
                         </li>

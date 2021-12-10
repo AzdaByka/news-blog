@@ -42,7 +42,7 @@ export class NavbarEditor extends Component<IProps, IState> {
         return( <div className='row'>
                 <div className='col-md-3 pl-5 py-4 '>
 
-                    <Link to={HOME} onClick={()=>this.rubricChange("Все статьи")}>
+                    <Link to={HOME} id="home" onClick={()=>this.rubricChange("Все статьи")}>
                         <img className={'logo-img d-inline-block'}  src={logo} />
 
                         <div className={'logo d-inline-block'}>

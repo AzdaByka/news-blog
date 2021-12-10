@@ -84,13 +84,17 @@ export default class NewsItem extends Component<ArticleProps> {
 
         );
         else
-            return (
-                <div className="Article col-md-6" onClick={()=> this.handleClick(article)}>
-                        <h2>{article?.title}</h2>
-                <img className={"imgPreview"}  src={"" + article?.imgs} alt="Logo"/>
-                <div>{article?.shortDescription}</div>
+            {
+                return (
 
-            </div>);
+
+                                <div className="Article col-md-6" id={"art"} onClick={()=> this.handleClick(article)}>
+                                        <h2>{article?.title}</h2>
+                                <img className={"imgPreview"}  src={"" + article?.imgs} alt="Logo"/>
+                                <div>{article?.shortDescription}</div>
+
+                            </div>);
+            }
     }
 
     handleClick(article: IArticle)  {

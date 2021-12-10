@@ -107,7 +107,7 @@ export class ArticleCreatePage extends Component{
                 <Navbar history={history}/>
                 <div className={"container-fluid "}>
 
-                    <button type="button" className="btn btn-primary btnPublish" onClick={() => this.setModalShow(true)}>Опубликовать</button>
+                    <button type="button" id="openModalPublishTest" className="btn btn-primary btnPublish" onClick={() => this.setModalShow(true)}>Опубликовать</button>
                     <MyVerticallyCenteredModal
                         show={localState.show}
                         onHide={() => this.setModalShow(false)}
@@ -268,18 +268,18 @@ function MyVerticallyCenteredModal (props:IProps) {
             <Modal.Body className={'fontStyle'}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Заголовок статьи</Form.Label>
-                    <Form.Control type="text"  defaultValue={props.title} placeholder=""  { ...register("title", {required: 'Обязательное поле для заполнения'})}/>
+                    <Form.Control type="text" id="title"  defaultValue={props.title} placeholder=""  { ...register("title", {required: 'Обязательное поле для заполнения'})}/>
                     <Form.Text className="text-muted"  >
                         Не делайте слишком клик-бэйтные заголовки
                     </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Короткое описание</Form.Label>
-                    <Form.Control as="textarea" defaultValue={props.shortDescription} rows={3} { ...register("shortDescription", {required: 'Обязательное поле для заполнения'})}/>
+                    <Form.Control as="textarea" id="shortDescription" defaultValue={props.shortDescription} rows={3} { ...register("shortDescription", {required: 'Обязательное поле для заполнения'})}/>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect2">
                     <Form.Label>Рубрики</Form.Label>
-                    <Form.Control as="select"   multiple { ...register("rubrics", {required: 'Обязательное поле для заполнения'})}>
+                    <Form.Control as="select"  id="rubrics"  multiple { ...register("rubrics", {required: 'Обязательное поле для заполнения'})}>
                         <option selected={isSelected('Кино') }>Кино</option>
                         <option selected={isSelected('Путешествия')}>Путешествия</option>
                         <option selected={isSelected('Наука')}>Наука</option>
@@ -288,7 +288,7 @@ function MyVerticallyCenteredModal (props:IProps) {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group>
-                    <label htmlFor="exampleControlsFile1">Выбирите preview</label>
+                    <label htmlFor="exampleControlsFile1">Выберите preview</label>
                     <Form.File  id="exampleControlsFile1"  onChange={(e:any)=>{
                         uploadImage(e)
                     }}/>
@@ -298,7 +298,7 @@ function MyVerticallyCenteredModal (props:IProps) {
             </Modal.Body>
             <Modal.Footer className={'fontStyle'}>
                 <Button onClick={props.onHide}>Закрыть</Button>
-                <Button variant="primary" onClick={function(event){
+                <Button variant="primary" id="publicationCreateTest" onClick={function(event){
                     props.onHide(); }} type="submit">
                    Опубликовать
                 </Button>

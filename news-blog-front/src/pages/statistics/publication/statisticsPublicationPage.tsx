@@ -159,7 +159,7 @@ export default class StatisticPublicationPage extends Component{
                         </div>
                             <div className="col-6">
                             </div>
-                            <div  onClick={()=>this.exportToCSV(localState.statisticsExport,'Статистика')} className="col-2">
+                            <div id="downloadTest" onClick={()=>this.exportToCSV(localState.statisticsExport,'Статистика')} className="col-2">
                                 <img src={ExcelImg} alt=""/>
                                 Скачать отчет
                             </div>

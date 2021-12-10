@@ -58,7 +58,7 @@ export class Menu extends Component<IProps, IState> {
             {Rubrics.map((route: RubricRoute) => (
                 <li className="MenuLi" key={route.id} onClick={() => this.handleClick(route.id, route.description, route.path)}>
                     <Link to={route.path}
-                          className={(route.id === this.state.activeLink ? "active_item" : "")}>
+                          className={(route.id === this.state.activeLink ? "active_item" : "")} id={route.path[6]}>
                         <img className={'mr-1'} src={route.img} alt=""/>
                         {route.description}
                     </Link>
