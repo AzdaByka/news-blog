@@ -1,6 +1,7 @@
 export const BASE='https://news-blog-azdabyka.herokuapp.com/api'
 //export const BASE='http://localhost:3001/api'
-export const LOCATION_TEST='http://localhost:3000'
+export const LOCATION_TEST='https://azdabyka.github.io/news-blog'
+export const LOCATION_TEST_NORMAL='https://azdabyka.github.io'
 //export const LOCATION_TEST='http://localhost:3000'
 export const SIGN_UP='/signup'
 export const SIGN_IN='/signin'

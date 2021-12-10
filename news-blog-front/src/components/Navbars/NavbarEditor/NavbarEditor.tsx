@@ -62,7 +62,7 @@ export class NavbarEditor extends Component<IProps, IState> {
                             Публикации
                         </div>
                     </Link>
-                    <Link to={STATISTICS_PUBLICATION}>
+                    <Link id="statTest" to={STATISTICS_PUBLICATION}>
 
                         <div className={'linkColor ml-3 d-inline-block'}>
 
