@@ -94,7 +94,7 @@ export default class ChannelController{
 
         const subscriptions = await getRepository(Subscriptions).find()
         for (const sub of subscriptions)
-            if (sub.user.id==id && sub.channel.id==channelId)
+            if (sub.userId==id && sub.channelId==channelId)
             {
                 await getRepository(Subscriptions).remove(sub)
                 return res.status(200).json('отписан')
@@ -114,7 +114,7 @@ export default class ChannelController{
 
         const subscriptions = await getRepository(Subscriptions).find()
         for (const sub of subscriptions)
-            if (sub.user.id==id && sub.channel.id==channelId)
+            if (sub.userId==id && sub.channelId==channelId)
                 return res.status(200).json('подписан')
         return res.status(200).json('неподписан')
 

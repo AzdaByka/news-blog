@@ -93,11 +93,13 @@ export class Navbar extends Component<IProps, IState> {
             </div>
             <div className='col-md-6  py-4'>
 
-                <img className={'magnifier'} src={magnifier}/>
-                <input onChange={event =>  this.setStateWithEvent(event)} value={this.state.body} className={'search-box form-control d-inline-block'} type="text" placeholder={'   Статья, канал.'} aria-describedby="button-addon2"/>
 
-                <button onClick={event => this.searchArticleOrChannel(event)} className="btn btn-outline-secondary d-inline-block search-box-btn" type="button" id="button-addon2">найти
-                </button>
+                    <img className={'magnifier'} src={magnifier}/>
+
+                    <input onChange={event =>  this.setStateWithEvent(event)} value={this.state.body} className={'search-box form-control d-inline-block'} type="text" placeholder={'   Статья, канал.'} aria-describedby="button-addon2"/>
+
+                    <button onClick={event => this.searchArticleOrChannel(event)} className="btn btn-outline-secondary d-inline-block search-box-btn" type="button" id="button-addon2">найти
+                    </button>
 
             </div>
             <div className='col-md-3 py-4'>

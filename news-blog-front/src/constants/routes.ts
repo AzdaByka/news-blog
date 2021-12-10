@@ -1,4 +1,5 @@
-export const BASE='https://news-blog-azdabyka.herokuapp.com/api'
+//export const BASE='https://news-blog-azdabyka.herokuapp.com/api'
+export const BASE='http://localhost:3001/api'
 export const SIGN_UP='/signup'
 export const SIGN_IN='/signin'
 export const SIGN_OUT='/signout'
